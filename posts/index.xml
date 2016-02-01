@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Brijesh Pant</title>
+    <link>http://example.com/posts/</link>
+    <description>Recent content in Posts on Brijesh Pant</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <managingEditor>pantbrijesh20@gmail.com (brijesh pant)</managingEditor>
+    <webMaster>pantbrijesh20@gmail.com (brijesh pant)</webMaster>
+    <lastBuildDate>Tue, 26 Jan 2016 22:43:02 +0530</lastBuildDate>
+    <atom:link href="http://example.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>learningVim</title>
+      <link>http://example.com/2016/01/learningvim/</link>
+      <pubDate>Tue, 26 Jan 2016 22:43:02 +0530</pubDate>
+      <author>pantbrijesh20@gmail.com (brijesh pant)</author>
+      <guid>http://example.com/2016/01/learningvim/</guid>
+      <description>&lt;p&gt;This post is walkthrough over some of the keys which might come handy while working with vim&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>learningVim</title>
+      <link>http://example.com/2016/01/learningvim2/</link>
+      <pubDate>Tue, 26 Jan 2016 22:43:02 +0530</pubDate>
+      <author>pantbrijesh20@gmail.com (brijesh pant)</author>
+      <guid>http://example.com/2016/01/learningvim2/</guid>
+      <description>&lt;p&gt;We will learn vim here&amp;hellip;&amp;hellip;&amp;hellip;.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

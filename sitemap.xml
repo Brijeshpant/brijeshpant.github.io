@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <url>
+    <loc>http://example.com/</loc>
+    <lastmod>2016-01-26T22:58:46+05:30</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.com/learnVim/</loc>
+    <lastmod>2016-01-26T22:58:46+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://example.com/2016/01/learningvim/</loc>
+    <lastmod>2016-01-26T22:43:02+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://example.com/2016/01/learningvim2/</loc>
+    <lastmod>2016-01-26T22:43:02+05:30</lastmod>
+  </url>
+  
+</urlset>
