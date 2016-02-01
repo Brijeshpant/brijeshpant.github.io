@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Play on Brijesh Pant</title>
-    <link>http://example.com/tags/play/</link>
+    <link>brijeshpant.github.io/tags/play/</link>
     <description>Recent content in Play on Brijesh Pant</description>
     <generator>Hugo -- gohugo.io</generator>
     <managingEditor>pantbrijesh20@gmail.com (brijesh pant)</managingEditor>
     <webMaster>pantbrijesh20@gmail.com (brijesh pant)</webMaster>
     <lastBuildDate>Sat, 30 Jan 2016 15:16:28 +0530</lastBuildDate>
-    <atom:link href="http://example.com/tags/play/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="brijeshpant.github.io/tags/play/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Progressively Uploading Csv using Play</title>
-      <link>http://example.com/2016/01/progressivelyuploadingcsv/</link>
+      <link>/brijeshpant.github.io/2016/01/progressivelyuploadingcsv/</link>
       <pubDate>Sat, 30 Jan 2016 15:16:28 +0530</pubDate>
       <author>pantbrijesh20@gmail.com (brijesh pant)</author>
-      <guid>http://example.com/2016/01/progressivelyuploadingcsv/</guid>
+      <guid>/brijeshpant.github.io/2016/01/progressivelyuploadingcsv/</guid>
       <description>
 
 &lt;h1 id=&#34;progressively-uploading-csv:f188ebac3656b6eb764b262b3dd48a8d&#34;&gt;Progressively Uploading CSV&lt;/h1&gt;
