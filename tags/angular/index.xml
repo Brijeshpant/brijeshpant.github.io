@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Angular on Brijesh Pant</title>
+    <link>http://example.com/tags/angular/</link>
+    <description>Recent content in Angular on Brijesh Pant</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <managingEditor>pantbrijesh20@gmail.com (brijesh pant)</managingEditor>
+    <webMaster>pantbrijesh20@gmail.com (brijesh pant)</webMaster>
+    <lastBuildDate>Sat, 30 Jan 2016 15:36:44 +0530</lastBuildDate>
+    <atom:link href="http://example.com/tags/angular/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Customizing Angular Directives</title>
+      <link>http://example.com/2016/01/customizingangulardirectives/</link>
+      <pubDate>Sat, 30 Jan 2016 15:36:44 +0530</pubDate>
+      <author>pantbrijesh20@gmail.com (brijesh pant)</author>
+      <guid>http://example.com/2016/01/customizingangulardirectives/</guid>
+      <description>
+
+&lt;h1 id=&#34;customizing-angular-directives:ceb9c000a2f334563e8c78f9f222806f&#34;&gt;Customizing Angular Directives&lt;/h1&gt;
+
+&lt;p&gt;While developing Angular Application we have a obvious choice of using third party directives. Most of the time these directive are suffice to handle all the use cases. But situation may occur when you feel that there is really something missing to fulfill your Specific problem. Common practice is to add your own custom directive along with the directive, you want to use in the element. But It sounds quite weird to Have two directives to solve the same problem. Hence we might have to think of some different way.&lt;/p&gt;
+
+&lt;p&gt;In this Post i will share one of the Scenario in above said category and solution to that of-course.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Scenario:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Let us take an example of uibootstrap datepicker-popup directive to show the datepicker. This directive can be used in HTML like this&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt; [input type=&amp;quot;text&amp;quot; class=&amp;quot;form-control&amp;quot; datepicker-popup=&amp;quot;{{format}}&amp;quot;
+      ng-model=&amp;quot;date&amp;quot; data-show-button-bar=&amp;quot;false&amp;quot; data-datepicker-mode =&amp;quot;mode&amp;quot; is-open=&amp;quot;opened&amp;quot; close-text=&amp;quot;Close&amp;quot;]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;It will do pretty much all the jobs one can expect from the date picker. As per the requirements you can add more options available with this directive. You might use this date picker in several places across your application. Most of the time you will find same configuration. For this you will be repeating the same piece of code again and again. I don&amp;rsquo;t really like this and sure you as well.&lt;/p&gt;
+
+&lt;p&gt;There is one more scenario. Your back end API gives you date in different format than what you have to display in the GUI and similarly you have to send back to API in different format. For this we have to first change the date string to date before passing to the directive. And also change the date before sending back to back end API. Again you are going to do it in every controller managing the HTML.&lt;/p&gt;
+
+&lt;p&gt;To handle both the above cases we can write a custom directive that will internally use the datepicker-popup directive. We will provide all the options in custom directive and then this can be used every where else.&lt;/p&gt;
+
+&lt;p&gt;Here is the example&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;directive(&#39;CustomDatepicker&#39;, function ($compile, $filter) {
+         return {
+             restrict: &#39;A&#39;,
+             scope   : {
+                   CustomDatepicker: &amp;quot;=&amp;quot;
+             },
+             link    : function ($scope, element) {
+               $scope.mode = &amp;quot;year&amp;quot;;
+               var timestamp = Date.parse($scope.CustomDatepicker);
+               if (!isNaN(timestamp)) {
+                   $scope.date = new Date(timestamp);
+               }
+
+               element.attr(&#39;data-datepicker-popup&#39;, &amp;quot;dd-MM-yyyy&amp;quot;);
+               element.attr(&#39;data-ng-model&#39;, &#39;date&#39;);
+               element.attr(&#39;data-is-open&#39;, &#39;datePicker.open&#39;);
+               element.attr(&#39;data-show-button-bar&#39;, false);
+               element.attr(&#39;data-ng-click&#39;, &#39;datePicker.open = true&#39;);
+               element.attr(&#39;data-datepicker-mode&#39;, &#39;mode&#39;);
+               element.removeAttr(&amp;quot;data-custom-datepicker&amp;quot;);
+               $scope.$evalAsync(function (scope) {
+                   $compile(element)(scope);
+             });
+
+             $scope.$watch(&#39;date&#39;, function () {
+               if ($scope.date) {
+                   $scope.customDatepicker = $filter(&#39;date&#39;)($scope.date, &amp;quot;yyyy-MM-dd&amp;quot;);
+               }
+             });
+
+         }
+        };
+      });
+    });
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Explanation:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;In the custom directive i have defined the scope variable customDatepicker that holds the date value as received by your controller. Now change this date string to proper date&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var timestamp = Date.parse($scope.customDatepicker);
+if (!isNaN(timestamp)) {
+$scope.date = new Date(timestamp);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now we will add datepicker and all of the other options that we needed. This can be done using attr method of the element.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;element.attr(&#39;data-datepicker-popup&#39;, &amp;quot;dd-MM-yyyy&amp;quot;);
+element.attr(&#39;data-ng-model&#39;, &#39;date&#39;);
+element.attr(&#39;data-is-open&#39;, &#39;datePicker.open&#39;);
+element.attr(&#39;data-show-button-bar&#39;, false);
+element.attr(&#39;data-ng-click&#39;, &#39;datePicker.open = true&#39;);
+element.attr(&#39;data-datepicker-mode&#39;, &#39;mode&#39;);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Remove custom-datepicker as it is no longer needed. element.removeAttr(&amp;ldquo;data-custom-datepicker&amp;rdquo;); to apply the DOM changes in the link function add following lines&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$scope.$evalAsync(function (scope) {
+$compile(element)(scope);
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;it will update the DOM in next digest cycle. Finally as we have bind different scope variable with the date picker, our original scope variable remain unchanged. So we need this to be updated . To achieve this we will add watch on date And update the customDatepicker whenever date will be changed&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$scope.$watch(&#39;date&#39;, function () {
+if ($scope.date) {
+$scope.customDatepicker = $filter(&#39;date&#39;)($scope.date, &amp;quot;yyyy-MM-dd&amp;quot;);
+}
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In the HTML we just have to add following code&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[input type=&amp;quot;text&amp;quot; data-custom-datepicker=&amp;quot;input.date&amp;quot;]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This will implicitly add date-picker and all the associated options.Also you need not to worry for the date format in every controller. Date format that will be displayed is dd-MM-yyyy and the output format will be yyyy-MM-dd. Similarly you can customize your other directives as well. Happy coding&amp;hellip;.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

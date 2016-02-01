@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Scala on Brijesh Pant</title>
+    <link>http://example.com/tags/scala/</link>
+    <description>Recent content in Scala on Brijesh Pant</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <managingEditor>pantbrijesh20@gmail.com (brijesh pant)</managingEditor>
+    <webMaster>pantbrijesh20@gmail.com (brijesh pant)</webMaster>
+    <lastBuildDate>Sat, 30 Jan 2016 15:16:28 +0530</lastBuildDate>
+    <atom:link href="http://example.com/tags/scala/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Progressively Uploading Csv using Play</title>
+      <link>http://example.com/2016/01/progressivelyuploadingcsv/</link>
+      <pubDate>Sat, 30 Jan 2016 15:16:28 +0530</pubDate>
+      <author>pantbrijesh20@gmail.com (brijesh pant)</author>
+      <guid>http://example.com/2016/01/progressivelyuploadingcsv/</guid>
+      <description>
+
+&lt;h1 id=&#34;progressively-uploading-csv:f188ebac3656b6eb764b262b3dd48a8d&#34;&gt;Progressively Uploading CSV&lt;/h1&gt;
+
+&lt;h1 id=&#34;scenario:f188ebac3656b6eb764b262b3dd48a8d&#34;&gt;Scenario&lt;/h1&gt;
+
+&lt;p&gt;You may have encountered situations, when you need to send huge amount of data (in GBs ) to the server.  One example is upload of large files. While sending this data, your server has to slog through the upcoming mighty request body and eventually process it.&lt;/p&gt;
+
+&lt;h1 id=&#34;problem-definition:f188ebac3656b6eb764b262b3dd48a8d&#34;&gt;Problem Definition&lt;/h1&gt;
+
+&lt;p&gt;So this whole process is about getting chunk of data, wait for next chunk to come and then wait again and this goes on until it receives whole request body.  All the request body data is now in servers memory. And multiple simultaneous uploads would invariably lead to a OOM error.&lt;/p&gt;
+
+&lt;p&gt;Also till the request body is saved to disk the file/request data resides in memory and blocks the thread. As you would imagine both memory and threads are precious and scant resources.&lt;/p&gt;
+
+&lt;p&gt;In such conditions, what can you expect but the frustratingly slow response? Would it not be nice if there is a way to handle such requests in a smarter way?&lt;/p&gt;
+
+&lt;h1 id=&#34;solution:f188ebac3656b6eb764b262b3dd48a8d&#34;&gt;Solution&lt;/h1&gt;
+
+&lt;p&gt;As the browser sends data in chunks of byte over the network, processing the incoming data in chunks would be a smarter choice. Play2 framework provides such a beautiful capability in the form  of Iteratee library. Iteratees support the consumption of data in chunks and in an asynchronous manner. For more detail of Iteratee you can browse through Iteratee.&lt;/p&gt;
+
+&lt;h1 id=&#34;iteratee:f188ebac3656b6eb764b262b3dd48a8d&#34;&gt;Iteratee&lt;/h1&gt;
+
+&lt;p&gt;For now you need to understand what Iteratee can do to solve our problem. Iteratee requires producer that can feed iteratee the data to process. Producer can be any Enumerator which has capability to produce data of same type as the Iteratee expects. Iteratee can consume the chunks of data progressively. It does not need all data to be radially available. It can consume data chunks whenever it is available. Iteratee doses not wait on any upcoming chunks. It is the responsibility of producer to feed Iteratee. After receiving data chunk Iteratee can start processing it.&lt;/p&gt;
+
+&lt;p&gt;Here we will see the example code for uploading the csv file progressively. This is a Play-scala application so you need to set the required environment. Once you done with creating a play application, you are ready to go further. Here are instructions on   &lt;a href=&#34;https://www.playframework.com/documentation/2.2.x/Installing&#34;&gt;how to install and setup play&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h1 id=&#34;code:f188ebac3656b6eb764b262b3dd48a8d&#34;&gt;Code&lt;/h1&gt;
+
+&lt;p&gt;Make entries for your routes in Routes file&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;GET / controllers.Application.index //For opening home page
+POST /upload controllers.Application.upload //Post request to upload file
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Create scala html template index.scala.html .&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@helper.form(action = routes.Application.upload, &#39;enctype -&amp;gt; &amp;quot;multipart/form-data&amp;quot;) { Please upload file
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Add following methods in Application controller to put your handler for requests&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;def index = Action {
+Ok(views.html.index())
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;index method just upon up your home page from where CSV file can be uploaded.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;def upload = Action(BodyParser(request =&amp;gt; { CsvBodyParser.parseCsvData(false)})) {
+rq: Request[List[String]] =&amp;gt;
+Ok(&amp;quot;file uploaded successfully&amp;quot;)
+}
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The upload method, handles the post request containing the body. You can see BodyParser is used explicitly with the Action. By default all Action takes play.api.mvc.AnyContent as BodyParser to parse the request to some Scala value.it adapts automatically according to the request Content-Type. BodyParser[A] is basically an Iteratee[Array[Byte],A] which consumes the chunk of data as Array[Byte] as long as browser sends them and return the type A which is passed into the Request to be processed by Action. Here is the helper class CsvBodyParser which parses the request and return List[String]&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;package controllers
+import play.api.libs.iteratee.{Iteratee, Enumeratee, Parsing}
+import scala.List
+import scala.Predef._
+import scala.Predef.String
+import play.api.Logger
+
+object CsvBodyParser {
+	var flag = false
+	var headerList: List[String] = null
+
+	def parseCsvData(f: Boolean) = {
+		headerList = null
+		flag = f
+		val seperator = &amp;quot;,&amp;quot;
+		Parsing.search(&amp;quot;n&amp;quot;.getBytes) &amp;gt;&amp;lt;&amp;gt; Enumeratee.grouped(
+			(Enumeratee.breakE[Parsing.MatchInfo[Array[Byte]]] (_.isMatch)  &amp;gt;&amp;lt;&amp;gt;
+				Enumeratee.collect {
+					case Parsing.Unmatched(bytes) =&amp;gt;
+					val stringVal =new String(bytes)
+					stringVal
+				}
+				&amp;amp;&amp;gt;&amp;gt;
+				Iteratee.consume()).flatMap(r =&amp;gt; {
+					if (flag) {
+						Iteratee.head.map(_ =&amp;gt; processLine(r.trim.split(seperator)))
+						} else {
+							val list = r.toString.trim.split(seperator).toList
+							if (list.length &amp;gt; 0 &amp;amp;&amp;amp; list.head.equals(&amp;quot;name&amp;quot;)) {
+								headerList = list
+								flag = true
+							}
+							Iteratee.head.map(_ =&amp;gt; &amp;quot;&amp;quot;)
+						}
+						})
+				) &amp;amp;&amp;gt;&amp;gt; Iteratee.getChunks.map(Right(_))
+	}
+
+	def processLine(line: Array[String]): String = {
+		var dataList = line.toList
+		var msg = &amp;quot;&amp;quot;
+		if (dataList.length &amp;gt;= 1) {
+			var dataMap = headerList.toList.zip(dataList).toMap
+// dataMap map containing the header and corresponding column for the current row
+// You can write your logic to add this into database or what ever you want
+//msg =&amp;quot;any success message you can pass&amp;quot;
+}
+msg
+}
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;explanation:f188ebac3656b6eb764b262b3dd48a8d&#34;&gt;Explanation&lt;/h1&gt;
+
+&lt;p&gt;In our case as we are parsing a csv file, every row is separated by a new line character. Therefore we need chunks based on the new line to distinguish each line separately and process it. But browsers creates the chunks by its own irrespective of what the separator is.&lt;/p&gt;
+
+&lt;p&gt;Our requirement is to get such an Iteratee which can consume each line at one go and process it. Our source of data here is chunks of Array[Byte] which may not contain new line char or may be containing more than one new lines. Therefore it has to be adapted such that it can match the type our Iteratee is expecting.&lt;/p&gt;
+
+&lt;h1 id=&#34;enumeratee:f188ebac3656b6eb764b262b3dd48a8d&#34;&gt;Enumeratee&lt;/h1&gt;
+
+&lt;p&gt;To adapt one Type of Enumerator to the another type we have Enumeratee which is pipe adapter between Enumerator and Iteratee. It basically transform one Type of Enumerator to other type. For example Enumerator[Int] can be transformed into Enumerator[String] by applying Enumeratee[Int,String] on Enumerator[Int]. Enumeratee[A,B] can also be composed with an Enumeratee[B,C] to give Enumeratee[A,C].&lt;/p&gt;
+
+&lt;p&gt;In the parseCsvData method above you can see we have used Parsing.search(“n”.getBytes) .It searches for new line and gives an Enumeratee[Array[Byte], Parsing.MatchInfo[Array[Byte]]]. then  We compose it with Enumeratee.grouped to regroup on new line. By applying (Enumeratee.breakE&lt;a href=&#34;_.isMatch&#34;&gt;Parsing.MatchInfo[Array[Byte]]&lt;/a&gt;, which is again an adapter that breaks on new line.&lt;/p&gt;
+
+&lt;p&gt;It Gives a new Enumertee which pushes everything it has on to the Iteratee by applying Iteratee.consume[Array[Byte]] which consumes and concatenates all Input chunks and return a Promise.Finally  by applying flatMap we can get actual data for a row.&lt;/p&gt;
+
+&lt;p&gt;Iteratee.head creates an Iteratee that takes the first element of the stream. This element can be anything like header of the csv (first line) ,data or any other information associated with the body. Each column in the csv is separated by comma so we can split it to get the Array. By checking the size we can identify the header. As soon as we get the header we set the flag to true to identify every subsequent row as a data. Now we can process each line, as we have done in the processLine method by zipping the header and column to generate key value pair of header and column. You can do anything with this data to serve your purpose.&lt;/p&gt;
+
+&lt;p&gt;With a little bit of understanding of Play and Iteratees we can now asynchronously upload large bytes of data without stretching the memory requirements.&lt;/p&gt;
+
+&lt;p&gt;Inspired by: &lt;a href=&#34;https://gist.github.com/sadache/2939230&#34;&gt;https://gist.github.com/sadache/2939230&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Spraying rest applications with spray</title>
+      <link>http://example.com/2016/01/sprayingrestwithspray/</link>
+      <pubDate>Sat, 30 Jan 2016 15:05:59 +0530</pubDate>
+      <author>pantbrijesh20@gmail.com (brijesh pant)</author>
+      <guid>http://example.com/2016/01/sprayingrestwithspray/</guid>
+      <description>
+
+&lt;p&gt;Spray is a suite of lightweight Scala libraries providing client- and server-side REST/HTTP support on top of Akka.  Akka makes the application fully asynchronous. There are other frameworks build on top of Akka such as Play that gives  ability to build full web application but with one down side and that is  application becomes highly coupled with the framework as the application build on top of Play. As oppose to that spray gives  ability to create  Application layer independent of  anything without even thinking of the framework. Spray will just work as an  integration layer to shake hand between outer world and the application. Outer world could be any web,mobile or third party applications.&lt;/p&gt;
+
+&lt;p&gt;In this blog post we will see how to setup spray environment for the Scala application and also learn about some of the building blocks. In the upcoming post we will see simple  example of writing rest Api&amp;rsquo;s, authentication support, cross origin support and actor handling also most important part of the development unit test spray routes.&lt;/p&gt;
+
+&lt;h1 id=&#34;table-of-content:a846ee36b0a32d4baa95d852ff656c38&#34;&gt;Table of content&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#setup&#34;&gt;Basic setup&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#spraycan&#34;&gt;Spray-can&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#sprayrouting&#34;&gt;Spray-routing&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#directives&#34;&gt;Directives&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#conclusion&#34;&gt;Conclusion&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a id=&#34;setup&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;basic-setup:a846ee36b0a32d4baa95d852ff656c38&#34;&gt;Basic setup&lt;/h2&gt;
+
+&lt;p&gt;To start with we need to firstly create the sbt project.&lt;/p&gt;
+
+&lt;p&gt;build.sbt consists of following lines&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;name := &amp;quot;SprayingRestWithSpray&amp;quot;
+
+version := &amp;quot;1.0&amp;quot;
+
+libraryDependencies ++= {
+    val akkaV = &amp;quot;2.3.6&amp;quot;
+    val sprayV = &amp;quot;1.3.2&amp;quot;
+    Seq(
+        &amp;quot;io.spray&amp;quot;            %%   &amp;quot;spray-can&amp;quot;     % sprayV,
+        &amp;quot;io.spray&amp;quot;            %%   &amp;quot;spray-routing&amp;quot; % sprayV,
+        &amp;quot;com.typesafe.akka&amp;quot;   %%  &amp;quot;akka-actor&amp;quot;    % akkaV
+    )
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We are using akka version 2.3.6 and spray version 1.3.2
+we have defined 3  libraries  spray-can ,spray-routing and akka-actor. These are sufficient to start building spray application. We will keep adding other spray libraries as and when needed. This is the beauty of spray that you use only what you needed.&lt;/p&gt;
+
+&lt;p&gt;Let&amp;rsquo;s understand why these libraries are for
+&lt;a id=&#34;spraycan&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;spray-can:a846ee36b0a32d4baa95d852ff656c38&#34;&gt;Spray-can&lt;/h3&gt;
+
+&lt;p&gt;A low-level, low-overhead, high-performance HTTP server and client built on top of spray-io. When spray-can server get started,It starts a new listener actor which can handle thousands of  incoming requests asynchronously.&lt;/p&gt;
+
+&lt;p&gt;&lt;a id=&#34;sprayrouting&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;spray-routing:a846ee36b0a32d4baa95d852ff656c38&#34;&gt;Spray-routing&lt;/h3&gt;
+
+&lt;p&gt;A high-level routing DSL for elegantly defining RESTful web services. It provides abstraction layer over the spray-http . It saves developers efforts of writing boiler plate code and provide them the simple interface to build  the application.&lt;/p&gt;
+
+&lt;p&gt;Now we will start doing the real action by creating the Main object which starts the server.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt; object Main extends App {
+
+     implicit val system = ActorSystem(&amp;quot;SprayingRestWithSpray&amp;quot;)
+     val apiRouteHandlerActor = system.actorOf(Props[RequestHandlerActor], &amp;quot;application-actor&amp;quot;)
+     (IO(Http) ! Http.Bind(apiRouteHandlerActor, interface = &amp;quot;localhost&amp;quot;, port = 8080))
+ }
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;What we just did is bind the apiRouteHandlerActor  to the http port 8080 on localhost. Any subsequent request  will be passed on to the apiRouterHandler in the form of RequestContext message.&lt;/p&gt;
+
+&lt;p&gt;Now we will create RequestHandlerActor&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;class RequestHandlerActor extends HttpServiceActor{
+    override def receive: Receive = runRoute(route)
+   val route:Route =  path(&amp;quot;firstRoute&amp;quot;){
+        complete(&amp;quot;Request completed&amp;quot;)
+    }
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;RequestHandlerActor extends HttpServiceActor which extends HttpService.&lt;/p&gt;
+
+&lt;p&gt;HttpService provides execution context to the request which it receives.
+In the example above we have override receive method with partial function runRoute of HttpService which takes Route type as parameter. In spray-routing Route has following form:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;type Route = RequestContext =&amp;gt; Unit
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;All the structure you define will be subtype of Route.&lt;/p&gt;
+
+&lt;p&gt;&lt;a id=&#34;directives&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;directives:a846ee36b0a32d4baa95d852ff656c38&#34;&gt;Directives&lt;/h2&gt;
+
+&lt;p&gt;We can combine multiple such structure to form a complex Route. These building blocks are termed as Directive in spray. Spray comes up with predefined Directives for handling almost every type of request one can encounter. But we can create our own Directives if required by modifying or combining these Directives.&lt;/p&gt;
+
+&lt;p&gt;One such Directive is path Directive, which matches the part of uri.
+In the example above our path directive matches the path &amp;ldquo;firstRoute&amp;rdquo;. On encountering request localhost:8080/firstRoute request will be forwarded to this Directive and the request is completed by  complete method of RequestContext.&lt;/p&gt;
+
+&lt;p&gt;The complete method creates an HttpResponse an sends it to responder of the RequestContext.&lt;/p&gt;
+
+&lt;p&gt;You can find out sample code &lt;a href=&#34;https://github.com/Brijeshpant/SprayingRestWithSpray.git&#34;&gt;here&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a id=&#34;conclusion&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;conclusion:a846ee36b0a32d4baa95d852ff656c38&#34;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;In this post we explored how to set up spray application,learned about basic ingredients of the spray.In my upcoming  blog we will deep dive in detail and we will be using these ingredients to create more stuff about Rest Api&amp;rsquo;s through spray.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

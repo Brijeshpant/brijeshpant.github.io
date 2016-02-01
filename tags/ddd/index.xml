@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Ddd on Brijesh Pant</title>
+    <link>http://example.com/tags/ddd/</link>
+    <description>Recent content in Ddd on Brijesh Pant</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <managingEditor>pantbrijesh20@gmail.com (brijesh pant)</managingEditor>
+    <webMaster>pantbrijesh20@gmail.com (brijesh pant)</webMaster>
+    <lastBuildDate>Sat, 30 Jan 2016 09:52:16 +0530</lastBuildDate>
+    <atom:link href="http://example.com/tags/ddd/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Domain Driven Design Angularjs way</title>
+      <link>http://example.com/2016/01/domaindrivendesignangular/</link>
+      <pubDate>Sat, 30 Jan 2016 09:52:16 +0530</pubDate>
+      <author>pantbrijesh20@gmail.com (brijesh pant)</author>
+      <guid>http://example.com/2016/01/domaindrivendesignangular/</guid>
+      <description>
+
+&lt;h1 id=&#34;domain-driven-design-in-angularjs:84866485eb4ec6c0fb1947a0cf273d70&#34;&gt;Domain Driven Design in angularjs&lt;/h1&gt;
+
+&lt;p&gt;For developing any software we need to have clear understanding of design philosophy which will be followed to solve the given problem.We do have myriads of options. Based on the requirements we choose the best fit.One of the design philosophy is Domain Driven design.&lt;/p&gt;
+
+&lt;h2 id=&#34;ddd:84866485eb4ec6c0fb1947a0cf273d70&#34;&gt;DDD&lt;/h2&gt;
+
+&lt;p&gt;An object model of the domain that incorporates both behavior and data.When we talk about domain layer it is responsible for representing concepts of the business, information about the business situation, and business rules. State that reflects the business situation is controlled and used here, even though the technical details of storing it are delegated to the infrastructure. This layer is the heart of business software.&lt;/p&gt;
+
+&lt;h2 id=&#34;example-problem:84866485eb4ec6c0fb1947a0cf273d70&#34;&gt;Example problem&lt;/h2&gt;
+
+&lt;p&gt;Let us take an example of simple problem.
+We have a user that can have one of the role USER,ADMIN or SUPERUSER
+And We have list of jobs.
+Now We need to create a dashboard. where in we have to display jobs.
+We have following business rules:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;ADMIN and SUPER USER can see all the jobs.&lt;/li&gt;
+&lt;li&gt;Normal USER can see only those jobs for which his education matches.&lt;/li&gt;
+&lt;li&gt;USER can apply for a job if it is not already applied by him and job is Active and it&amp;rsquo;s status is OPEN.&lt;/li&gt;
+&lt;li&gt;If job is already applied by USER,He can Un apply.&lt;/li&gt;
+&lt;li&gt;ADMIN and SUPER USER can&amp;rsquo;t apply jobs.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Firstly we will solve this problem with normal approach
+Create angular module&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;angular.module(&#39;app&#39;, [&#39;app.service&#39;]).controller(&#39;userCtrl&#39;, function ($scope,UserService,JobService) {
+    $scope.user = UserService.getUser();
+    $scope.jobs = JobService.getJobs();
+    $scope.applyJob = function (job) {
+        $scope.user.appliedJob.push(job);
+    };
+    $scope.unApplyJob = function (job) {
+        $scope.user.appliedJob.splice($scope.user.appliedJob.indexOf(job), 1);
+    };
+
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In the above module we just define a userCtrl. And injected UserService and JobService. UserService provides the user.
+and JobService provides the job listing.&lt;/p&gt;
+
+&lt;p&gt;We have two methods applyJob and unApplyJob in our controller
+. using them user can apply and unapply for job.
+We will now define our services&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;angular.module(&#39;app.service&#39;, []).service(&#39;UserService&#39;, function () {
+   this.getUser = function(){
+          var user= {
+              name: &amp;quot;Brij&amp;quot;, role: &amp;quot;ADMIN&amp;quot;, profile: {
+                  email    : &amp;quot;bpant@xebia.com&amp;quot;, mobile: 1111111111,
+                  education: {
+                      degree: &amp;quot;MCA&amp;quot;
+                  }
+              },
+              appliedJob     : []
+          };
+       return user;
+   };
+}).service(&#39;JobService&#39;, function () {
+      this.getJobs = function (){
+          var jobs = [
+
+              {   id            : 1,
+                  active       : true,
+                  profile      : &amp;quot;MANAGER&amp;quot;,
+                  qualification: [&amp;quot;MBA&amp;quot;, &amp;quot;BBA&amp;quot;],
+                  status       : &amp;quot;OPEN&amp;quot;
+              },
+              {   id           : 2,
+                  active       : true,
+                  profile      : &amp;quot;RECRUITER&amp;quot;,
+                  qualification: [&amp;quot;MBA&amp;quot;, &amp;quot;BBA&amp;quot;],
+                  status       : &amp;quot;OPEN&amp;quot;
+              },
+              {   id           : 3,
+                  active       : true,
+                  profile      : &amp;quot;IT_HEAD&amp;quot;,
+                  qualification: [&amp;quot;MCA&amp;quot;, &amp;quot;MTECH&amp;quot;],
+                  status       : &amp;quot;OPEN&amp;quot;
+              },
+              {   id           : 4,
+                  active       : true,
+                  profile      : &amp;quot;SOFTWARE DEVELOPER&amp;quot;,
+                  qualification: [&amp;quot;MCA&amp;quot;, &amp;quot;BCA&amp;quot;],
+                  status       : &amp;quot;OPEN&amp;quot;
+              } ,
+              {   id           : 5,
+                  active       : true,
+                  profile      : &amp;quot;SOFTWARE TESTER&amp;quot;,
+                  qualification: [&amp;quot;MCA&amp;quot;, &amp;quot;BCA&amp;quot;],
+                  status       : &amp;quot;CLOSED&amp;quot;
+              }
+          ];
+          return jobs;
+      };
+
+});
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;For creating Dashboard we will create index.html page&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;!DOCTYPE html&amp;gt;
+&amp;lt;html&amp;gt;
+&amp;lt;link rel=&amp;quot;stylesheet&amp;quot; href=&amp;quot;http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css&amp;quot;&amp;gt;
+&amp;lt;script src=&amp;quot;http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+&amp;lt;body ng-app=&amp;quot;app&amp;quot; ng-controller=&amp;quot;userCtrl&amp;quot;&amp;gt;
+&amp;lt;div class=&amp;quot;container&amp;quot;&amp;gt;
+    &amp;lt;h3&amp;gt;User Dashboard&amp;lt;/h3&amp;gt;
+    &amp;lt;table class=&amp;quot;table table-striped&amp;quot;&amp;gt;
+        &amp;lt;tr&amp;gt;
+            &amp;lt;td&amp;gt;Name:&amp;lt;/td&amp;gt;
+            &amp;lt;td&amp;gt;{{user.name}}&amp;lt;/td&amp;gt;
+        &amp;lt;/tr&amp;gt;
+        &amp;lt;tr&amp;gt;
+            &amp;lt;td&amp;gt;Email:&amp;lt;/td&amp;gt;
+            &amp;lt;td&amp;gt;{{user.profile.email}}&amp;lt;/td&amp;gt;
+        &amp;lt;/tr&amp;gt;
+        &amp;lt;tr&amp;gt;
+            &amp;lt;td&amp;gt;Education:&amp;lt;/td&amp;gt;
+            &amp;lt;td&amp;gt;{{user.profile.education.degree}}&amp;lt;/td&amp;gt;
+        &amp;lt;/tr&amp;gt;
+        &amp;lt;tr&amp;gt;
+            &amp;lt;td&amp;gt;Applied Jobs:&amp;lt;/td&amp;gt;
+            &amp;lt;td&amp;gt;&amp;lt;span ng-repeat=&amp;quot;job in user.appliedJob track by $index&amp;quot;&amp;gt; {{job.profile}}&amp;lt;/Span&amp;gt;&amp;lt;/td&amp;gt;
+        &amp;lt;/tr&amp;gt;
+    &amp;lt;/table&amp;gt;
+    &amp;lt;table class=&amp;quot;table table-striped&amp;quot;&amp;gt;
+        &amp;lt;thead&amp;gt;
+        &amp;lt;tr&amp;gt;
+            &amp;lt;th&amp;gt;Profile&amp;lt;/th&amp;gt;
+            &amp;lt;th&amp;gt;Qualification&amp;lt;/th&amp;gt;
+            &amp;lt;th&amp;gt;Apply&amp;lt;/th&amp;gt;
+        &amp;lt;/tr&amp;gt;
+        &amp;lt;/thead&amp;gt;
+        &amp;lt;tbody&amp;gt;
+        &amp;lt;tr ng-if=&amp;quot; user.role==&#39;ADMIN&#39; || user.role==&#39;SUPER_USER&#39;&amp;quot; ng-repeat=&amp;quot;job in jobs&amp;quot;&amp;gt;
+            &amp;lt;td&amp;gt;{{ job.profile}}&amp;lt;/td&amp;gt;
+            &amp;lt;td&amp;gt;&amp;lt;span ng-repeat=&amp;quot; qualification in job.qualification &amp;quot;&amp;gt; {{qualification}}&amp;lt;/Span&amp;gt;&amp;lt;/td&amp;gt;
+            &amp;lt;td&amp;gt;
+                &amp;lt;div ng-switch=&amp;quot; user.appliedJob.indexOf(job)&amp;quot;&amp;gt;
+                               &amp;lt;span ng-switch-when=&amp;quot;-1&amp;quot;&amp;gt;
+                                &amp;lt;span ng-if=&amp;quot;job.active &amp;amp;&amp;amp; job.status==&#39;OPEN&#39;&amp;quot;&amp;gt; &amp;lt;button class=&amp;quot;btn glyphicon glyphicon-ok&amp;quot; ng-click=&amp;quot;applyJob(job)&amp;quot; value=&amp;quot;Apply&amp;quot;&amp;gt;Apply&amp;lt;/button&amp;gt;&amp;lt;/span&amp;gt; &amp;lt;/span&amp;gt;
+                              &amp;lt;span ng-switch-default&amp;gt;
+                                  &amp;lt;button class=&amp;quot;btn glyphicon glyphicon-remove&amp;quot; ng-click=&amp;quot;unApplyJob(job)&amp;quot; value=&amp;quot;UnApply&amp;quot;&amp;gt;UnApply&amp;lt;/button&amp;gt;&amp;lt;/span&amp;gt;
+                &amp;lt;/div&amp;gt;
+            &amp;lt;/td&amp;gt;
+        &amp;lt;/tr&amp;gt;
+        &amp;lt;tr ng-if=&amp;quot;user.role==&#39;USER&#39;&amp;quot; ng-repeat=&amp;quot;job in jobs | filter: {qualification:user.profile.education.degree}&amp;quot;&amp;gt;
+            &amp;lt;td&amp;gt;{{ job.profile}}&amp;lt;/td&amp;gt;
+            &amp;lt;td&amp;gt;&amp;lt;span ng-repeat=&amp;quot; qualification in job.qualification &amp;quot;&amp;gt; {{qualification}}&amp;lt;/Span&amp;gt;&amp;lt;/td&amp;gt;
+            &amp;lt;td&amp;gt;
+                &amp;lt;div ng-switch=&amp;quot; user.appliedJob.indexOf(job)&amp;quot;&amp;gt;
+                               &amp;lt;span ng-switch-when=&amp;quot;-1&amp;quot;&amp;gt;
+                                &amp;lt;span ng-if=&amp;quot;job.active &amp;amp;&amp;amp; job.status==&#39;OPEN&#39;&amp;quot;&amp;gt; &amp;lt;button class=&amp;quot;btn glyphicon glyphicon-ok&amp;quot; ng-click=&amp;quot;applyJob(job)&amp;quot; value=&amp;quot;Apply&amp;quot;&amp;gt;Apply&amp;lt;/button&amp;gt;&amp;lt;/span&amp;gt; &amp;lt;/span&amp;gt;
+                              &amp;lt;span ng-switch-default&amp;gt;
+                                  &amp;lt;button class=&amp;quot;btn glyphicon glyphicon-remove&amp;quot; ng-click=&amp;quot;unApplyJob(job)&amp;quot; value=&amp;quot;UnApply&amp;quot;&amp;gt;UnApply&amp;lt;/button&amp;gt;&amp;lt;/span&amp;gt;
+                &amp;lt;/div&amp;gt;
+            &amp;lt;/td&amp;gt;
+        &amp;lt;/tr&amp;gt;
+        &amp;lt;/tbody&amp;gt;
+    &amp;lt;/table&amp;gt;
+    &amp;lt;hr&amp;gt;
+&amp;lt;/div&amp;gt;
+
+&amp;lt;script src=&amp;quot;js/app.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+&amp;lt;script src=&amp;quot;js/service.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+
+&amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;problem-with-this-approach:84866485eb4ec6c0fb1947a0cf273d70&#34;&gt;Problem with this approach&lt;/h2&gt;
+
+&lt;p&gt;You can see all our behavior is lied in the presentation layer. For displaying jobs we have applied all logic in our html file. moreover we have repeated our code to display jobs for normal user and for Admin/Superuser.
+Similarly we have applied all the logic for displaying apply and unApply button in the html itself. We definitely should not have these logic in presentation layer.we can put these logics in our controller.But What if we want to bind this page with multiple controllers? We will have to write these logic in all those controllers.Situation will be more horrifying when our business demands some changes in the logic.Go find all the places and make those changes.&lt;/p&gt;
+
+&lt;h2 id=&#34;time-for-refactoring:84866485eb4ec6c0fb1947a0cf273d70&#34;&gt;Time for refactoring&lt;/h2&gt;
+
+&lt;p&gt;Let&amp;rsquo;s think in different way.
+ We know in the current problem space we have two entities user and job. user&amp;rsquo;s behavior changes based in its role.If it is Admin it has access to all jobs. But if it is normal user he can see only jobs which matches his education.
+ Job could be applied based on the behavior status.
+ So, now we will create Domain object for user and job. That will bind the behavior with them&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt; factory(&#39;User&#39;, function () {
+            return function (user) {
+                this.id = user.id;
+                this.name=user.name;
+                this.role = user.role;
+                this.profile = user.profile;
+                this.appliedJob = user.appliedJob;
+
+                this.userViewableJobs = function (jobs) {
+                    var userViewableJobs = [];
+                    self =this;
+                    if (this.role === &#39;ADMIN&#39; || this.role === &#39;SUPER_USER&#39;) return jobs;
+                    else {
+                        angular.forEach(jobs, function (job) {
+                            console.log(&#39;job &#39;+job);
+                            if (job.qualification.indexOf(self.profile.education.degree) !== -1) {
+                                userViewableJobs.push(job);
+                            }
+                        })
+                    }
+                    return userViewableJobs;
+                }
+                this.canApplyForJob = function(job){
+                  return job.canBeApplied() &amp;amp;&amp;amp; !this.hasAlreadyAppliedForJob(job);
+                }
+                this.hasAlreadyAppliedForJob = function(job){
+                    return this.appliedJob.indexOf(job) !=-1;
+                }
+
+                this.applyForJob = function (job) {
+                    this.appliedJob.push(job);
+                };
+                this.unApplyJob = function (job) {
+                    this.appliedJob.splice(this.appliedJob.indexOf(job), 1);
+                };
+
+            };
+        })
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We have bind following behavior with the User&lt;/p&gt;
+
+&lt;p&gt;userViewableJobs : based on role it will decide which jobs can be viewed by the user&lt;/p&gt;
+
+&lt;p&gt;canApplyForJob : it will check if job can be applied.&lt;/p&gt;
+
+&lt;p&gt;hasAlreadyAppliedForJob :it will check if job already applied by user&lt;/p&gt;
+
+&lt;p&gt;applyForJob : it will add job to the applied job list&lt;/p&gt;
+
+&lt;p&gt;unApplyJob : it will remove the job from the users listing&lt;/p&gt;
+
+&lt;p&gt;create Job domain object&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;factory(&#39;Job&#39;, function () {
+            return function (job) {
+                this.id = job.id;
+                this.active = job.active;
+                this.profile = job.profile;
+                this.qualification = job.qualification;
+                this.status = job.status;
+                this.canBeApplied = function(){
+                    return this.active &amp;amp;&amp;amp; this.status === &#39;OPEN&#39;;
+                }
+            };
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Modify service to return User and Jobs as factory object instead of normal object&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;this.getUser = function(){
+          var user= {   id:1,
+              name: &amp;quot;Brij&amp;quot;, role: &amp;quot;ADMIN&amp;quot;, profile: {
+                  email    : &amp;quot;bpant@xebia.com&amp;quot;, mobile: 1111111111,
+                  education: {
+                      degree: &amp;quot;MCA&amp;quot;
+                  }
+              },
+              appliedJob     : []
+          };
+       return new User(user);
+   };
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;this.getJobs = function (){
+
+        var jobs = [];
+        angular.forEach([
+
+            {   id            : 1,
+                active       : true,
+                profile      : &amp;quot;MANAGER&amp;quot;,
+                qualification: [&amp;quot;MBA&amp;quot;, &amp;quot;BBA&amp;quot;],
+                status       : &amp;quot;OPEN&amp;quot;
+            },
+            {   id           : 2,
+                active       : true,
+                profile      : &amp;quot;RECRUITER&amp;quot;,
+                qualification: [&amp;quot;MBA&amp;quot;, &amp;quot;BBA&amp;quot;],
+                status       : &amp;quot;OPEN&amp;quot;
+            },
+            {   id           : 3,
+                active       : true,
+                profile      : &amp;quot;IT_HEAD&amp;quot;,
+                qualification: [&amp;quot;MCA&amp;quot;, &amp;quot;MTECH&amp;quot;],
+                status       : &amp;quot;OPEN&amp;quot;
+            },
+            {   id           : 4,
+                active       : true,
+                profile      : &amp;quot;SOFTWARE DEVELOPER&amp;quot;,
+                qualification: [&amp;quot;MCA&amp;quot;, &amp;quot;BCA&amp;quot;],
+                status       : &amp;quot;OPEN&amp;quot;
+            } ,
+            {   id           : 5,
+                active       : true,
+                profile      : &amp;quot;SOFTWARE TESTER&amp;quot;,
+                qualification: [&amp;quot;MCA&amp;quot;, &amp;quot;BCA&amp;quot;],
+                status       : &amp;quot;CLOSED&amp;quot;
+            }
+        ],function(job){
+           jobs.push(new Job(job))
+        });
+        return jobs;
+    };
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;remove applyJob and unApplyJob function from userCtrl as they are now part of User domain&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;controller(&#39;userCtrl&#39;, function ($scope,UserService,JobService) {
+
+    $scope.user = UserService.getUser();
+    $scope.jobs = JobService.getJobs();
+
+})
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Finally we will modify our index page&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;html&amp;gt;
+&amp;lt;link rel=&amp;quot;stylesheet&amp;quot; href=&amp;quot;http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css&amp;quot;&amp;gt;
+&amp;lt;script src=&amp;quot;http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+&amp;lt;body ng-app=&amp;quot;app&amp;quot; ng-controller=&amp;quot;userCtrl&amp;quot;&amp;gt;
+&amp;lt;div class=&amp;quot;container&amp;quot;&amp;gt;
+    &amp;lt;h3&amp;gt;User Dashboard&amp;lt;/h3&amp;gt;
+    &amp;lt;table class=&amp;quot;table table-striped&amp;quot;&amp;gt;
+        &amp;lt;tr&amp;gt;
+            &amp;lt;td&amp;gt;Name:&amp;lt;/td&amp;gt;
+            &amp;lt;td&amp;gt;{{user.name}}&amp;lt;/td&amp;gt;
+        &amp;lt;/tr&amp;gt;
+        &amp;lt;tr&amp;gt;
+            &amp;lt;td&amp;gt;Email:&amp;lt;/td&amp;gt;
+            &amp;lt;td&amp;gt;{{user.profile.email}}&amp;lt;/td&amp;gt;
+        &amp;lt;/tr&amp;gt;
+        &amp;lt;tr&amp;gt;
+            &amp;lt;td&amp;gt;Education:&amp;lt;/td&amp;gt;
+            &amp;lt;td&amp;gt;{{user.profile.education.degree}}&amp;lt;/td&amp;gt;
+        &amp;lt;/tr&amp;gt;
+        &amp;lt;tr&amp;gt;
+            &amp;lt;td&amp;gt;Applied Jobs:&amp;lt;/td&amp;gt;
+            &amp;lt;td&amp;gt;&amp;lt;span ng-repeat=&amp;quot;job in user.appliedJob track by $index&amp;quot;&amp;gt; {{job.profile}}&amp;lt;/Span&amp;gt;&amp;lt;/td&amp;gt;
+        &amp;lt;/tr&amp;gt;
+    &amp;lt;/table&amp;gt;
+    &amp;lt;table class=&amp;quot;table table-striped&amp;quot;&amp;gt;
+        &amp;lt;thead&amp;gt;
+        &amp;lt;tr&amp;gt;
+            &amp;lt;th&amp;gt;Profile&amp;lt;/th&amp;gt;
+            &amp;lt;th&amp;gt;Qualification&amp;lt;/th&amp;gt;
+            &amp;lt;th&amp;gt;Apply&amp;lt;/th&amp;gt;
+        &amp;lt;/tr&amp;gt;
+        &amp;lt;/thead&amp;gt;
+        &amp;lt;tbody&amp;gt;
+
+        &amp;lt;tr ng-repeat=&amp;quot; job in user.userViewableJobs(jobs)&amp;quot;&amp;gt;
+            &amp;lt;td&amp;gt;{{ job.profile}}&amp;lt;/td&amp;gt;
+            &amp;lt;td&amp;gt;&amp;lt;span ng-repeat=&amp;quot; qualification in job.qualification &amp;quot;&amp;gt; {{qualification}}&amp;lt;/Span&amp;gt;&amp;lt;/td&amp;gt;
+            &amp;lt;td&amp;gt;
+                &amp;lt;span ng-if=&amp;quot;user.canApplyForJob(job)&amp;quot;&amp;gt;
+                    &amp;lt;button class=&amp;quot;btn glyphicon glyphicon-ok&amp;quot; ng-click=&amp;quot;user.applyForJob(job)&amp;quot; value=&amp;quot;Apply&amp;quot;&amp;gt;Apply&amp;lt;/button&amp;gt;&amp;lt;/span&amp;gt; &amp;lt;/span&amp;gt;
+                 &amp;lt;span ng-if=&amp;quot;user.hasAlreadyAppliedForJob(job)&amp;quot;&amp;gt;
+                 &amp;lt;button class=&amp;quot;btn glyphicon glyphicon-remove&amp;quot; ng-click=&amp;quot;user.unApplyJob(job)&amp;quot; value=&amp;quot;UnApply&amp;quot;&amp;gt;UnApply&amp;lt;/button&amp;gt;&amp;lt;/span&amp;gt;
+            &amp;lt;/td&amp;gt;
+        &amp;lt;/tr&amp;gt;
+        &amp;lt;/tbody&amp;gt;
+    &amp;lt;/table&amp;gt;
+    &amp;lt;hr&amp;gt;
+&amp;lt;/div&amp;gt;
+
+&amp;lt;script src=&amp;quot;js/app.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+&amp;lt;script src=&amp;quot;js/domain.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+&amp;lt;script src=&amp;quot;js/service.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+
+
+&amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can see now our code has become much cleaner,We need not to worry about the business logic in our presentation layer.Our controller has become free from any sort of responsibilities of modifying the model object.All the behavior related to the domain is abstracted from the outer world. You can use these domain objects any where in your application and can change them without any hiccup.&lt;/p&gt;
+
+&lt;p&gt;You can find out sample code &lt;a href=&#34;https://github.com/Brijeshpant/DDD-Angular-example.git&#34;&gt;here&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

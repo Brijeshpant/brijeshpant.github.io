@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Progressively Uploading Csv using Play</title>
+
+  <meta name="description" content="Progressively Uploading Csv using Play"/>
+  <meta name="author" content="brijesh pant"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <base href="http://example.com/" />
+
+  <link rel="stylesheet" href="css/fonts.css"/>
+  <link rel="stylesheet" href="css/normalize.css"/>
+  <link rel="stylesheet" href="css/skeleton.css"/>
+  <link rel="stylesheet" href="css/custom.css"/>
+  <link rel="stylesheet" href="genericons/genericons.css"/>
+  
+  
+    
+  
+  <link rel="stylesheet" href="highlight/tomorrow-night.css"/>
+
+  <link href="index.xml" rel="alternate" type="application/rss+xml" title="Posts + Links" />
+  <link href="links/index.xml" rel="alternate" type="application/rss+xml" title="Links" />
+  <link href="posts/index.xml" rel="alternate" type="application/rss+xml" title="Posts" />
+
+  
+</head>
+<body>
+
+
+<div id="container">
+  <div id="post-header">
+    <p class="post-infos">
+      <time>2016-01-30 15:16</time>
+      
+  
+
+  
+  tags: <a href="tags/play">Play</a> <a href="tags/scala">scala</a> <a href="tags/fileupload">fileupload</a> 
+  
+
+  
+
+
+    </p>
+    <h1>Progressively Uploading Csv using Play</h1>
+  </div>
+
+  
+
+  <div class="post">
+    
+
+<h1 id="progressively-uploading-csv:f188ebac3656b6eb764b262b3dd48a8d">Progressively Uploading CSV</h1>
+
+<h1 id="scenario:f188ebac3656b6eb764b262b3dd48a8d">Scenario</h1>
+
+<p>You may have encountered situations, when you need to send huge amount of data (in GBs ) to the server.  One example is upload of large files. While sending this data, your server has to slog through the upcoming mighty request body and eventually process it.</p>
+
+<h1 id="problem-definition:f188ebac3656b6eb764b262b3dd48a8d">Problem Definition</h1>
+
+<p>So this whole process is about getting chunk of data, wait for next chunk to come and then wait again and this goes on until it receives whole request body.  All the request body data is now in servers memory. And multiple simultaneous uploads would invariably lead to a OOM error.</p>
+
+<p>Also till the request body is saved to disk the file/request data resides in memory and blocks the thread. As you would imagine both memory and threads are precious and scant resources.</p>
+
+<p>In such conditions, what can you expect but the frustratingly slow response? Would it not be nice if there is a way to handle such requests in a smarter way?</p>
+
+<h1 id="solution:f188ebac3656b6eb764b262b3dd48a8d">Solution</h1>
+
+<p>As the browser sends data in chunks of byte over the network, processing the incoming data in chunks would be a smarter choice. Play2 framework provides such a beautiful capability in the form  of Iteratee library. Iteratees support the consumption of data in chunks and in an asynchronous manner. For more detail of Iteratee you can browse through Iteratee.</p>
+
+<h1 id="iteratee:f188ebac3656b6eb764b262b3dd48a8d">Iteratee</h1>
+
+<p>For now you need to understand what Iteratee can do to solve our problem. Iteratee requires producer that can feed iteratee the data to process. Producer can be any Enumerator which has capability to produce data of same type as the Iteratee expects. Iteratee can consume the chunks of data progressively. It does not need all data to be radially available. It can consume data chunks whenever it is available. Iteratee doses not wait on any upcoming chunks. It is the responsibility of producer to feed Iteratee. After receiving data chunk Iteratee can start processing it.</p>
+
+<p>Here we will see the example code for uploading the csv file progressively. This is a Play-scala application so you need to set the required environment. Once you done with creating a play application, you are ready to go further. Here are instructions on   <a href="https://www.playframework.com/documentation/2.2.x/Installing">how to install and setup play</a>.</p>
+
+<h1 id="code:f188ebac3656b6eb764b262b3dd48a8d">Code</h1>
+
+<p>Make entries for your routes in Routes file</p>
+
+<pre><code>GET / controllers.Application.index //For opening home page
+POST /upload controllers.Application.upload //Post request to upload file
+</code></pre>
+
+<p>Create scala html template index.scala.html .</p>
+
+<pre><code>@helper.form(action = routes.Application.upload, 'enctype -&gt; &quot;multipart/form-data&quot;) { Please upload file
+}
+</code></pre>
+
+<p>Add following methods in Application controller to put your handler for requests</p>
+
+<pre><code>def index = Action {
+Ok(views.html.index())
+}
+</code></pre>
+
+<p>index method just upon up your home page from where CSV file can be uploaded.</p>
+
+<pre><code>def upload = Action(BodyParser(request =&gt; { CsvBodyParser.parseCsvData(false)})) {
+rq: Request[List[String]] =&gt;
+Ok(&quot;file uploaded successfully&quot;)
+}
+}
+</code></pre>
+
+<p>The upload method, handles the post request containing the body. You can see BodyParser is used explicitly with the Action. By default all Action takes play.api.mvc.AnyContent as BodyParser to parse the request to some Scala value.it adapts automatically according to the request Content-Type. BodyParser[A] is basically an Iteratee[Array[Byte],A] which consumes the chunk of data as Array[Byte] as long as browser sends them and return the type A which is passed into the Request to be processed by Action. Here is the helper class CsvBodyParser which parses the request and return List[String]</p>
+
+<pre><code>package controllers
+import play.api.libs.iteratee.{Iteratee, Enumeratee, Parsing}
+import scala.List
+import scala.Predef._
+import scala.Predef.String
+import play.api.Logger
+
+object CsvBodyParser {
+	var flag = false
+	var headerList: List[String] = null
+
+	def parseCsvData(f: Boolean) = {
+		headerList = null
+		flag = f
+		val seperator = &quot;,&quot;
+		Parsing.search(&quot;n&quot;.getBytes) &gt;&lt;&gt; Enumeratee.grouped(
+			(Enumeratee.breakE[Parsing.MatchInfo[Array[Byte]]] (_.isMatch)  &gt;&lt;&gt;
+				Enumeratee.collect {
+					case Parsing.Unmatched(bytes) =&gt;
+					val stringVal =new String(bytes)
+					stringVal
+				}
+				&amp;&gt;&gt;
+				Iteratee.consume()).flatMap(r =&gt; {
+					if (flag) {
+						Iteratee.head.map(_ =&gt; processLine(r.trim.split(seperator)))
+						} else {
+							val list = r.toString.trim.split(seperator).toList
+							if (list.length &gt; 0 &amp;&amp; list.head.equals(&quot;name&quot;)) {
+								headerList = list
+								flag = true
+							}
+							Iteratee.head.map(_ =&gt; &quot;&quot;)
+						}
+						})
+				) &amp;&gt;&gt; Iteratee.getChunks.map(Right(_))
+	}
+
+	def processLine(line: Array[String]): String = {
+		var dataList = line.toList
+		var msg = &quot;&quot;
+		if (dataList.length &gt;= 1) {
+			var dataMap = headerList.toList.zip(dataList).toMap
+// dataMap map containing the header and corresponding column for the current row
+// You can write your logic to add this into database or what ever you want
+//msg =&quot;any success message you can pass&quot;
+}
+msg
+}
+}
+</code></pre>
+
+<h1 id="explanation:f188ebac3656b6eb764b262b3dd48a8d">Explanation</h1>
+
+<p>In our case as we are parsing a csv file, every row is separated by a new line character. Therefore we need chunks based on the new line to distinguish each line separately and process it. But browsers creates the chunks by its own irrespective of what the separator is.</p>
+
+<p>Our requirement is to get such an Iteratee which can consume each line at one go and process it. Our source of data here is chunks of Array[Byte] which may not contain new line char or may be containing more than one new lines. Therefore it has to be adapted such that it can match the type our Iteratee is expecting.</p>
+
+<h1 id="enumeratee:f188ebac3656b6eb764b262b3dd48a8d">Enumeratee</h1>
+
+<p>To adapt one Type of Enumerator to the another type we have Enumeratee which is pipe adapter between Enumerator and Iteratee. It basically transform one Type of Enumerator to other type. For example Enumerator[Int] can be transformed into Enumerator[String] by applying Enumeratee[Int,String] on Enumerator[Int]. Enumeratee[A,B] can also be composed with an Enumeratee[B,C] to give Enumeratee[A,C].</p>
+
+<p>In the parseCsvData method above you can see we have used Parsing.search(“n”.getBytes) .It searches for new line and gives an Enumeratee[Array[Byte], Parsing.MatchInfo[Array[Byte]]]. then  We compose it with Enumeratee.grouped to regroup on new line. By applying (Enumeratee.breakE<a href="_.isMatch">Parsing.MatchInfo[Array[Byte]]</a>, which is again an adapter that breaks on new line.</p>
+
+<p>It Gives a new Enumertee which pushes everything it has on to the Iteratee by applying Iteratee.consume[Array[Byte]] which consumes and concatenates all Input chunks and return a Promise.Finally  by applying flatMap we can get actual data for a row.</p>
+
+<p>Iteratee.head creates an Iteratee that takes the first element of the stream. This element can be anything like header of the csv (first line) ,data or any other information associated with the body. Each column in the csv is separated by comma so we can split it to get the Array. By checking the size we can identify the header. As soon as we get the header we set the flag to true to identify every subsequent row as a data. Now we can process each line, as we have done in the processLine method by zipping the header and column to generate key value pair of header and column. You can do anything with this data to serve your purpose.</p>
+
+<p>With a little bit of understanding of Play and Iteratees we can now asynchronously upload large bytes of data without stretching the memory requirements.</p>
+
+<p>Inspired by: <a href="https://gist.github.com/sadache/2939230">https://gist.github.com/sadache/2939230</a></p>
+
+  </div>
+
+  
+    <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = '';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+  
+</div>
+
+<div id="sidebar">
+<div class="sidebar">
+  <div class="sidebar-about">
+    <a href="http://example.com">
+      <img src="media/me.jpg" title="brijesh pant" alt="Me" />
+      <h4 class="sidebar-title">Brijesh Pant</h4>
+    </a>
+    <span class="sidebar-tagline"> Documenting my learning </span>
+  </div>
+  <nav class="sidebar-nav">
+    <ul class="sidebar-nav-list">
+      <li class="sidebar-nav-item nav-home">
+        <span class="genericon genericon-home"></span><a class="sidebar-link" href="http://example.com">Home</a>
+      </li>
+      <li class="sidebar-nav-item">
+        <a class="genericon genericon-feed" href="posts/index.xml"></a><a class="sidebar-link" href="posts/">Posts/</a>
+      </li>
+      
+    </ul>
+  </nav>
+  <div class="sidebar-externals">
+  
+
+  
+  <a class="genericon genericon-github" href="https://github.com/brijeshpant" ></a>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  | <a class="genericon genericon-mail" href="mailto:pantbrijesh20@gmail.com"></a>
+  </div>
+  <hr />
+  <div class="sidebar-bottom">
+    <p>Powered by <a href="http://gohugo.io">Hugo</a>. Theme: <a href="https://github.com/TiTi/hurock">Hurock</a>.</p>
+    <p>Copyright &copy; 2016. All rights reserved.</p>
+  </div>
+</div>
+</div>
+
+<footer>
+  <p class="footnote">Copyright &copy; 2016: All rights reserved by <a href="mailto:pantbrijesh20@gmail.com">brijesh pant</a></p>
+</footer>
+
+<script src="highlight/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+my footer
+
+
+</body>
+</html>
+

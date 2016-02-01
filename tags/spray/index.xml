@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Spray on Brijesh Pant</title>
+    <link>http://example.com/tags/spray/</link>
+    <description>Recent content in Spray on Brijesh Pant</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <managingEditor>pantbrijesh20@gmail.com (brijesh pant)</managingEditor>
+    <webMaster>pantbrijesh20@gmail.com (brijesh pant)</webMaster>
+    <lastBuildDate>Sat, 30 Jan 2016 15:05:59 +0530</lastBuildDate>
+    <atom:link href="http://example.com/tags/spray/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Spraying rest applications with spray</title>
+      <link>http://example.com/2016/01/sprayingrestwithspray/</link>
+      <pubDate>Sat, 30 Jan 2016 15:05:59 +0530</pubDate>
+      <author>pantbrijesh20@gmail.com (brijesh pant)</author>
+      <guid>http://example.com/2016/01/sprayingrestwithspray/</guid>
+      <description>
+
+&lt;p&gt;Spray is a suite of lightweight Scala libraries providing client- and server-side REST/HTTP support on top of Akka.  Akka makes the application fully asynchronous. There are other frameworks build on top of Akka such as Play that gives  ability to build full web application but with one down side and that is  application becomes highly coupled with the framework as the application build on top of Play. As oppose to that spray gives  ability to create  Application layer independent of  anything without even thinking of the framework. Spray will just work as an  integration layer to shake hand between outer world and the application. Outer world could be any web,mobile or third party applications.&lt;/p&gt;
+
+&lt;p&gt;In this blog post we will see how to setup spray environment for the Scala application and also learn about some of the building blocks. In the upcoming post we will see simple  example of writing rest Api&amp;rsquo;s, authentication support, cross origin support and actor handling also most important part of the development unit test spray routes.&lt;/p&gt;
+
+&lt;h1 id=&#34;table-of-content:a846ee36b0a32d4baa95d852ff656c38&#34;&gt;Table of content&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#setup&#34;&gt;Basic setup&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#spraycan&#34;&gt;Spray-can&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#sprayrouting&#34;&gt;Spray-routing&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#directives&#34;&gt;Directives&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#conclusion&#34;&gt;Conclusion&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a id=&#34;setup&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;basic-setup:a846ee36b0a32d4baa95d852ff656c38&#34;&gt;Basic setup&lt;/h2&gt;
+
+&lt;p&gt;To start with we need to firstly create the sbt project.&lt;/p&gt;
+
+&lt;p&gt;build.sbt consists of following lines&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;name := &amp;quot;SprayingRestWithSpray&amp;quot;
+
+version := &amp;quot;1.0&amp;quot;
+
+libraryDependencies ++= {
+    val akkaV = &amp;quot;2.3.6&amp;quot;
+    val sprayV = &amp;quot;1.3.2&amp;quot;
+    Seq(
+        &amp;quot;io.spray&amp;quot;            %%   &amp;quot;spray-can&amp;quot;     % sprayV,
+        &amp;quot;io.spray&amp;quot;            %%   &amp;quot;spray-routing&amp;quot; % sprayV,
+        &amp;quot;com.typesafe.akka&amp;quot;   %%  &amp;quot;akka-actor&amp;quot;    % akkaV
+    )
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We are using akka version 2.3.6 and spray version 1.3.2
+we have defined 3  libraries  spray-can ,spray-routing and akka-actor. These are sufficient to start building spray application. We will keep adding other spray libraries as and when needed. This is the beauty of spray that you use only what you needed.&lt;/p&gt;
+
+&lt;p&gt;Let&amp;rsquo;s understand why these libraries are for
+&lt;a id=&#34;spraycan&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;spray-can:a846ee36b0a32d4baa95d852ff656c38&#34;&gt;Spray-can&lt;/h3&gt;
+
+&lt;p&gt;A low-level, low-overhead, high-performance HTTP server and client built on top of spray-io. When spray-can server get started,It starts a new listener actor which can handle thousands of  incoming requests asynchronously.&lt;/p&gt;
+
+&lt;p&gt;&lt;a id=&#34;sprayrouting&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;spray-routing:a846ee36b0a32d4baa95d852ff656c38&#34;&gt;Spray-routing&lt;/h3&gt;
+
+&lt;p&gt;A high-level routing DSL for elegantly defining RESTful web services. It provides abstraction layer over the spray-http . It saves developers efforts of writing boiler plate code and provide them the simple interface to build  the application.&lt;/p&gt;
+
+&lt;p&gt;Now we will start doing the real action by creating the Main object which starts the server.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt; object Main extends App {
+
+     implicit val system = ActorSystem(&amp;quot;SprayingRestWithSpray&amp;quot;)
+     val apiRouteHandlerActor = system.actorOf(Props[RequestHandlerActor], &amp;quot;application-actor&amp;quot;)
+     (IO(Http) ! Http.Bind(apiRouteHandlerActor, interface = &amp;quot;localhost&amp;quot;, port = 8080))
+ }
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;What we just did is bind the apiRouteHandlerActor  to the http port 8080 on localhost. Any subsequent request  will be passed on to the apiRouterHandler in the form of RequestContext message.&lt;/p&gt;
+
+&lt;p&gt;Now we will create RequestHandlerActor&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;class RequestHandlerActor extends HttpServiceActor{
+    override def receive: Receive = runRoute(route)
+   val route:Route =  path(&amp;quot;firstRoute&amp;quot;){
+        complete(&amp;quot;Request completed&amp;quot;)
+    }
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;RequestHandlerActor extends HttpServiceActor which extends HttpService.&lt;/p&gt;
+
+&lt;p&gt;HttpService provides execution context to the request which it receives.
+In the example above we have override receive method with partial function runRoute of HttpService which takes Route type as parameter. In spray-routing Route has following form:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;type Route = RequestContext =&amp;gt; Unit
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;All the structure you define will be subtype of Route.&lt;/p&gt;
+
+&lt;p&gt;&lt;a id=&#34;directives&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;directives:a846ee36b0a32d4baa95d852ff656c38&#34;&gt;Directives&lt;/h2&gt;
+
+&lt;p&gt;We can combine multiple such structure to form a complex Route. These building blocks are termed as Directive in spray. Spray comes up with predefined Directives for handling almost every type of request one can encounter. But we can create our own Directives if required by modifying or combining these Directives.&lt;/p&gt;
+
+&lt;p&gt;One such Directive is path Directive, which matches the part of uri.
+In the example above our path directive matches the path &amp;ldquo;firstRoute&amp;rdquo;. On encountering request localhost:8080/firstRoute request will be forwarded to this Directive and the request is completed by  complete method of RequestContext.&lt;/p&gt;
+
+&lt;p&gt;The complete method creates an HttpResponse an sends it to responder of the RequestContext.&lt;/p&gt;
+
+&lt;p&gt;You can find out sample code &lt;a href=&#34;https://github.com/Brijeshpant/SprayingRestWithSpray.git&#34;&gt;here&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a id=&#34;conclusion&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;conclusion:a846ee36b0a32d4baa95d852ff656c38&#34;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;In this post we explored how to set up spray application,learned about basic ingredients of the spray.In my upcoming  blog we will deep dive in detail and we will be using these ingredients to create more stuff about Rest Api&amp;rsquo;s through spray.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
