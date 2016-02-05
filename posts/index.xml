@@ -7,8 +7,159 @@
     <generator>Hugo -- gohugo.io</generator>
     <managingEditor>pantbrijesh20@gmail.com (brijesh pant)</managingEditor>
     <webMaster>pantbrijesh20@gmail.com (brijesh pant)</webMaster>
-    <lastBuildDate>Mon, 01 Feb 2016 22:43:02 +0530</lastBuildDate>
+    <lastBuildDate>Sat, 06 Feb 2016 00:36:02 +0530</lastBuildDate>
     <atom:link href="brijeshpant.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Making comfortable with vim</title>
+      <link>/brijeshpant.github.io/2016/02/learningvim/</link>
+      <pubDate>Sat, 06 Feb 2016 00:36:02 +0530</pubDate>
+      <author>pantbrijesh20@gmail.com (brijesh pant)</author>
+      <guid>/brijeshpant.github.io/2016/02/learningvim/</guid>
+      <description>
+
+&lt;p&gt;Being developer it looks quite fancy of modifying the text file  using the command line tools such as vim,nano etc. But When i started working on command line text editors it was quite annoying at first. I tried multiple time to work with cli but duo to not having enough knowledge of shortcut keys i was like handicapped and have to go back to my old friends (Ui text editors) . In the local systems it was fine but More than often i had to search through server logs, modifying configuration files in remote servers. And while accessing those remote system you do not have such luxury and you have to use cli  only. Then i decided to learn shortcut keys to make my life easier. after getting  my hands dirty it was like charm working with these editors.&lt;/p&gt;
+
+&lt;p&gt;This post is walkthrough over some of the keys which might come handy while working with vim.&lt;/p&gt;
+
+&lt;p&gt;To start with  just go to your terminal&lt;/p&gt;
+
+&lt;p&gt;For creating new file type vim yourFilename&lt;/p&gt;
+
+&lt;p&gt;if the file with the file name specified by you doesn’t exists a new file with the same name will be created, otherwise existing file will be opened.&lt;/p&gt;
+
+&lt;p&gt;in vim there are two modes of execution&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;normal mode&lt;/strong&gt; : Here you can navigate through the file using shortcut keys, but you can not type anything&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Insert mode&lt;/strong&gt; : This is the mode where you can edit your file, but you can not apply any command.&lt;/li&gt;
+&lt;li&gt;Insert mode has following options&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;i&lt;/strong&gt; to start inserting before the cursor pointer.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;I&lt;/strong&gt; to start inserting at the starting of the current line.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;a&lt;/strong&gt; to append before the cursor pointer.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;A&lt;/strong&gt; to append at the last of line&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;By default your file will be opened in normal mode.For switching  to insert mode press &amp;lsquo;&lt;strong&gt;i&lt;/strong&gt;&amp;rsquo; . and for switching  back to the normal mode press &lt;strong&gt;esc&lt;/strong&gt; key.&lt;/p&gt;
+
+&lt;p&gt;For applying any command Make sure you are working in normal mode.&lt;/p&gt;
+
+&lt;p&gt;After adding some text in your file when you think you are done. go to normal mode and then type &amp;lsquo;&lt;strong&gt;:&lt;/strong&gt;&amp;rsquo; with following options&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;q!&lt;/strong&gt; to quit without saving new changes.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;w&lt;/strong&gt; to saving the changes.File will still be open&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;:saveas&lt;/strong&gt; filename (if you did not provided the file name already. i.e. If you opened vim using &lt;strong&gt;vim&lt;/strong&gt; without file name)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;wq!&lt;/strong&gt;  to saving the changes and then and quit. alternate of this command is (shift +zz key)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Now we will learn to navigate through file&lt;/p&gt;
+
+&lt;h1 id=&#34;navigation&#34;&gt;Navigation&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;0&lt;/strong&gt; move cursor to start of the current line.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;$&lt;/strong&gt; move cursor to end of current line.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;gg&lt;/strong&gt; move cursor to start of the first line.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;G&lt;/strong&gt; move cursor to start of the last line.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;G$&lt;/strong&gt; move cursor to end of the last line.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;h&lt;/strong&gt; move cursor to left of current position.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;l&lt;/strong&gt; move cursor to right of current position.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;k&lt;/strong&gt; move cursor to one line up.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;j&lt;/strong&gt; move cursor to one line down.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;w&lt;/strong&gt; move starting of the next word.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;e&lt;/strong&gt; move end of the next word.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;b&lt;/strong&gt; move starting of the previous word.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;)&lt;/strong&gt; move one sentence forward.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;(&lt;/strong&gt; move one sentence backward.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;}&lt;/strong&gt; move one paragraph forward.&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;{&lt;/strong&gt; move one paragraph backward.&lt;/p&gt;
+
+&lt;h1 id=&#34;screen-navigation&#34;&gt;Screen navigation&lt;/h1&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;ctrl+f&lt;/strong&gt; page down&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;ctrl+b&lt;/strong&gt; page up&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;H&lt;/strong&gt; move top of the screen.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;M&lt;/strong&gt; move middle of the screen.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;L&lt;/strong&gt; move bottom of the screen.
+#Insert&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;o&lt;/strong&gt; this will add new line below the current line.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;O&lt;/strong&gt; this will add new line above the current line.
+Both of these command will automatically change the mode to insert mode.&lt;/p&gt;
+
+&lt;h1 id=&#34;delete&#34;&gt;Delete&lt;/h1&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;x&lt;/strong&gt; delete character on cursor position.keep pressing x to remove characters on Right.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;X&lt;/strong&gt; delete character on left to cursor position&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;dd&lt;/strong&gt; delete line.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;dw&lt;/strong&gt; delete one word
+these delete commands actually along with deleting copies the text. So you can past the last copied text using &lt;strong&gt;p&lt;/strong&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt;: use any number key to multiply the action by that number . i.e.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;3j to move cursor 3 lines up.&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;5dw to delete 5 words.&lt;/p&gt;
+
+&lt;h1 id=&#34;repetition&#34;&gt;Repetition&lt;/h1&gt;
+
+&lt;p&gt;you can repeat any action by using &lt;strong&gt;.&lt;/strong&gt;. i.e.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;let say you added some text. press &lt;strong&gt;esc&lt;/strong&gt; than &lt;strong&gt;.&lt;/strong&gt; .text will be duplicated.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;if your last command is &lt;strong&gt;5x&lt;/strong&gt;. it will delete 5 characters. then &lt;strong&gt;.&lt;/strong&gt; will remove the next 5 characters.&lt;/p&gt;
+
+&lt;h1 id=&#34;replace-character&#34;&gt;Replace character&lt;/h1&gt;
+
+&lt;p&gt;if you want to replace the character under cursor position,&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;r&lt;/strong&gt; and the character you want to replace with.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;R&lt;/strong&gt; and the character you want to replace. this will replace the character and will take you to insert mode.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;SS&lt;/strong&gt; to substitute current line.
+#Redo/undo&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;u&lt;/strong&gt; undo the last action.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;ctrl+r&lt;/strong&gt; to redo the last change&lt;/p&gt;
+
+&lt;h1 id=&#34;search&#34;&gt;search&lt;/h1&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Search is the most important action when working with the text file.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;press &lt;strong&gt;f&lt;/strong&gt; with the character to search . i.e. fp will search next p.&lt;/li&gt;
+&lt;li&gt;press &lt;strong&gt;F&lt;/strong&gt; with the character to search. i.e. fp will search previous p.&lt;/li&gt;
+&lt;li&gt;press ***** to find next occurrence of current word.&lt;/li&gt;
+&lt;li&gt;press &lt;strong&gt;#&lt;/strong&gt; to find previous occurrence of current word.&lt;/li&gt;
+&lt;li&gt;press &lt;strong&gt;/&lt;/strong&gt; it will lead you to bottom of the terminal. then enter any word.it will take you to the first occurrence of that word.&lt;/li&gt;
+&lt;li&gt;for all of these command, press &lt;strong&gt;n&lt;/strong&gt; to go to next character/word,press &lt;strong&gt;N&lt;/strong&gt; to move to previous character/word
+#Move line&lt;/li&gt;
+&lt;li&gt;press &lt;strong&gt;:&lt;/strong&gt; and then&lt;/li&gt;
+&lt;li&gt;**m ** and the number to move line up or down(-) by that number. i.e. m5 to move current line 5 line up. or -5 to move 5 line down.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;m0&lt;/strong&gt; to move line before first line.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;m$&lt;/strong&gt; to move line at the last.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;3,5m10&lt;/strong&gt; to move line number 3 to 5 after t10’th line.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;.,5m 10&lt;/strong&gt; to move current line +next 4 lines after the 10&amp;rsquo;th line.
+*
+These are the basic command which will be most oftenly used while working with vim.practice will make you perfect and comfortable.&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
     
     <item>
       <title>Spray-json-support</title>
@@ -260,13 +411,13 @@ $scope.customDatepicker = $filter(&#39;date&#39;)($scope.date, &amp;quot;yyyy-MM
       <guid>/brijeshpant.github.io/2016/01/progressivelyuploadingcsv/</guid>
       <description>
 
-&lt;h1 id=&#34;progressively-uploading-csv:f188ebac3656b6eb764b262b3dd48a8d&#34;&gt;Progressively Uploading CSV&lt;/h1&gt;
+&lt;h1 id=&#34;progressively-uploading-csv&#34;&gt;Progressively Uploading CSV&lt;/h1&gt;
 
-&lt;h1 id=&#34;scenario:f188ebac3656b6eb764b262b3dd48a8d&#34;&gt;Scenario&lt;/h1&gt;
+&lt;h1 id=&#34;scenario&#34;&gt;Scenario&lt;/h1&gt;
 
 &lt;p&gt;You may have encountered situations, when you need to send huge amount of data (in GBs ) to the server.  One example is upload of large files. While sending this data, your server has to slog through the upcoming mighty request body and eventually process it.&lt;/p&gt;
 
-&lt;h1 id=&#34;problem-definition:f188ebac3656b6eb764b262b3dd48a8d&#34;&gt;Problem Definition&lt;/h1&gt;
+&lt;h1 id=&#34;problem-definition&#34;&gt;Problem Definition&lt;/h1&gt;
 
 &lt;p&gt;So this whole process is about getting chunk of data, wait for next chunk to come and then wait again and this goes on until it receives whole request body.  All the request body data is now in servers memory. And multiple simultaneous uploads would invariably lead to a OOM error.&lt;/p&gt;
 
@@ -274,17 +425,17 @@ $scope.customDatepicker = $filter(&#39;date&#39;)($scope.date, &amp;quot;yyyy-MM
 
 &lt;p&gt;In such conditions, what can you expect but the frustratingly slow response? Would it not be nice if there is a way to handle such requests in a smarter way?&lt;/p&gt;
 
-&lt;h1 id=&#34;solution:f188ebac3656b6eb764b262b3dd48a8d&#34;&gt;Solution&lt;/h1&gt;
+&lt;h1 id=&#34;solution&#34;&gt;Solution&lt;/h1&gt;
 
 &lt;p&gt;As the browser sends data in chunks of byte over the network, processing the incoming data in chunks would be a smarter choice. Play2 framework provides such a beautiful capability in the form  of Iteratee library. Iteratees support the consumption of data in chunks and in an asynchronous manner. For more detail of Iteratee you can browse through Iteratee.&lt;/p&gt;
 
-&lt;h1 id=&#34;iteratee:f188ebac3656b6eb764b262b3dd48a8d&#34;&gt;Iteratee&lt;/h1&gt;
+&lt;h1 id=&#34;iteratee&#34;&gt;Iteratee&lt;/h1&gt;
 
 &lt;p&gt;For now you need to understand what Iteratee can do to solve our problem. Iteratee requires producer that can feed iteratee the data to process. Producer can be any Enumerator which has capability to produce data of same type as the Iteratee expects. Iteratee can consume the chunks of data progressively. It does not need all data to be radially available. It can consume data chunks whenever it is available. Iteratee doses not wait on any upcoming chunks. It is the responsibility of producer to feed Iteratee. After receiving data chunk Iteratee can start processing it.&lt;/p&gt;
 
 &lt;p&gt;Here we will see the example code for uploading the csv file progressively. This is a Play-scala application so you need to set the required environment. Once you done with creating a play application, you are ready to go further. Here are instructions on   &lt;a href=&#34;https://www.playframework.com/documentation/2.2.x/Installing&#34;&gt;how to install and setup play&lt;/a&gt;.&lt;/p&gt;
 
-&lt;h1 id=&#34;code:f188ebac3656b6eb764b262b3dd48a8d&#34;&gt;Code&lt;/h1&gt;
+&lt;h1 id=&#34;code&#34;&gt;Code&lt;/h1&gt;
 
 &lt;p&gt;Make entries for your routes in Routes file&lt;/p&gt;
 
@@ -368,13 +519,13 @@ msg
 }
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h1 id=&#34;explanation:f188ebac3656b6eb764b262b3dd48a8d&#34;&gt;Explanation&lt;/h1&gt;
+&lt;h1 id=&#34;explanation&#34;&gt;Explanation&lt;/h1&gt;
 
 &lt;p&gt;In our case as we are parsing a csv file, every row is separated by a new line character. Therefore we need chunks based on the new line to distinguish each line separately and process it. But browsers creates the chunks by its own irrespective of what the separator is.&lt;/p&gt;
 
 &lt;p&gt;Our requirement is to get such an Iteratee which can consume each line at one go and process it. Our source of data here is chunks of Array[Byte] which may not contain new line char or may be containing more than one new lines. Therefore it has to be adapted such that it can match the type our Iteratee is expecting.&lt;/p&gt;
 
-&lt;h1 id=&#34;enumeratee:f188ebac3656b6eb764b262b3dd48a8d&#34;&gt;Enumeratee&lt;/h1&gt;
+&lt;h1 id=&#34;enumeratee&#34;&gt;Enumeratee&lt;/h1&gt;
 
 &lt;p&gt;To adapt one Type of Enumerator to the another type we have Enumeratee which is pipe adapter between Enumerator and Iteratee. It basically transform one Type of Enumerator to other type. For example Enumerator[Int] can be transformed into Enumerator[String] by applying Enumeratee[Int,String] on Enumerator[Int]. Enumeratee[A,B] can also be composed with an Enumeratee[B,C] to give Enumeratee[A,C].&lt;/p&gt;
 
@@ -516,15 +667,15 @@ In the example above our path directive matches the path &amp;ldquo;firstRoute&a
       <guid>/brijeshpant.github.io/2016/01/domaindrivendesignangular/</guid>
       <description>
 
-&lt;h1 id=&#34;domain-driven-design-in-angularjs:84866485eb4ec6c0fb1947a0cf273d70&#34;&gt;Domain Driven Design in angularjs&lt;/h1&gt;
+&lt;h1 id=&#34;domain-driven-design-in-angularjs&#34;&gt;Domain Driven Design in angularjs&lt;/h1&gt;
 
 &lt;p&gt;For developing any software we need to have clear understanding of design philosophy which will be followed to solve the given problem.We do have myriads of options. Based on the requirements we choose the best fit.One of the design philosophy is Domain Driven design.&lt;/p&gt;
 
-&lt;h2 id=&#34;ddd:84866485eb4ec6c0fb1947a0cf273d70&#34;&gt;DDD&lt;/h2&gt;
+&lt;h2 id=&#34;ddd&#34;&gt;DDD&lt;/h2&gt;
 
 &lt;p&gt;An object model of the domain that incorporates both behavior and data.When we talk about domain layer it is responsible for representing concepts of the business, information about the business situation, and business rules. State that reflects the business situation is controlled and used here, even though the technical details of storing it are delegated to the infrastructure. This layer is the heart of business software.&lt;/p&gt;
 
-&lt;h2 id=&#34;example-problem:84866485eb4ec6c0fb1947a0cf273d70&#34;&gt;Example problem&lt;/h2&gt;
+&lt;h2 id=&#34;example-problem&#34;&gt;Example problem&lt;/h2&gt;
 
 &lt;p&gt;Let us take an example of simple problem.
 We have a user that can have one of the role USER,ADMIN or SUPERUSER
@@ -690,12 +841,12 @@ We will now define our services&lt;/p&gt;
 &amp;lt;/html&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h2 id=&#34;problem-with-this-approach:84866485eb4ec6c0fb1947a0cf273d70&#34;&gt;Problem with this approach&lt;/h2&gt;
+&lt;h2 id=&#34;problem-with-this-approach&#34;&gt;Problem with this approach&lt;/h2&gt;
 
 &lt;p&gt;You can see all our behavior is lied in the presentation layer. For displaying jobs we have applied all logic in our html file. moreover we have repeated our code to display jobs for normal user and for Admin/Superuser.
 Similarly we have applied all the logic for displaying apply and unApply button in the html itself. We definitely should not have these logic in presentation layer.we can put these logics in our controller.But What if we want to bind this page with multiple controllers? We will have to write these logic in all those controllers.Situation will be more horrifying when our business demands some changes in the logic.Go find all the places and make those changes.&lt;/p&gt;
 
-&lt;h2 id=&#34;time-for-refactoring:84866485eb4ec6c0fb1947a0cf273d70&#34;&gt;Time for refactoring&lt;/h2&gt;
+&lt;h2 id=&#34;time-for-refactoring&#34;&gt;Time for refactoring&lt;/h2&gt;
 
 &lt;p&gt;Let&amp;rsquo;s think in different way.
  We know in the current problem space we have two entities user and job. user&amp;rsquo;s behavior changes based in its role.If it is Admin it has access to all jobs. But if it is normal user he can see only jobs which matches his education.
@@ -901,79 +1052,6 @@ Similarly we have applied all the logic for displaying apply and unApply button 
 &lt;p&gt;You can see now our code has become much cleaner,We need not to worry about the business logic in our presentation layer.Our controller has become free from any sort of responsibilities of modifying the model object.All the behavior related to the domain is abstracted from the outer world. You can use these domain objects any where in your application and can change them without any hiccup.&lt;/p&gt;
 
 &lt;p&gt;You can find out sample code &lt;a href=&#34;https://github.com/Brijeshpant/DDD-Angular-example.git&#34;&gt;here&lt;/a&gt;&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Making comfortable with vim</title>
-      <link>/brijeshpant.github.io/2016/01/learningvim/</link>
-      <pubDate>Tue, 26 Jan 2016 22:43:02 +0530</pubDate>
-      <author>pantbrijesh20@gmail.com (brijesh pant)</author>
-      <guid>/brijeshpant.github.io/2016/01/learningvim/</guid>
-      <description>&lt;p&gt;Being developer it looks quite fancy of modifying the text file  using the command line tools such s vim,nano etc. But When i started working on command line text editors it was quite annoying at first. I tried multiple time to work with cli but duo to not having enough knowledge of shortcut keys i was like handicapped and have to go back to my old friends (Ui text editors) . In local system it was fine but More than often i had to search through server logs, modifying configuration files. And while accessing those remote system you do not have such luxury and you have to use cli  only. Then i decided to learn short keys to make my life easier. after getting  my hands dirty it was like charm working with these editors.&lt;/p&gt;
-
-&lt;p&gt;This post is walkthrough over some of the keys which might come handy while working with vim.&lt;/p&gt;
-
-&lt;p&gt;start with  just go to your terminal&lt;/p&gt;
-
-&lt;p&gt;for creating new file type vim yourFilename&lt;/p&gt;
-
-&lt;p&gt;if the file with the file name specified by you  doesn’t  exists a new file with the same name will be opened.Otherwise existing file will be opened with its current contents.&lt;/p&gt;
-
-&lt;p&gt;in vim you have to mode
-normal mode : here you can navigate through the file using shortcut keys. but you can not type anything
-Insert mode : This is the mode where you can edit your file.But you can not apply any short keys&lt;/p&gt;
-
-&lt;p&gt;By default your file will be open in normal mode.For switching  to insert mode press i . and for switching  back to the normal mode press esc key.&lt;/p&gt;
-
-&lt;p&gt;Make sure for applying any shortcut you are in normal mode.&lt;/p&gt;
-
-&lt;dl&gt;
-&lt;dt&gt;After adding some text in your file when you think you are disqusShortname. go to normal mode and then type&lt;/dt&gt;
-&lt;dd&gt;with following options
-q for quit without saving new changes
-w for save file
-wq! for save and quit&lt;/dd&gt;
-&lt;/dl&gt;
-
-&lt;p&gt;I for insert mode
-to quit and save  wq!
-go to start of first line g
-go to bottom G
-esc  normal mode
-to move corsuer left   h
-to move to start of line 0
-to move to end of line $
-to move courser right l
-to move corsuer up k
-to move courser down j
-to move starting of next word W
-to move end of next word E
-to move starting of previous word B&lt;/p&gt;
-
-&lt;p&gt;search&lt;/p&gt;
-
-&lt;p&gt;current word  * or # =&amp;gt; forward backward  n next occurrence forward N backword  g* or g# for exact occurence&lt;/p&gt;
-
-&lt;p&gt;/  for searching any text  same n/ N  option   gun first match Gn last match&lt;/p&gt;
-
-&lt;dl&gt;
-&lt;dt&gt;/search text\c case insensitive \ C case sensitive&lt;/dt&gt;
-&lt;dt&gt;:&lt;/dt&gt;
-&lt;dt&gt;:%s/foo/bar/g
-Find each occurrence of &amp;lsquo;foo&amp;rsquo; (in all lines), and replace it with &amp;lsquo;bar&amp;rsquo;.
-:s/foo/bar/g
-Find each occurrence of &amp;lsquo;foo&amp;rsquo; (in the current line only), and replace it with &amp;lsquo;bar&amp;rsquo;.
-:%s/foo/bar/gc
-Change each &amp;lsquo;foo&amp;rsquo; to &amp;lsquo;bar&amp;rsquo;, but ask for confirmation first.
-:%s/&amp;lt;foo&amp;gt;/bar/gc
-Change only whole words exactly matching &amp;lsquo;foo&amp;rsquo; to &amp;lsquo;bar&amp;rsquo;; ask for confirmation.
-:%s/foo/bar/gci
-Change each &amp;lsquo;foo&amp;rsquo; (case insensitive due to the i flag) to &amp;lsquo;bar&amp;rsquo;; ask for confirmation.
-:%s/foo\c/bar/gc is the same because \c makes the search case insensitive.
-This may be wanted after using :set noignorecase to make searches case sensitive (the default).
-:%s/foo/bar/gcI&lt;/dt&gt;
-&lt;/dl&gt;
 </description>
     </item>
     
