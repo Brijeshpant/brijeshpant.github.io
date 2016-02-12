@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8"/>
-  <title>Spray-json-support</title>
+  <title>Using Spray JSON to build your REST API</title>
 
-  <meta name="description" content="Spray-json-support"/>
+  <meta name="description" content="Using Spray JSON to build your REST API"/>
   <meta name="author" content="brijesh pant"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <base href="/brijeshpant.github.io/" />
@@ -36,13 +36,13 @@
       
 
     </p>
-    <h1>Spray-json-support</h1>
+    <h1>Using Spray JSON to build your REST API</h1>
   </div>
 
   
 
   <div class="post">
-    <p>For any of the rest application it’s state has to be serialize or deserialized while transferring back and forth between application and the network. Spray-json provide such support for the json based state representation.
+    <p>For any of the rest application it’s state has to be serialize or deserialized while transferring back and forth between application and the network. spray-json provide such support for the json based state representation.
  For using spray-json we just need to  add &lsquo;spray-json&rsquo; dependency in the project. For instance adding support in the sbt project add following to the build file.</p>
 
 <pre><code>&quot;io.spray&quot; %% &quot;spray-json&quot; % &quot;1.3.2&quot;
@@ -63,9 +63,9 @@ we have existing StringJsonFormat</p>
 }
 </code></pre>
 
-<p>which read jsString and convert it to Scala String and vise-versa.</p>
+<p>which read JsString and convert it to Scala String and vise-versa.</p>
 
-<p>In similar way spray-json provides different traits to support serialization of all of the Scala basic types,tuples, collection etc.
+<p>In similar way spray-json provides different traits to support serialization of all of the Scala basic types,tuples,collection etc.
 Formater for all of these types are clubbed together in the trait called DefaultJsonProtocol. So for serializing/deserializing these types we just need to
 put this implicit types in the scope.</p>
 
@@ -148,7 +148,6 @@ implicit val userFormat = jsonFormat3(User)</code> will be in it&rsquo;s scope.<
 <p>The above approach works good when we are dealing with case classes. But if we have to work with Scala class, we will have to do more work than this.</p>
 
 <pre><code>class Person(val name: String, val age: Int)
-
 </code></pre>
 
 <pre><code>object PersonProtocol {
