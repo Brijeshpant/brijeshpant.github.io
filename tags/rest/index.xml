@@ -2,13 +2,13 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Rest on Brijesh Pant</title>
-    <link>brijeshpant.github.io/tags/rest/</link>
+    <link>brijeshpant.github.io/tags/rest.html</link>
     <description>Recent content in Rest on Brijesh Pant</description>
     <generator>Hugo -- gohugo.io</generator>
     <managingEditor>pantbrijesh20@gmail.com (brijesh pant)</managingEditor>
     <webMaster>pantbrijesh20@gmail.com (brijesh pant)</webMaster>
     <lastBuildDate>Sat, 30 Jan 2016 15:05:59 +0530</lastBuildDate>
-    <atom:link href="brijeshpant.github.io/tags/rest/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="brijeshpant.github.io/tags/rest.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Spraying rest applications with spray</title>
@@ -22,7 +22,7 @@
 
 &lt;p&gt;In this blog post we will see how to setup spray environment for the Scala application and also learn about some of the building blocks. In the upcoming post we will see simple  example of writing rest Api&amp;rsquo;s, authentication support, cross origin support and actor handling also most important part of the development unit test spray routes.&lt;/p&gt;
 
-&lt;h1 id=&#34;table-of-content:a846ee36b0a32d4baa95d852ff656c38&#34;&gt;Table of content&lt;/h1&gt;
+&lt;h1 id=&#34;table-of-content&#34;&gt;Table of content&lt;/h1&gt;
 
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;#Basic setup&#34;&gt;Basic setup&lt;/a&gt;&lt;/li&gt;
@@ -32,7 +32,7 @@
 &lt;li&gt;&lt;a href=&#34;#Conclusion&#34;&gt;Conclusion&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&#34;basic-setup:a846ee36b0a32d4baa95d852ff656c38&#34;&gt;Basic setup&lt;/h2&gt;
+&lt;h2 id=&#34;basic-setup&#34;&gt;Basic setup&lt;/h2&gt;
 
 &lt;p&gt;To start with we need to firstly create the sbt project.&lt;/p&gt;
 
@@ -59,11 +59,11 @@ we have defined 3  libraries  spray-can ,spray-routing and akka-actor. These are
 
 &lt;p&gt;Let&amp;rsquo;s understand why these libraries are for&lt;/p&gt;
 
-&lt;h3 id=&#34;spray-can:a846ee36b0a32d4baa95d852ff656c38&#34;&gt;Spray-can&lt;/h3&gt;
+&lt;h3 id=&#34;spray-can&#34;&gt;Spray-can&lt;/h3&gt;
 
 &lt;p&gt;A low-level, low-overhead, high-performance HTTP server and client built on top of spray-io. When spray-can server get started,It starts a new listener actor which can handle thousands of  incoming requests asynchronously.&lt;/p&gt;
 
-&lt;h3 id=&#34;spray-routing:a846ee36b0a32d4baa95d852ff656c38&#34;&gt;Spray-routing&lt;/h3&gt;
+&lt;h3 id=&#34;spray-routing&#34;&gt;Spray-routing&lt;/h3&gt;
 
 &lt;p&gt;A high-level routing DSL for elegantly defining RESTful web services. It provides abstraction layer over the spray-http . It saves developers efforts of writing boiler plate code and provide them the simple interface to build  the application.&lt;/p&gt;
 
@@ -102,7 +102,7 @@ In the example above we have override receive method with partial function runRo
 
 &lt;p&gt;All the structure you define will be subtype of Route.&lt;/p&gt;
 
-&lt;h2 id=&#34;directives:a846ee36b0a32d4baa95d852ff656c38&#34;&gt;Directives&lt;/h2&gt;
+&lt;h2 id=&#34;directives&#34;&gt;Directives&lt;/h2&gt;
 
 &lt;p&gt;We can combine multiple such structure to form a complex Route. These building blocks are termed as Directive in spray. Spray comes up with predefined Directives for handling almost every type of request one can encounter. But we can create our own Directives if required by modifying or combining these Directives.&lt;/p&gt;
 
@@ -113,7 +113,7 @@ In the example above our path directive matches the path &amp;ldquo;firstRoute&a
 
 &lt;p&gt;You can find out sample code &lt;a href=&#34;https://github.com/Brijeshpant/SprayingRestWithSpray.git&#34;&gt;here&lt;/a&gt;&lt;/p&gt;
 
-&lt;h2 id=&#34;conclusion:a846ee36b0a32d4baa95d852ff656c38&#34;&gt;Conclusion&lt;/h2&gt;
+&lt;h2 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h2&gt;
 
 &lt;p&gt;In this post we explored how to set up spray application,learned about basic ingredients of the spray.In my upcoming  blog we will deep dive in detail and we will be using these ingredients to create more stuff about Rest Api&amp;rsquo;s through spray.&lt;/p&gt;
 </description>

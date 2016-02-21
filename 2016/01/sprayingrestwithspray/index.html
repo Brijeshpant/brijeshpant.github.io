@@ -56,7 +56,7 @@
 
 <p>In this blog post we will see how to setup spray environment for the Scala application and also learn about some of the building blocks. In the upcoming post we will see simple  example of writing rest Api&rsquo;s, authentication support, cross origin support and actor handling also most important part of the development unit test spray routes.</p>
 
-<h1 id="table-of-content:a846ee36b0a32d4baa95d852ff656c38">Table of content</h1>
+<h1 id="table-of-content">Table of content</h1>
 
 <ul>
 <li><a href="#Basic setup">Basic setup</a></li>
@@ -66,7 +66,7 @@
 <li><a href="#Conclusion">Conclusion</a></li>
 </ul>
 
-<h2 id="basic-setup:a846ee36b0a32d4baa95d852ff656c38">Basic setup</h2>
+<h2 id="basic-setup">Basic setup</h2>
 
 <p>To start with we need to firstly create the sbt project.</p>
 
@@ -93,11 +93,11 @@ we have defined 3  libraries  spray-can ,spray-routing and akka-actor. These are
 
 <p>Let&rsquo;s understand why these libraries are for</p>
 
-<h3 id="spray-can:a846ee36b0a32d4baa95d852ff656c38">Spray-can</h3>
+<h3 id="spray-can">Spray-can</h3>
 
 <p>A low-level, low-overhead, high-performance HTTP server and client built on top of spray-io. When spray-can server get started,It starts a new listener actor which can handle thousands of  incoming requests asynchronously.</p>
 
-<h3 id="spray-routing:a846ee36b0a32d4baa95d852ff656c38">Spray-routing</h3>
+<h3 id="spray-routing">Spray-routing</h3>
 
 <p>A high-level routing DSL for elegantly defining RESTful web services. It provides abstraction layer over the spray-http . It saves developers efforts of writing boiler plate code and provide them the simple interface to build  the application.</p>
 
@@ -136,7 +136,7 @@ In the example above we have override receive method with partial function runRo
 
 <p>All the structure you define will be subtype of Route.</p>
 
-<h2 id="directives:a846ee36b0a32d4baa95d852ff656c38">Directives</h2>
+<h2 id="directives">Directives</h2>
 
 <p>We can combine multiple such structure to form a complex Route. These building blocks are termed as Directive in spray. Spray comes up with predefined Directives for handling almost every type of request one can encounter. But we can create our own Directives if required by modifying or combining these Directives.</p>
 
@@ -147,7 +147,7 @@ In the example above our path directive matches the path &ldquo;firstRoute&rdquo
 
 <p>You can find out sample code <a href="https://github.com/Brijeshpant/SprayingRestWithSpray.git">here</a></p>
 
-<h2 id="conclusion:a846ee36b0a32d4baa95d852ff656c38">Conclusion</h2>
+<h2 id="conclusion">Conclusion</h2>
 
 <p>In this post we explored how to set up spray application,learned about basic ingredients of the spray.In my upcoming  blog we will deep dive in detail and we will be using these ingredients to create more stuff about Rest Api&rsquo;s through spray.</p>
 
