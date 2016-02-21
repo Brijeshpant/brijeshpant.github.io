@@ -72,7 +72,7 @@ First thing you need to do is make your git repository aware of your domain name
 
 &lt;p&gt;you can cross verify these changes by applying following Command&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt; www.yourdomainname
+&lt;pre&gt;&lt;code&gt; dig www.yourdomainname
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;If you are able to see the ip,you added with the A record you are good to go. otherwise you would have to wait for little longer.&lt;/p&gt;
