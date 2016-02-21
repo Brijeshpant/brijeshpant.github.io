@@ -1,0 +1,8 @@
++++
+date = "2016-02-21T14:14:56+05:30"
+draft = false
+title = "Link your github page to your domain"
+
++++
+For the developers it is quite common now a days to create there blogs,website using the same tool which they use to version control there code.
+yes i am taking of git.You can create your static pages using github pages [https://pages.github.com/].

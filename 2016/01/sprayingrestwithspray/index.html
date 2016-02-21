@@ -7,7 +7,7 @@
   <meta name="description" content="Spraying rest applications with spray"/>
   <meta name="author" content="brijesh pant"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <base href="/brijeshpant.github.io/" />
+  <base href="brijeshpant.com/brijeshpant.com/" />
 
   <link rel="stylesheet" href="css/fonts.css"/>
   <link rel="stylesheet" href="css/normalize.css"/>
@@ -59,14 +59,12 @@
 <h1 id="table-of-content:a846ee36b0a32d4baa95d852ff656c38">Table of content</h1>
 
 <ul>
-<li><a href="#setup">Basic setup</a></li>
-<li><a href="#spraycan">Spray-can</a></li>
-<li><a href="#sprayrouting">Spray-routing</a></li>
-<li><a href="#directives">Directives</a></li>
-<li><a href="#conclusion">Conclusion</a></li>
+<li><a href="#Basic setup">Basic setup</a></li>
+<li><a href="#Spray-can">Spray-can</a></li>
+<li><a href="#Spray-routing">Spray-routing</a></li>
+<li><a href="#Directives">Directives</a></li>
+<li><a href="#Conclusion">Conclusion</a></li>
 </ul>
-
-<p><a id="setup"></a></p>
 
 <h2 id="basic-setup:a846ee36b0a32d4baa95d852ff656c38">Basic setup</h2>
 
@@ -93,14 +91,11 @@ libraryDependencies ++= {
 <p>We are using akka version 2.3.6 and spray version 1.3.2
 we have defined 3  libraries  spray-can ,spray-routing and akka-actor. These are sufficient to start building spray application. We will keep adding other spray libraries as and when needed. This is the beauty of spray that you use only what you needed.</p>
 
-<p>Let&rsquo;s understand why these libraries are for
-<a id="spraycan"></a></p>
+<p>Let&rsquo;s understand why these libraries are for</p>
 
 <h3 id="spray-can:a846ee36b0a32d4baa95d852ff656c38">Spray-can</h3>
 
 <p>A low-level, low-overhead, high-performance HTTP server and client built on top of spray-io. When spray-can server get started,It starts a new listener actor which can handle thousands of  incoming requests asynchronously.</p>
-
-<p><a id="sprayrouting"></a></p>
 
 <h3 id="spray-routing:a846ee36b0a32d4baa95d852ff656c38">Spray-routing</h3>
 
@@ -141,8 +136,6 @@ In the example above we have override receive method with partial function runRo
 
 <p>All the structure you define will be subtype of Route.</p>
 
-<p><a id="directives"></a></p>
-
 <h2 id="directives:a846ee36b0a32d4baa95d852ff656c38">Directives</h2>
 
 <p>We can combine multiple such structure to form a complex Route. These building blocks are termed as Directive in spray. Spray comes up with predefined Directives for handling almost every type of request one can encounter. But we can create our own Directives if required by modifying or combining these Directives.</p>
@@ -153,8 +146,6 @@ In the example above our path directive matches the path &ldquo;firstRoute&rdquo
 <p>The complete method creates an HttpResponse an sends it to responder of the RequestContext.</p>
 
 <p>You can find out sample code <a href="https://github.com/Brijeshpant/SprayingRestWithSpray.git">here</a></p>
-
-<p><a id="conclusion"></a></p>
 
 <h2 id="conclusion:a846ee36b0a32d4baa95d852ff656c38">Conclusion</h2>
 
@@ -182,7 +173,7 @@ In the example above our path directive matches the path &ldquo;firstRoute&rdquo
 <div id="sidebar">
 <div class="sidebar">
   <div class="sidebar-about">
-    <a href="/brijeshpant.github.io">
+    <a href="brijeshpant.com/brijeshpant.com">
       <img src="media/me.jpg" title="brijesh pant" alt="Me" />
       <h4 class="sidebar-title">Brijesh Pant</h4>
     </a>
@@ -191,7 +182,7 @@ In the example above our path directive matches the path &ldquo;firstRoute&rdquo
   <nav class="sidebar-nav">
     <ul class="sidebar-nav-list">
       <li class="sidebar-nav-item nav-home">
-        <span class="genericon genericon-home"></span><a class="sidebar-link" href="/brijeshpant.github.io">Home</a>
+        <span class="genericon genericon-home"></span><a class="sidebar-link" href="brijeshpant.com/brijeshpant.com">Home</a>
       </li>
       <li class="sidebar-nav-item">
         <a class="genericon genericon-feed" href="posts/index.xml"></a><a class="sidebar-link" href="posts/">Posts/</a>

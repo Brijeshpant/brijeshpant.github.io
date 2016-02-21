@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Spray on Brijesh Pant</title>
-    <link>brijeshpant.github.io/tags/spray/</link>
+    <link>brijeshpant.com/tags/spray/</link>
     <description>Recent content in Spray on Brijesh Pant</description>
     <generator>Hugo -- gohugo.io</generator>
     <managingEditor>pantbrijesh20@gmail.com (brijesh pant)</managingEditor>
     <webMaster>pantbrijesh20@gmail.com (brijesh pant)</webMaster>
     <lastBuildDate>Sat, 30 Jan 2016 15:05:59 +0530</lastBuildDate>
-    <atom:link href="brijeshpant.github.io/tags/spray/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="brijeshpant.com/tags/spray/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Spraying rest applications with spray</title>
-      <link>/brijeshpant.github.io/2016/01/sprayingrestwithspray/</link>
+      <link>/brijeshpant.com/2016/01/sprayingrestwithspray/</link>
       <pubDate>Sat, 30 Jan 2016 15:05:59 +0530</pubDate>
       <author>pantbrijesh20@gmail.com (brijesh pant)</author>
-      <guid>/brijeshpant.github.io/2016/01/sprayingrestwithspray/</guid>
+      <guid>/brijeshpant.com/2016/01/sprayingrestwithspray/</guid>
       <description>
 
 &lt;p&gt;Spray is a suite of lightweight Scala libraries providing client- and server-side REST/HTTP support on top of Akka.  Akka makes the application fully asynchronous. There are other frameworks build on top of Akka such as Play that gives  ability to build full web application but with one down side and that is  application becomes highly coupled with the framework as the application build on top of Play. As oppose to that spray gives  ability to create  Application layer independent of  anything without even thinking of the framework. Spray will just work as an  integration layer to shake hand between outer world and the application. Outer world could be any web,mobile or third party applications.&lt;/p&gt;
@@ -25,14 +25,12 @@
 &lt;h1 id=&#34;table-of-content:a846ee36b0a32d4baa95d852ff656c38&#34;&gt;Table of content&lt;/h1&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;#setup&#34;&gt;Basic setup&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;#spraycan&#34;&gt;Spray-can&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;#sprayrouting&#34;&gt;Spray-routing&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;#directives&#34;&gt;Directives&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;#conclusion&#34;&gt;Conclusion&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#Basic setup&#34;&gt;Basic setup&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#Spray-can&#34;&gt;Spray-can&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#Spray-routing&#34;&gt;Spray-routing&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#Directives&#34;&gt;Directives&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#Conclusion&#34;&gt;Conclusion&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-
-&lt;p&gt;&lt;a id=&#34;setup&#34;&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;h2 id=&#34;basic-setup:a846ee36b0a32d4baa95d852ff656c38&#34;&gt;Basic setup&lt;/h2&gt;
 
@@ -59,14 +57,11 @@ libraryDependencies ++= {
 &lt;p&gt;We are using akka version 2.3.6 and spray version 1.3.2
 we have defined 3  libraries  spray-can ,spray-routing and akka-actor. These are sufficient to start building spray application. We will keep adding other spray libraries as and when needed. This is the beauty of spray that you use only what you needed.&lt;/p&gt;
 
-&lt;p&gt;Let&amp;rsquo;s understand why these libraries are for
-&lt;a id=&#34;spraycan&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Let&amp;rsquo;s understand why these libraries are for&lt;/p&gt;
 
 &lt;h3 id=&#34;spray-can:a846ee36b0a32d4baa95d852ff656c38&#34;&gt;Spray-can&lt;/h3&gt;
 
 &lt;p&gt;A low-level, low-overhead, high-performance HTTP server and client built on top of spray-io. When spray-can server get started,It starts a new listener actor which can handle thousands of  incoming requests asynchronously.&lt;/p&gt;
-
-&lt;p&gt;&lt;a id=&#34;sprayrouting&#34;&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;h3 id=&#34;spray-routing:a846ee36b0a32d4baa95d852ff656c38&#34;&gt;Spray-routing&lt;/h3&gt;
 
@@ -107,8 +102,6 @@ In the example above we have override receive method with partial function runRo
 
 &lt;p&gt;All the structure you define will be subtype of Route.&lt;/p&gt;
 
-&lt;p&gt;&lt;a id=&#34;directives&#34;&gt;&lt;/a&gt;&lt;/p&gt;
-
 &lt;h2 id=&#34;directives:a846ee36b0a32d4baa95d852ff656c38&#34;&gt;Directives&lt;/h2&gt;
 
 &lt;p&gt;We can combine multiple such structure to form a complex Route. These building blocks are termed as Directive in spray. Spray comes up with predefined Directives for handling almost every type of request one can encounter. But we can create our own Directives if required by modifying or combining these Directives.&lt;/p&gt;
@@ -119,8 +112,6 @@ In the example above our path directive matches the path &amp;ldquo;firstRoute&a
 &lt;p&gt;The complete method creates an HttpResponse an sends it to responder of the RequestContext.&lt;/p&gt;
 
 &lt;p&gt;You can find out sample code &lt;a href=&#34;https://github.com/Brijeshpant/SprayingRestWithSpray.git&#34;&gt;here&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a id=&#34;conclusion&#34;&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;h2 id=&#34;conclusion:a846ee36b0a32d4baa95d852ff656c38&#34;&gt;Conclusion&lt;/h2&gt;
 
