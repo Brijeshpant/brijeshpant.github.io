@@ -18,7 +18,7 @@
       <guid>/brijeshpant.github.io/2016/01/customizingangulardirectives/</guid>
       <description>
 
-&lt;h1 id=&#34;customizing-angular-directives:ceb9c000a2f334563e8c78f9f222806f&#34;&gt;Customizing Angular Directives&lt;/h1&gt;
+&lt;h1 id=&#34;customizing-angular-directives&#34;&gt;Customizing Angular Directives&lt;/h1&gt;
 
 &lt;p&gt;While developing Angular Application we have a obvious choice of using third party directives. Most of the time these directive are suffice to handle all the use cases. But situation may occur when you feel that there is really something missing to fulfill your Specific problem. Common practice is to add your own custom directive along with the directive, you want to use in the element. But It sounds quite weird to Have two directives to solve the same problem. Hence we might have to think of some different way.&lt;/p&gt;
 
