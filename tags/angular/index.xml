@@ -2,13 +2,13 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Angular on Brijesh Pant</title>
-    <link>brijeshpant.github.io/tags/angular.html</link>
+    <link>brijeshpant.github.io/tags/angular/</link>
     <description>Recent content in Angular on Brijesh Pant</description>
     <generator>Hugo -- gohugo.io</generator>
     <managingEditor>pantbrijesh20@gmail.com (brijesh pant)</managingEditor>
     <webMaster>pantbrijesh20@gmail.com (brijesh pant)</webMaster>
     <lastBuildDate>Sat, 30 Jan 2016 15:36:44 +0530</lastBuildDate>
-    <atom:link href="brijeshpant.github.io/tags/angular.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="brijeshpant.github.io/tags/angular/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Customizing Angular Directives</title>
