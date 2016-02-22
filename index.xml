@@ -126,7 +126,7 @@ First thing you need to do is make your git repository aware of your domain name
 
 &lt;p&gt;Now we will learn to navigate through file&lt;/p&gt;
 
-&lt;h1 id=&#34;navigation:c786b87c7a6a408d29c6bd3e6effb1b6&#34;&gt;Navigation&lt;/h1&gt;
+&lt;h1 id=&#34;navigation&#34;&gt;Navigation&lt;/h1&gt;
 
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;0&lt;/strong&gt; move cursor to start of the current line.&lt;/li&gt;
@@ -147,7 +147,7 @@ First thing you need to do is make your git repository aware of your domain name
 
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;{&lt;/strong&gt; move one paragraph backward.&lt;/p&gt;
 
-&lt;h1 id=&#34;screen-navigation:c786b87c7a6a408d29c6bd3e6effb1b6&#34;&gt;Screen navigation&lt;/h1&gt;&lt;/li&gt;
+&lt;h1 id=&#34;screen-navigation&#34;&gt;Screen navigation&lt;/h1&gt;&lt;/li&gt;
 
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;ctrl+f&lt;/strong&gt; page down&lt;/p&gt;&lt;/li&gt;
 
@@ -165,7 +165,7 @@ First thing you need to do is make your git repository aware of your domain name
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;O&lt;/strong&gt; this will add new line above the current line.
 Both of these command will automatically change the mode to insert mode.&lt;/p&gt;
 
-&lt;h1 id=&#34;delete:c786b87c7a6a408d29c6bd3e6effb1b6&#34;&gt;Delete&lt;/h1&gt;&lt;/li&gt;
+&lt;h1 id=&#34;delete&#34;&gt;Delete&lt;/h1&gt;&lt;/li&gt;
 
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;x&lt;/strong&gt; delete character on cursor position.keep pressing x to remove characters on Right.&lt;/p&gt;&lt;/li&gt;
 
@@ -184,7 +184,7 @@ these delete commands actually along with deleting copies the text. So you can p
 
 &lt;li&gt;&lt;p&gt;5dw to delete 5 words.&lt;/p&gt;
 
-&lt;h1 id=&#34;repetition:c786b87c7a6a408d29c6bd3e6effb1b6&#34;&gt;Repetition&lt;/h1&gt;
+&lt;h1 id=&#34;repetition&#34;&gt;Repetition&lt;/h1&gt;
 
 &lt;p&gt;you can repeat any action by using &lt;strong&gt;.&lt;/strong&gt;. i.e.&lt;/p&gt;&lt;/li&gt;
 
@@ -192,7 +192,7 @@ these delete commands actually along with deleting copies the text. So you can p
 
 &lt;li&gt;&lt;p&gt;if your last command is &lt;strong&gt;5x&lt;/strong&gt;. it will delete 5 characters. then &lt;strong&gt;.&lt;/strong&gt; will remove the next 5 characters.&lt;/p&gt;
 
-&lt;h1 id=&#34;replace-character:c786b87c7a6a408d29c6bd3e6effb1b6&#34;&gt;Replace character&lt;/h1&gt;
+&lt;h1 id=&#34;replace-character&#34;&gt;Replace character&lt;/h1&gt;
 
 &lt;p&gt;if you want to replace the character under cursor position,&lt;/p&gt;&lt;/li&gt;
 
@@ -207,7 +207,7 @@ these delete commands actually along with deleting copies the text. So you can p
 
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;ctrl+r&lt;/strong&gt; to redo the last change&lt;/p&gt;
 
-&lt;h1 id=&#34;search:c786b87c7a6a408d29c6bd3e6effb1b6&#34;&gt;search&lt;/h1&gt;&lt;/li&gt;
+&lt;h1 id=&#34;search&#34;&gt;search&lt;/h1&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;Search is the most important action when working with the text file.&lt;/p&gt;
@@ -728,15 +728,15 @@ In the example above our path directive matches the path &amp;ldquo;firstRoute&a
       <guid>/brijeshpant.github.io/2016/01/domaindrivendesignangular/</guid>
       <description>
 
-&lt;h1 id=&#34;domain-driven-design-in-angularjs:84866485eb4ec6c0fb1947a0cf273d70&#34;&gt;Domain Driven Design in angularjs&lt;/h1&gt;
+&lt;h1 id=&#34;domain-driven-design-in-angularjs&#34;&gt;Domain Driven Design in angularjs&lt;/h1&gt;
 
 &lt;p&gt;For developing any software we need to have clear understanding of design philosophy which will be followed to solve the given problem.We do have myriads of options. Based on the requirements we choose the best fit.One of the design philosophy is Domain Driven design.&lt;/p&gt;
 
-&lt;h2 id=&#34;ddd:84866485eb4ec6c0fb1947a0cf273d70&#34;&gt;DDD&lt;/h2&gt;
+&lt;h2 id=&#34;ddd&#34;&gt;DDD&lt;/h2&gt;
 
 &lt;p&gt;An object model of the domain that incorporates both behavior and data.When we talk about domain layer it is responsible for representing concepts of the business, information about the business situation, and business rules. State that reflects the business situation is controlled and used here, even though the technical details of storing it are delegated to the infrastructure. This layer is the heart of business software.&lt;/p&gt;
 
-&lt;h2 id=&#34;example-problem:84866485eb4ec6c0fb1947a0cf273d70&#34;&gt;Example problem&lt;/h2&gt;
+&lt;h2 id=&#34;example-problem&#34;&gt;Example problem&lt;/h2&gt;
 
 &lt;p&gt;Let us take an example of simple problem.
 We have a user that can have one of the role USER,ADMIN or SUPERUSER
@@ -902,12 +902,12 @@ We will now define our services&lt;/p&gt;
 &amp;lt;/html&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h2 id=&#34;problem-with-this-approach:84866485eb4ec6c0fb1947a0cf273d70&#34;&gt;Problem with this approach&lt;/h2&gt;
+&lt;h2 id=&#34;problem-with-this-approach&#34;&gt;Problem with this approach&lt;/h2&gt;
 
 &lt;p&gt;You can see all our behavior is lied in the presentation layer. For displaying jobs we have applied all logic in our html file. moreover we have repeated our code to display jobs for normal user and for Admin/Superuser.
 Similarly we have applied all the logic for displaying apply and unApply button in the html itself. We definitely should not have these logic in presentation layer.we can put these logics in our controller.But What if we want to bind this page with multiple controllers? We will have to write these logic in all those controllers.Situation will be more horrifying when our business demands some changes in the logic.Go find all the places and make those changes.&lt;/p&gt;
 
-&lt;h2 id=&#34;time-for-refactoring:84866485eb4ec6c0fb1947a0cf273d70&#34;&gt;Time for refactoring&lt;/h2&gt;
+&lt;h2 id=&#34;time-for-refactoring&#34;&gt;Time for refactoring&lt;/h2&gt;
 
 &lt;p&gt;Let&amp;rsquo;s think in different way.
  We know in the current problem space we have two entities user and job. user&amp;rsquo;s behavior changes based in its role.If it is Admin it has access to all jobs. But if it is normal user he can see only jobs which matches his education.
