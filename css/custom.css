@@ -63,6 +63,12 @@ color: #1EAEDB;
 text-shadow: 0px 0px 15px #0A0F10;
 line-height: 1;
 }
+.sidebar-contents {
+  font-size: 15px;
+  line-height: 25px;
+  text-align: justify;
+  color: #1EAEDB;
+}
 
 .sidebar-nav {
 background-color: #1D1F21;
