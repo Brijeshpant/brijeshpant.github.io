@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Json on Brijesh Pant</title>
+    <link>brijeshpant.github.io/tags/json/</link>
+    <description>Recent content in Json on Brijesh Pant</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <managingEditor>pantbrijesh20@gmail.com (brijesh pant)</managingEditor>
+    <webMaster>pantbrijesh20@gmail.com (brijesh pant)</webMaster>
+    <lastBuildDate>Mon, 01 Feb 2016 22:43:02 +0530</lastBuildDate>
+    <atom:link href="brijeshpant.github.io/tags/json/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Using Spray JSON to build your REST API</title>
+      <link>/brijeshpant.github.io/2016/02/spray-json-support/</link>
+      <pubDate>Mon, 01 Feb 2016 22:43:02 +0530</pubDate>
+      <author>pantbrijesh20@gmail.com (brijesh pant)</author>
+      <guid>/brijeshpant.github.io/2016/02/spray-json-support/</guid>
+      <description>&lt;p&gt;For any of the rest application it’s state has to be serialize or deserialized while transferring back and forth between application and the network. spray-json provide such support for the json based state representation.
+ For using spray-json we just need to  add &amp;lsquo;spray-json&amp;rsquo; dependency in the project. For instance adding support in the sbt project add following to the build file.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;quot;io.spray&amp;quot; %% &amp;quot;spray-json&amp;quot; % &amp;quot;1.3.2&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;spray-json provides JsonFormater to serialize/deserialize all of the scala types. i.e. for String type
+we have existing StringJsonFormat&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;implicit object StringJsonFormat extends JsonFormat[String] {
+  def write(x: String) = {
+    require(x ne null)
+    JsString(x)
+  }
+  def read(value: JsValue) = value match {
+    case JsString(x) =&amp;gt; x
+    case x =&amp;gt; deserializationError(&amp;quot;Expected String as JsString, but got &amp;quot; + x)
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;which read JsString and convert it to Scala String and vise-versa.&lt;/p&gt;
+
+&lt;p&gt;In similar way spray-json provides different traits to support serialization of all of the Scala basic types,tuples,collection etc.
+Formater for all of these types are clubbed together in the trait called DefaultJsonProtocol. So for serializing/deserializing these types we just need to
+put this implicit types in the scope.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;import spray.json.DefaultJsonProtocol._
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Following test should be proof of the correct conversion&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;val jsString =  new JsString(&amp;quot;JsString&amp;quot;)
+assert(StringJsonFormat.read(jsString).equals(&amp;quot;JsString&amp;quot;))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;additionally spray json provides methods to convert the object into json or vice versa&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;jsString.convertTo[String]
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;which converts JsValue to the type.&lt;/p&gt;
+
+&lt;p&gt;For converting type into json&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;quot;String&amp;quot;.toJson
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Note: for using toJson&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;import spray.json._
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;For any of the user defined type. We have to create our own Formatter. But that isn&amp;rsquo;t any harder.&lt;/p&gt;
+
+&lt;p&gt;let say we have a case class&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;case class User(name:String,email:String,isActive:Boolean)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;now to support serialization we need to create a new protocol&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;object UserProtocol extends DefaultJsonProtocol {
+    implicit val userFormat = jsonFormat3(User)
+  }
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;our protocol extends the DefaultJsonProtocol. and depending on the attributes in the case class we need to just call the jsonFormatn
+where n is the no of attributes in the case class.
+spray json provides such support for all the possible no&amp;rsquo;s of attribute of the case class as long as their type is supported by the DefaultJsonProtocol.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;import UserProtocol._
+import spray.json._
+test(&amp;quot;User object should be able to convert into json and vise-versa&amp;quot;) {
+   import UserProtocol.userFormat
+   val user = User(&amp;quot;brij&amp;quot;,&amp;quot;pantbrijesh20@gmail.com&amp;quot;,true)
+   val aa = user.toJson
+   val userJson = &amp;quot;&amp;quot;&amp;quot;{&amp;quot;name&amp;quot;:&amp;quot;brij&amp;quot;,&amp;quot;email&amp;quot;:&amp;quot;pantbrijesh20@gmail.com&amp;quot;,&amp;quot;isActive&amp;quot;:true}&amp;quot;&amp;quot;&amp;quot;
+   assert(user.toJson.toString == userJson)
+   assert(userJson.parseJson.convertTo[User] == User(&amp;quot;brij&amp;quot;,&amp;quot;pantbrijesh20@gmail.com&amp;quot;,true) )
+
+ }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In general custom type doesn&amp;rsquo;t only contains predefined types but also the user defined types. In this case additionally to the DefaultJsonProtocol we need to have the protocol for the user defined type in the scope.
+for example&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;case class UserProfile(user:User,profile:String)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Here User profile has User type as its attribute.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;implicit val userProfileFormat = jsonFormat2(UserProfile)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;So this will only work if &lt;code&gt;
+implicit val userFormat = jsonFormat3(User)&lt;/code&gt; will be in it&amp;rsquo;s scope.&lt;/p&gt;
+
+&lt;p&gt;What we can to do is all the custom protocol can be wrapped in a single trait. In this case you just ned to include this trait into your scope.&lt;/p&gt;
+
+&lt;p&gt;The above approach works good when we are dealing with case classes. But if we have to work with Scala class, we will have to do more work than this.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;class Person(val name: String, val age: Int)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;object PersonProtocol {
+    def write(p: Person) = JsArray(JsString(p.name), JsNumber(p.age))
+
+    def read(value: JsValue) = {
+      value.asJsObject match {
+        case Seq(JsArray(Vector(JsString(name), JsNumber(age)))) =&amp;gt; new Person(name, age.toInt)
+        case _ =&amp;gt; throw new DeserializationException(&amp;quot;object not convertable&amp;quot;)
+      }
+    }
+  }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;we will have to write our own read and write function&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -3,8 +3,13 @@
   
   <url>
     <loc>/brijeshpant.github.io/</loc>
-    <lastmod>2016-02-21T14:14:56+05:30</lastmod>
+    <lastmod>2016-02-28T12:00:01+02:30</lastmod>
     <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/brijeshpant.github.io/2016/02/configuring_multiple_git_account/</loc>
+    <lastmod>2016-02-28T12:00:01+02:30</lastmod>
   </url>
   
   <url>
@@ -13,7 +18,7 @@
   </url>
   
   <url>
-    <loc>/brijeshpant.github.io/2016/02/learningvim/</loc>
+    <loc>/brijeshpant.github.io/2016/02/working_with_vim/</loc>
     <lastmod>2016-02-06T00:36:02+05:30</lastmod>
   </url>
   
@@ -28,17 +33,17 @@
   </url>
   
   <url>
-    <loc>/brijeshpant.github.io/2016/01/progressivelyuploadingcsv/</loc>
+    <loc>/brijeshpant.github.io/2016/01/progressively_uploading_csv/</loc>
     <lastmod>2016-01-30T15:16:28+05:30</lastmod>
   </url>
   
   <url>
-    <loc>/brijeshpant.github.io/2016/01/sprayingrestwithspray/</loc>
+    <loc>/brijeshpant.github.io/2016/01/spraying_rest_with_spray/</loc>
     <lastmod>2016-01-30T15:05:59+05:30</lastmod>
   </url>
   
   <url>
-    <loc>/brijeshpant.github.io/2016/01/domaindrivendesignangular/</loc>
+    <loc>/brijeshpant.github.io/2016/01/domain_driven_design_angular/</loc>
     <lastmod>2016-01-30T09:52:16+05:30</lastmod>
   </url>
   

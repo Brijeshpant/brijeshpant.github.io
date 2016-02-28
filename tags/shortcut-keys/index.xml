@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Shortcut Keys on Brijesh Pant</title>
+    <link>brijeshpant.github.io/tags/shortcut-keys/</link>
+    <description>Recent content in Shortcut Keys on Brijesh Pant</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <managingEditor>pantbrijesh20@gmail.com (brijesh pant)</managingEditor>
+    <webMaster>pantbrijesh20@gmail.com (brijesh pant)</webMaster>
+    <lastBuildDate>Sat, 06 Feb 2016 00:36:02 +0530</lastBuildDate>
+    <atom:link href="brijeshpant.github.io/tags/shortcut-keys/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Make yourself comfortable with vim</title>
+      <link>/brijeshpant.github.io/2016/02/working_with_vim/</link>
+      <pubDate>Sat, 06 Feb 2016 00:36:02 +0530</pubDate>
+      <author>pantbrijesh20@gmail.com (brijesh pant)</author>
+      <guid>/brijeshpant.github.io/2016/02/working_with_vim/</guid>
+      <description>
+
+&lt;p&gt;Being developer it looks quite fancy of modifying the text file  using the command line tools such as vim,nano etc. But When i started working on command line text editors it was quite annoying at first. I tried multiple time to work with cli but duo to not having enough knowledge of shortcut keys i was like handicapped and have to go back to my old friends (Ui text editors) . In the local systems it was fine but More than often i had to search through server logs, modifying configuration files in remote servers. And while accessing those remote system you do not have such luxury and you have to use cli  only. Then i decided to learn shortcut keys to make my life easier. after getting  my hands dirty it was like charm working with these editors.&lt;/p&gt;
+
+&lt;p&gt;This post is walkthrough over some of the keys which might come handy while working with vim.&lt;/p&gt;
+
+&lt;p&gt;To start with  just go to your terminal&lt;/p&gt;
+
+&lt;p&gt;For creating new file type vim yourFilename&lt;/p&gt;
+
+&lt;p&gt;if the file with the file name specified by you doesn’t exists a new file with the same name will be created, otherwise existing file will be opened.&lt;/p&gt;
+
+&lt;p&gt;in vim there are two modes of execution&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;normal mode&lt;/strong&gt; : Here you can navigate through the file using shortcut keys, but you can not type anything&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Insert mode&lt;/strong&gt; : This is the mode where you can edit your file, but you can not apply any command.&lt;/li&gt;
+&lt;li&gt;Insert mode has following options&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;i&lt;/strong&gt; to start inserting before the cursor pointer.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;I&lt;/strong&gt; to start inserting at the starting of the current line.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;a&lt;/strong&gt; to append before the cursor pointer.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;A&lt;/strong&gt; to append at the last of line&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;By default your file will be opened in normal mode.For switching  to insert mode press &amp;lsquo;&lt;strong&gt;i&lt;/strong&gt;&amp;rsquo; . and for switching  back to the normal mode press &lt;strong&gt;esc&lt;/strong&gt; key.&lt;/p&gt;
+
+&lt;p&gt;For applying any command Make sure you are working in normal mode.&lt;/p&gt;
+
+&lt;p&gt;After adding some text in your file when you think you are done. go to normal mode and then type &amp;lsquo;&lt;strong&gt;:&lt;/strong&gt;&amp;rsquo; with following options&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;q!&lt;/strong&gt; to quit without saving new changes.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;w&lt;/strong&gt; to saving the changes.File will still be open&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;:saveas&lt;/strong&gt; filename (if you did not provided the file name already. i.e. If you opened vim using &lt;strong&gt;vim&lt;/strong&gt; without file name)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;wq!&lt;/strong&gt;  to saving the changes and then and quit. alternate of this command is (shift +zz key)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Now we will learn to navigate through file&lt;/p&gt;
+
+&lt;h1 id=&#34;navigation:41300c14c8d30d04f940d499244ac11b&#34;&gt;Navigation&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;0&lt;/strong&gt; move cursor to start of the current line.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;$&lt;/strong&gt; move cursor to end of current line.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;gg&lt;/strong&gt; move cursor to start of the first line.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;G&lt;/strong&gt; move cursor to start of the last line.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;G$&lt;/strong&gt; move cursor to end of the last line.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;h&lt;/strong&gt; move cursor to left of current position.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;l&lt;/strong&gt; move cursor to right of current position.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;k&lt;/strong&gt; move cursor to one line up.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;j&lt;/strong&gt; move cursor to one line down.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;w&lt;/strong&gt; move starting of the next word.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;e&lt;/strong&gt; move end of the next word.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;b&lt;/strong&gt; move starting of the previous word.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;)&lt;/strong&gt; move one sentence forward.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;(&lt;/strong&gt; move one sentence backward.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;}&lt;/strong&gt; move one paragraph forward.&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;{&lt;/strong&gt; move one paragraph backward.&lt;/p&gt;
+
+&lt;h1 id=&#34;screen-navigation:41300c14c8d30d04f940d499244ac11b&#34;&gt;Screen navigation&lt;/h1&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;ctrl+f&lt;/strong&gt; page down&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;ctrl+b&lt;/strong&gt; page up&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;H&lt;/strong&gt; move top of the screen.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;M&lt;/strong&gt; move middle of the screen.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;L&lt;/strong&gt; move bottom of the screen.
+#Insert&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;o&lt;/strong&gt; this will add new line below the current line.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;O&lt;/strong&gt; this will add new line above the current line.
+Both of these command will automatically change the mode to insert mode.&lt;/p&gt;
+
+&lt;h1 id=&#34;delete:41300c14c8d30d04f940d499244ac11b&#34;&gt;Delete&lt;/h1&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;x&lt;/strong&gt; delete character on cursor position.keep pressing x to remove characters on Right.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;X&lt;/strong&gt; delete character on left to cursor position&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;dd&lt;/strong&gt; delete line.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;dw&lt;/strong&gt; delete one word
+these delete commands actually along with deleting copies the text. So you can past the last copied text using &lt;strong&gt;p&lt;/strong&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt;: use any number key to multiply the action by that number . i.e.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;3j to move cursor 3 lines up.&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;5dw to delete 5 words.&lt;/p&gt;
+
+&lt;h1 id=&#34;repetition:41300c14c8d30d04f940d499244ac11b&#34;&gt;Repetition&lt;/h1&gt;
+
+&lt;p&gt;you can repeat any action by using &lt;strong&gt;.&lt;/strong&gt;. i.e.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;let say you added some text. press &lt;strong&gt;esc&lt;/strong&gt; than &lt;strong&gt;.&lt;/strong&gt; .text will be duplicated.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;if your last command is &lt;strong&gt;5x&lt;/strong&gt;. it will delete 5 characters. then &lt;strong&gt;.&lt;/strong&gt; will remove the next 5 characters.&lt;/p&gt;
+
+&lt;h1 id=&#34;replace-character:41300c14c8d30d04f940d499244ac11b&#34;&gt;Replace character&lt;/h1&gt;
+
+&lt;p&gt;if you want to replace the character under cursor position,&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;r&lt;/strong&gt; and the character you want to replace with.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;R&lt;/strong&gt; and the character you want to replace. this will replace the character and will take you to insert mode.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;SS&lt;/strong&gt; to substitute current line.
+#Redo/undo&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;u&lt;/strong&gt; undo the last action.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;ctrl+r&lt;/strong&gt; to redo the last change&lt;/p&gt;
+
+&lt;h1 id=&#34;search:41300c14c8d30d04f940d499244ac11b&#34;&gt;search&lt;/h1&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Search is the most important action when working with the text file.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;press &lt;strong&gt;f&lt;/strong&gt; with the character to search . i.e. fp will search next p.&lt;/li&gt;
+&lt;li&gt;press &lt;strong&gt;F&lt;/strong&gt; with the character to search. i.e. fp will search previous p.&lt;/li&gt;
+&lt;li&gt;press ***** to find next occurrence of current word.&lt;/li&gt;
+&lt;li&gt;press &lt;strong&gt;#&lt;/strong&gt; to find previous occurrence of current word.&lt;/li&gt;
+&lt;li&gt;press &lt;strong&gt;/&lt;/strong&gt; it will lead you to bottom of the terminal. then enter any word.it will take you to the first occurrence of that word.&lt;/li&gt;
+&lt;li&gt;for all of these command, press &lt;strong&gt;n&lt;/strong&gt; to go to next character/word,press &lt;strong&gt;N&lt;/strong&gt; to move to previous character/word
+#Move line&lt;/li&gt;
+&lt;li&gt;press &lt;strong&gt;:&lt;/strong&gt; and then&lt;/li&gt;
+&lt;li&gt;**m ** and the number to move line up or down(-) by that number. i.e. m5 to move current line 5 line up. or -5 to move 5 line down.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;m0&lt;/strong&gt; to move line before first line.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;m$&lt;/strong&gt; to move line at the last.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;3,5m10&lt;/strong&gt; to move line number 3 to 5 after t10’th line.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;.,5m 10&lt;/strong&gt; to move current line +next 4 lines after the 10&amp;rsquo;th line.
+*
+These are the basic command which will be most oftenly used while working with vim.practice will make you perfect and comfortable.&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

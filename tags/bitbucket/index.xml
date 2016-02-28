@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Bitbucket on Brijesh Pant</title>
+    <link>brijeshpant.github.io/tags/bitbucket/</link>
+    <description>Recent content in Bitbucket on Brijesh Pant</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <managingEditor>pantbrijesh20@gmail.com (brijesh pant)</managingEditor>
+    <webMaster>pantbrijesh20@gmail.com (brijesh pant)</webMaster>
+    <lastBuildDate>Sun, 28 Feb 2016 12:00:01 +0230</lastBuildDate>
+    <atom:link href="brijeshpant.github.io/tags/bitbucket/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Configure multiple git account</title>
+      <link>/brijeshpant.github.io/2016/02/configuring_multiple_git_account/</link>
+      <pubDate>Sun, 28 Feb 2016 12:00:01 +0230</pubDate>
+      <author>pantbrijesh20@gmail.com (brijesh pant)</author>
+      <guid>/brijeshpant.github.io/2016/02/configuring_multiple_git_account/</guid>
+      <description>&lt;p&gt;I encountered a scenario when i had to use multiple git accounts.I have my personal github account to put my public git repositories that i want to share with others. But to create my own private repositories i couldn&amp;rsquo;t use the same account,as it costs money.I had to switch to bitbucket.And finally using my project specific to my company i have another github account.&lt;/p&gt;
+
+&lt;p&gt;Having multiple account beside remembering the password there is one more challenge.&lt;/p&gt;
+
+&lt;p&gt;Basically,when you want to access git there are two options one is using the https communication.For that you have to provide your username and password every time you access git. i.e. to pull from repository or to push to repository.Don&amp;rsquo;t think any body does that. Here you will be using another option that is using secure shell(ssh communication).&lt;/p&gt;
+
+&lt;p&gt;For using ssh you will generate private and public key pairs. for more information visit   &lt;a href=&#34;https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/&#34;&gt;generating_ssh_key&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;when you have single account it is simple enough.You just need to add your public key to your github or bitbucket account.
+and then when you clone any of the repositories associated with that account.
+you just need to do something like following&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;git clone git@github.com:owner/githubrepo.git
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Here there are four attributes:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;git: user&lt;/li&gt;
+&lt;li&gt;github.com:host name&lt;/li&gt;
+&lt;li&gt;owner: owner of the repository&lt;/li&gt;
+&lt;li&gt;githubrepo: name of the repository&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;now when you apply the above command.
+ssh connection will be established and the default key would be used to authenticate.
+For any of your subsequent pull/push you need not to worry.It will be silently authenticated.&lt;/p&gt;
+
+&lt;p&gt;But when you have multiple accounts it is not that simple.I realized this when i set up keys for my new account. I tried to clone my new repository. Guess what i got the following error&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;git clone git@bitbucket.org:brijeshpant/testrepo.git
+Cloning into &#39;testrepo&#39;...
+Permission denied (publickey).
+fatal: Could not read from remote repository.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I was like Hey!it&amp;rsquo;s my repository how the hell i can&amp;rsquo;t access this?
+Then i dug into this and found that while authenticating,ssh client was not able to distinguish between my keys.So I had to give some clue to my ssh client which key to use when.&lt;/p&gt;
+
+&lt;p&gt;Here are the things that needed to be done.&lt;/p&gt;
+
+&lt;p&gt;Create config file in the .ssh folder.
+Add following entry for host1&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Host host1
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/host1_id_rsa
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In this entry we have defined that for host1 &amp;lsquo;host1_id_rsa&amp;rsquo; key will be used&lt;/p&gt;
+
+&lt;p&gt;similarly we can add entry for other hosts.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Host host2
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/host2_id_rsa
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now when we are using any of our host.&lt;/p&gt;
+
+&lt;p&gt;instead of &lt;code&gt;git clone git@github.com:owner/githubrepo.git&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;use &lt;code&gt;git clone host1:owner/githubrepo.git&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;It is pretty much straight forward now for ssh client,for host1 it has to use ‘host1_id_rsa’
+ and for the host2 ‘host2_id_rsa’&lt;/p&gt;
+
+&lt;p&gt;By adding this configuration  you can add as many git account as you want.Why to restrict to git account,it is equally likely that you connect with lot’s of other server using ssh. All of the servers can be configured here and every time you access those servers you need not to provide the key every time&lt;/p&gt;
+
+&lt;p&gt;generally people do &lt;code&gt;ssh -i ~/.ssh/yourkey username@serverhost&lt;/code&gt;
+instead you can use &lt;code&gt;ssh hostName&lt;/code&gt;
+By doing these configurations once,you need not even to remember username and server name.
+This will make your life much easier afterword.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

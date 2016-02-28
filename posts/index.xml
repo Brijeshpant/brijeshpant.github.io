@@ -7,8 +7,92 @@
     <generator>Hugo -- gohugo.io</generator>
     <managingEditor>pantbrijesh20@gmail.com (brijesh pant)</managingEditor>
     <webMaster>pantbrijesh20@gmail.com (brijesh pant)</webMaster>
-    <lastBuildDate>Sun, 21 Feb 2016 14:14:56 +0530</lastBuildDate>
+    <lastBuildDate>Sun, 28 Feb 2016 12:00:01 +0230</lastBuildDate>
     <atom:link href="brijeshpant.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Configure multiple git account</title>
+      <link>/brijeshpant.github.io/2016/02/configuring_multiple_git_account/</link>
+      <pubDate>Sun, 28 Feb 2016 12:00:01 +0230</pubDate>
+      <author>pantbrijesh20@gmail.com (brijesh pant)</author>
+      <guid>/brijeshpant.github.io/2016/02/configuring_multiple_git_account/</guid>
+      <description>&lt;p&gt;I encountered a scenario when i had to use multiple git accounts.I have my personal github account to put my public git repositories that i want to share with others. But to create my own private repositories i couldn&amp;rsquo;t use the same account,as it costs money.I had to switch to bitbucket.And finally using my project specific to my company i have another github account.&lt;/p&gt;
+
+&lt;p&gt;Having multiple account beside remembering the password there is one more challenge.&lt;/p&gt;
+
+&lt;p&gt;Basically,when you want to access git there are two options one is using the https communication.For that you have to provide your username and password every time you access git. i.e. to pull from repository or to push to repository.Don&amp;rsquo;t think any body does that. Here you will be using another option that is using secure shell(ssh communication).&lt;/p&gt;
+
+&lt;p&gt;For using ssh you will generate private and public key pairs. for more information visit   &lt;a href=&#34;https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/&#34;&gt;generating_ssh_key&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;when you have single account it is simple enough.You just need to add your public key to your github or bitbucket account.
+and then when you clone any of the repositories associated with that account.
+you just need to do something like following&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;git clone git@github.com:owner/githubrepo.git
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Here there are four attributes:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;git: user&lt;/li&gt;
+&lt;li&gt;github.com:host name&lt;/li&gt;
+&lt;li&gt;owner: owner of the repository&lt;/li&gt;
+&lt;li&gt;githubrepo: name of the repository&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;now when you apply the above command.
+ssh connection will be established and the default key would be used to authenticate.
+For any of your subsequent pull/push you need not to worry.It will be silently authenticated.&lt;/p&gt;
+
+&lt;p&gt;But when you have multiple accounts it is not that simple.I realized this when i set up keys for my new account. I tried to clone my new repository. Guess what i got the following error&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;git clone git@bitbucket.org:brijeshpant/testrepo.git
+Cloning into &#39;testrepo&#39;...
+Permission denied (publickey).
+fatal: Could not read from remote repository.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I was like Hey!it&amp;rsquo;s my repository how the hell i can&amp;rsquo;t access this?
+Then i dug into this and found that while authenticating,ssh client was not able to distinguish between my keys.So I had to give some clue to my ssh client which key to use when.&lt;/p&gt;
+
+&lt;p&gt;Here are the things that needed to be done.&lt;/p&gt;
+
+&lt;p&gt;Create config file in the .ssh folder.
+Add following entry for host1&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Host host1
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/host1_id_rsa
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In this entry we have defined that for host1 &amp;lsquo;host1_id_rsa&amp;rsquo; key will be used&lt;/p&gt;
+
+&lt;p&gt;similarly we can add entry for other hosts.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Host host2
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/host2_id_rsa
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now when we are using any of our host.&lt;/p&gt;
+
+&lt;p&gt;instead of &lt;code&gt;git clone git@github.com:owner/githubrepo.git&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;use &lt;code&gt;git clone host1:owner/githubrepo.git&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;It is pretty much straight forward now for ssh client,for host1 it has to use ‘host1_id_rsa’
+ and for the host2 ‘host2_id_rsa’&lt;/p&gt;
+
+&lt;p&gt;By adding this configuration  you can add as many git account as you want.Why to restrict to git account,it is equally likely that you connect with lot’s of other server using ssh. All of the servers can be configured here and every time you access those servers you need not to provide the key every time&lt;/p&gt;
+
+&lt;p&gt;generally people do &lt;code&gt;ssh -i ~/.ssh/yourkey username@serverhost&lt;/code&gt;
+instead you can use &lt;code&gt;ssh hostName&lt;/code&gt;
+By doing these configurations once,you need not even to remember username and server name.
+This will make your life much easier afterword.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Link your github page to your domain</title>
@@ -83,10 +167,10 @@ First thing you need to do is make your git repository aware of your domain name
     
     <item>
       <title>Make yourself comfortable with vim</title>
-      <link>/brijeshpant.github.io/2016/02/learningvim/</link>
+      <link>/brijeshpant.github.io/2016/02/working_with_vim/</link>
       <pubDate>Sat, 06 Feb 2016 00:36:02 +0530</pubDate>
       <author>pantbrijesh20@gmail.com (brijesh pant)</author>
-      <guid>/brijeshpant.github.io/2016/02/learningvim/</guid>
+      <guid>/brijeshpant.github.io/2016/02/working_with_vim/</guid>
       <description>
 
 &lt;p&gt;Being developer it looks quite fancy of modifying the text file  using the command line tools such as vim,nano etc. But When i started working on command line text editors it was quite annoying at first. I tried multiple time to work with cli but duo to not having enough knowledge of shortcut keys i was like handicapped and have to go back to my old friends (Ui text editors) . In the local systems it was fine but More than often i had to search through server logs, modifying configuration files in remote servers. And while accessing those remote system you do not have such luxury and you have to use cli  only. Then i decided to learn shortcut keys to make my life easier. after getting  my hands dirty it was like charm working with these editors.&lt;/p&gt;
@@ -126,7 +210,7 @@ First thing you need to do is make your git repository aware of your domain name
 
 &lt;p&gt;Now we will learn to navigate through file&lt;/p&gt;
 
-&lt;h1 id=&#34;navigation:c786b87c7a6a408d29c6bd3e6effb1b6&#34;&gt;Navigation&lt;/h1&gt;
+&lt;h1 id=&#34;navigation:41300c14c8d30d04f940d499244ac11b&#34;&gt;Navigation&lt;/h1&gt;
 
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;0&lt;/strong&gt; move cursor to start of the current line.&lt;/li&gt;
@@ -147,7 +231,7 @@ First thing you need to do is make your git repository aware of your domain name
 
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;{&lt;/strong&gt; move one paragraph backward.&lt;/p&gt;
 
-&lt;h1 id=&#34;screen-navigation:c786b87c7a6a408d29c6bd3e6effb1b6&#34;&gt;Screen navigation&lt;/h1&gt;&lt;/li&gt;
+&lt;h1 id=&#34;screen-navigation:41300c14c8d30d04f940d499244ac11b&#34;&gt;Screen navigation&lt;/h1&gt;&lt;/li&gt;
 
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;ctrl+f&lt;/strong&gt; page down&lt;/p&gt;&lt;/li&gt;
 
@@ -165,7 +249,7 @@ First thing you need to do is make your git repository aware of your domain name
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;O&lt;/strong&gt; this will add new line above the current line.
 Both of these command will automatically change the mode to insert mode.&lt;/p&gt;
 
-&lt;h1 id=&#34;delete:c786b87c7a6a408d29c6bd3e6effb1b6&#34;&gt;Delete&lt;/h1&gt;&lt;/li&gt;
+&lt;h1 id=&#34;delete:41300c14c8d30d04f940d499244ac11b&#34;&gt;Delete&lt;/h1&gt;&lt;/li&gt;
 
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;x&lt;/strong&gt; delete character on cursor position.keep pressing x to remove characters on Right.&lt;/p&gt;&lt;/li&gt;
 
@@ -184,7 +268,7 @@ these delete commands actually along with deleting copies the text. So you can p
 
 &lt;li&gt;&lt;p&gt;5dw to delete 5 words.&lt;/p&gt;
 
-&lt;h1 id=&#34;repetition:c786b87c7a6a408d29c6bd3e6effb1b6&#34;&gt;Repetition&lt;/h1&gt;
+&lt;h1 id=&#34;repetition:41300c14c8d30d04f940d499244ac11b&#34;&gt;Repetition&lt;/h1&gt;
 
 &lt;p&gt;you can repeat any action by using &lt;strong&gt;.&lt;/strong&gt;. i.e.&lt;/p&gt;&lt;/li&gt;
 
@@ -192,7 +276,7 @@ these delete commands actually along with deleting copies the text. So you can p
 
 &lt;li&gt;&lt;p&gt;if your last command is &lt;strong&gt;5x&lt;/strong&gt;. it will delete 5 characters. then &lt;strong&gt;.&lt;/strong&gt; will remove the next 5 characters.&lt;/p&gt;
 
-&lt;h1 id=&#34;replace-character:c786b87c7a6a408d29c6bd3e6effb1b6&#34;&gt;Replace character&lt;/h1&gt;
+&lt;h1 id=&#34;replace-character:41300c14c8d30d04f940d499244ac11b&#34;&gt;Replace character&lt;/h1&gt;
 
 &lt;p&gt;if you want to replace the character under cursor position,&lt;/p&gt;&lt;/li&gt;
 
@@ -207,7 +291,7 @@ these delete commands actually along with deleting copies the text. So you can p
 
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;ctrl+r&lt;/strong&gt; to redo the last change&lt;/p&gt;
 
-&lt;h1 id=&#34;search:c786b87c7a6a408d29c6bd3e6effb1b6&#34;&gt;search&lt;/h1&gt;&lt;/li&gt;
+&lt;h1 id=&#34;search:41300c14c8d30d04f940d499244ac11b&#34;&gt;search&lt;/h1&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;Search is the most important action when working with the text file.&lt;/p&gt;
@@ -475,19 +559,19 @@ $scope.customDatepicker = $filter(&#39;date&#39;)($scope.date, &amp;quot;yyyy-MM
     
     <item>
       <title>Progressively Uploading Csv using Play</title>
-      <link>/brijeshpant.github.io/2016/01/progressivelyuploadingcsv/</link>
+      <link>/brijeshpant.github.io/2016/01/progressively_uploading_csv/</link>
       <pubDate>Sat, 30 Jan 2016 15:16:28 +0530</pubDate>
       <author>pantbrijesh20@gmail.com (brijesh pant)</author>
-      <guid>/brijeshpant.github.io/2016/01/progressivelyuploadingcsv/</guid>
+      <guid>/brijeshpant.github.io/2016/01/progressively_uploading_csv/</guid>
       <description>
 
-&lt;h1 id=&#34;progressively-uploading-csv:f188ebac3656b6eb764b262b3dd48a8d&#34;&gt;Progressively Uploading CSV&lt;/h1&gt;
+&lt;h1 id=&#34;progressively-uploading-csv&#34;&gt;Progressively Uploading CSV&lt;/h1&gt;
 
-&lt;h1 id=&#34;scenario:f188ebac3656b6eb764b262b3dd48a8d&#34;&gt;Scenario&lt;/h1&gt;
+&lt;h1 id=&#34;scenario&#34;&gt;Scenario&lt;/h1&gt;
 
 &lt;p&gt;You may have encountered situations, when you need to send huge amount of data (in GBs ) to the server.  One example is upload of large files. While sending this data, your server has to slog through the upcoming mighty request body and eventually process it.&lt;/p&gt;
 
-&lt;h1 id=&#34;problem-definition:f188ebac3656b6eb764b262b3dd48a8d&#34;&gt;Problem Definition&lt;/h1&gt;
+&lt;h1 id=&#34;problem-definition&#34;&gt;Problem Definition&lt;/h1&gt;
 
 &lt;p&gt;So this whole process is about getting chunk of data, wait for next chunk to come and then wait again and this goes on until it receives whole request body.  All the request body data is now in servers memory. And multiple simultaneous uploads would invariably lead to a OOM error.&lt;/p&gt;
 
@@ -495,17 +579,17 @@ $scope.customDatepicker = $filter(&#39;date&#39;)($scope.date, &amp;quot;yyyy-MM
 
 &lt;p&gt;In such conditions, what can you expect but the frustratingly slow response? Would it not be nice if there is a way to handle such requests in a smarter way?&lt;/p&gt;
 
-&lt;h1 id=&#34;solution:f188ebac3656b6eb764b262b3dd48a8d&#34;&gt;Solution&lt;/h1&gt;
+&lt;h1 id=&#34;solution&#34;&gt;Solution&lt;/h1&gt;
 
 &lt;p&gt;As the browser sends data in chunks of byte over the network, processing the incoming data in chunks would be a smarter choice. Play2 framework provides such a beautiful capability in the form  of Iteratee library. Iteratees support the consumption of data in chunks and in an asynchronous manner. For more detail of Iteratee you can browse through Iteratee.&lt;/p&gt;
 
-&lt;h1 id=&#34;iteratee:f188ebac3656b6eb764b262b3dd48a8d&#34;&gt;Iteratee&lt;/h1&gt;
+&lt;h1 id=&#34;iteratee&#34;&gt;Iteratee&lt;/h1&gt;
 
 &lt;p&gt;For now you need to understand what Iteratee can do to solve our problem. Iteratee requires producer that can feed iteratee the data to process. Producer can be any Enumerator which has capability to produce data of same type as the Iteratee expects. Iteratee can consume the chunks of data progressively. It does not need all data to be radially available. It can consume data chunks whenever it is available. Iteratee doses not wait on any upcoming chunks. It is the responsibility of producer to feed Iteratee. After receiving data chunk Iteratee can start processing it.&lt;/p&gt;
 
 &lt;p&gt;Here we will see the example code for uploading the csv file progressively. This is a Play-scala application so you need to set the required environment. Once you done with creating a play application, you are ready to go further. Here are instructions on   &lt;a href=&#34;https://www.playframework.com/documentation/2.2.x/Installing&#34;&gt;how to install and setup play&lt;/a&gt;.&lt;/p&gt;
 
-&lt;h1 id=&#34;code:f188ebac3656b6eb764b262b3dd48a8d&#34;&gt;Code&lt;/h1&gt;
+&lt;h1 id=&#34;code&#34;&gt;Code&lt;/h1&gt;
 
 &lt;p&gt;Make entries for your routes in Routes file&lt;/p&gt;
 
@@ -589,13 +673,13 @@ msg
 }
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h1 id=&#34;explanation:f188ebac3656b6eb764b262b3dd48a8d&#34;&gt;Explanation&lt;/h1&gt;
+&lt;h1 id=&#34;explanation&#34;&gt;Explanation&lt;/h1&gt;
 
 &lt;p&gt;In our case as we are parsing a csv file, every row is separated by a new line character. Therefore we need chunks based on the new line to distinguish each line separately and process it. But browsers creates the chunks by its own irrespective of what the separator is.&lt;/p&gt;
 
 &lt;p&gt;Our requirement is to get such an Iteratee which can consume each line at one go and process it. Our source of data here is chunks of Array[Byte] which may not contain new line char or may be containing more than one new lines. Therefore it has to be adapted such that it can match the type our Iteratee is expecting.&lt;/p&gt;
 
-&lt;h1 id=&#34;enumeratee:f188ebac3656b6eb764b262b3dd48a8d&#34;&gt;Enumeratee&lt;/h1&gt;
+&lt;h1 id=&#34;enumeratee&#34;&gt;Enumeratee&lt;/h1&gt;
 
 &lt;p&gt;To adapt one Type of Enumerator to the another type we have Enumeratee which is pipe adapter between Enumerator and Iteratee. It basically transform one Type of Enumerator to other type. For example Enumerator[Int] can be transformed into Enumerator[String] by applying Enumeratee[Int,String] on Enumerator[Int]. Enumeratee[A,B] can also be composed with an Enumeratee[B,C] to give Enumeratee[A,C].&lt;/p&gt;
 
@@ -613,10 +697,10 @@ msg
     
     <item>
       <title>Spraying rest applications with spray</title>
-      <link>/brijeshpant.github.io/2016/01/sprayingrestwithspray/</link>
+      <link>/brijeshpant.github.io/2016/01/spraying_rest_with_spray/</link>
       <pubDate>Sat, 30 Jan 2016 15:05:59 +0530</pubDate>
       <author>pantbrijesh20@gmail.com (brijesh pant)</author>
-      <guid>/brijeshpant.github.io/2016/01/sprayingrestwithspray/</guid>
+      <guid>/brijeshpant.github.io/2016/01/spraying_rest_with_spray/</guid>
       <description>
 
 &lt;p&gt;Spray is a suite of lightweight Scala libraries providing client- and server-side REST/HTTP support on top of Akka.  Akka makes the application fully asynchronous. There are other frameworks build on top of Akka such as Play that gives  ability to build full web application but with one down side and that is  application becomes highly coupled with the framework as the application build on top of Play. As oppose to that spray gives  ability to create  Application layer independent of  anything without even thinking of the framework. Spray will just work as an  integration layer to shake hand between outer world and the application. Outer world could be any web,mobile or third party applications.&lt;/p&gt;
@@ -722,21 +806,21 @@ In the example above our path directive matches the path &amp;ldquo;firstRoute&a
     
     <item>
       <title>Domain Driven Design Angularjs way</title>
-      <link>/brijeshpant.github.io/2016/01/domaindrivendesignangular/</link>
+      <link>/brijeshpant.github.io/2016/01/domain_driven_design_angular/</link>
       <pubDate>Sat, 30 Jan 2016 09:52:16 +0530</pubDate>
       <author>pantbrijesh20@gmail.com (brijesh pant)</author>
-      <guid>/brijeshpant.github.io/2016/01/domaindrivendesignangular/</guid>
+      <guid>/brijeshpant.github.io/2016/01/domain_driven_design_angular/</guid>
       <description>
 
-&lt;h1 id=&#34;domain-driven-design-in-angularjs:84866485eb4ec6c0fb1947a0cf273d70&#34;&gt;Domain Driven Design in angularjs&lt;/h1&gt;
+&lt;h1 id=&#34;domain-driven-design-in-angularjs&#34;&gt;Domain Driven Design in angularjs&lt;/h1&gt;
 
 &lt;p&gt;For developing any software we need to have clear understanding of design philosophy which will be followed to solve the given problem.We do have myriads of options. Based on the requirements we choose the best fit.One of the design philosophy is Domain Driven design.&lt;/p&gt;
 
-&lt;h2 id=&#34;ddd:84866485eb4ec6c0fb1947a0cf273d70&#34;&gt;DDD&lt;/h2&gt;
+&lt;h2 id=&#34;ddd&#34;&gt;DDD&lt;/h2&gt;
 
 &lt;p&gt;An object model of the domain that incorporates both behavior and data.When we talk about domain layer it is responsible for representing concepts of the business, information about the business situation, and business rules. State that reflects the business situation is controlled and used here, even though the technical details of storing it are delegated to the infrastructure. This layer is the heart of business software.&lt;/p&gt;
 
-&lt;h2 id=&#34;example-problem:84866485eb4ec6c0fb1947a0cf273d70&#34;&gt;Example problem&lt;/h2&gt;
+&lt;h2 id=&#34;example-problem&#34;&gt;Example problem&lt;/h2&gt;
 
 &lt;p&gt;Let us take an example of simple problem.
 We have a user that can have one of the role USER,ADMIN or SUPERUSER
@@ -902,12 +986,12 @@ We will now define our services&lt;/p&gt;
 &amp;lt;/html&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h2 id=&#34;problem-with-this-approach:84866485eb4ec6c0fb1947a0cf273d70&#34;&gt;Problem with this approach&lt;/h2&gt;
+&lt;h2 id=&#34;problem-with-this-approach&#34;&gt;Problem with this approach&lt;/h2&gt;
 
 &lt;p&gt;You can see all our behavior is lied in the presentation layer. For displaying jobs we have applied all logic in our html file. moreover we have repeated our code to display jobs for normal user and for Admin/Superuser.
 Similarly we have applied all the logic for displaying apply and unApply button in the html itself. We definitely should not have these logic in presentation layer.we can put these logics in our controller.But What if we want to bind this page with multiple controllers? We will have to write these logic in all those controllers.Situation will be more horrifying when our business demands some changes in the logic.Go find all the places and make those changes.&lt;/p&gt;
 
-&lt;h2 id=&#34;time-for-refactoring:84866485eb4ec6c0fb1947a0cf273d70&#34;&gt;Time for refactoring&lt;/h2&gt;
+&lt;h2 id=&#34;time-for-refactoring&#34;&gt;Time for refactoring&lt;/h2&gt;
 
 &lt;p&gt;Let&amp;rsquo;s think in different way.
  We know in the current problem space we have two entities user and job. user&amp;rsquo;s behavior changes based in its role.If it is Admin it has access to all jobs. But if it is normal user he can see only jobs which matches his education.

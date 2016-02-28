@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Domain on Brijesh Pant</title>
+    <link>brijeshpant.github.io/tags/domain/</link>
+    <description>Recent content in Domain on Brijesh Pant</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <managingEditor>pantbrijesh20@gmail.com (brijesh pant)</managingEditor>
+    <webMaster>pantbrijesh20@gmail.com (brijesh pant)</webMaster>
+    <lastBuildDate>Sun, 21 Feb 2016 14:14:56 +0530</lastBuildDate>
+    <atom:link href="brijeshpant.github.io/tags/domain/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Link your github page to your domain</title>
+      <link>/brijeshpant.github.io/2016/02/mapping-gitub-page-to-your-preferred-domain-name/</link>
+      <pubDate>Sun, 21 Feb 2016 14:14:56 +0530</pubDate>
+      <author>pantbrijesh20@gmail.com (brijesh pant)</author>
+      <guid>/brijeshpant.github.io/2016/02/mapping-gitub-page-to-your-preferred-domain-name/</guid>
+      <description>&lt;p&gt;For the developers it is quite common now a days to create there blogs,websites using the same tool which they use to version control their code.
+Yes i am talking about git.You can create your static github pages using &lt;a href=&#34;https://pages.github.com&#34; target=&#34;_blank&#34;&gt;github pages&lt;/a&gt;
+and then using the Static site generators like &lt;a href=&#34;https://gohugo.io/overview/introduction/&#34; target=&#34;_blank&#34;&gt; hugo &lt;/a&gt; or &lt;a href=&#34;https://jekyllrb.com&#34; target=&#34;_blank&#34;&gt;jekyl&lt;/a&gt;
+you can build your website.Being on the github these websites are accessible using your githureponame.github.io, but usually you would like people to access your website using your preferred domain name. right?&lt;/p&gt;
+
+&lt;p&gt;For that very purpose you can follow these simple steps.
+First thing you need to do is make your git repository aware of your domain name.&lt;/p&gt;
+
+&lt;p&gt;this can be done by adding CNAME file in your repository at the root level. In this file add your domain name. i.e. if your domain name is www.mydomainname.com. just add one line&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;www.mydomainname.com
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Make sure that your file name(CNAME) is in uppercase.&lt;/p&gt;
+
+&lt;p&gt;Now it&amp;rsquo;s time to change Settings in your domain provider&lt;/p&gt;
+
+&lt;p&gt;I will take example of  &lt;a href=&#34;https://in.godaddy.com&#34; target=&#34;_blank&#34;&gt; go daddy &lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;In your go daddy account select My Products option from the drop down menu at the top right corner&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;brijeshpant.github.io/media/myproduct.png&#34; alt=&#34;My products&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;You will see list of the products. One of them will be the Domains.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;brijeshpant.github.io/media/domains.png&#34; alt=&#34;Domains&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Click Manage button against the domains.&lt;/p&gt;
+
+&lt;p&gt;you will see all of your domains listed. Just go to the DOMAIN DETAILS page by selecting Manage DNS from your preferred domain.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;brijeshpant.github.io/media/manageDns.png&#34; alt=&#34;Manage DNS&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Here you have to modify two things&lt;/p&gt;
+
+&lt;p&gt;A record and the CName alias&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;brijeshpant.github.io/media/domainSettings.png&#34; alt=&#34;Domains Settings&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;For editing A record enter ip address of your github page.&lt;/p&gt;
+
+&lt;p&gt;you can find ip address  of your github page using following command on your terminal&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt; dig yourgitgubrepo.gitgub.io
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;ip associated with A record is the ip of your github page.
+ Add this ip to your A record in the Points To section of @ host .&lt;/p&gt;
+
+&lt;p&gt;For adding alias CName.
+ add one more entry for your host
+ add www in host field and your githubrepo.github.io in the Points to field.
+ And then save the setting these changes will take at most 24 hrs to get reflected.If you are lucky you will see them in couple of minutes.&lt;/p&gt;
+
+&lt;p&gt;you can cross verify these changes by applying following Command&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt; dig www.yourdomainname
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If you are able to see the ip,you added with the A record you are good to go. otherwise you would have to wait for little longer.&lt;/p&gt;
+
+&lt;p&gt;once these changes are reflected. you can just use your domain name to access your website and share with your viewers.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

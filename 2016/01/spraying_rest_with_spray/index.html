@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Spraying rest applications with spray</title>
+
+  <meta name="description" content="Spraying rest applications with spray"/>
+  <meta name="author" content="brijesh pant"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <base href="/brijeshpant.github.io/" />
+
+  <link rel="stylesheet" href="css/fonts.css"/>
+  <link rel="stylesheet" href="css/normalize.css"/>
+  <link rel="stylesheet" href="css/skeleton.css"/>
+  <link rel="stylesheet" href="css/custom.css"/>
+  <link rel="stylesheet" href="genericons/genericons.css"/>
+  
+  
+    
+  
+  <link rel="stylesheet" href="highlight/tomorrow-night.css"/>
+
+  <link href="index.xml" rel="alternate" type="application/rss+xml" title="Posts + Links" />
+  <link href="links/index.xml" rel="alternate" type="application/rss+xml" title="Links" />
+  <link href="posts/index.xml" rel="alternate" type="application/rss+xml" title="Posts" />
+
+  
+</head>
+
+<body>
+  
+
+
+<div id="container">
+  <div id="post-header">
+    <p class="post-infos">
+      <time>2016-01-30 15:05</time>
+      
+  
+
+  
+  tags: <a href="tags/scala">Scala</a> <a href="tags/spray">Spray</a> <a href="tags/rest">Rest</a> 
+  
+
+  
+
+
+    </p>
+    <h1>Spraying rest applications with spray</h1>
+  </div>
+
+  
+
+  <div class="post">
+    
+
+<p>Spray is a suite of lightweight Scala libraries providing client- and server-side REST/HTTP support on top of Akka.  Akka makes the application fully asynchronous. There are other frameworks build on top of Akka such as Play that gives  ability to build full web application but with one down side and that is  application becomes highly coupled with the framework as the application build on top of Play. As oppose to that spray gives  ability to create  Application layer independent of  anything without even thinking of the framework. Spray will just work as an  integration layer to shake hand between outer world and the application. Outer world could be any web,mobile or third party applications.</p>
+
+<p>In this blog post we will see how to setup spray environment for the Scala application and also learn about some of the building blocks. In the upcoming post we will see simple  example of writing rest Api&rsquo;s, authentication support, cross origin support and actor handling also most important part of the development unit test spray routes.</p>
+
+<h1 id="table-of-content">Table of content</h1>
+
+<ul>
+<li><a href="#Basic setup">Basic setup</a></li>
+<li><a href="#Spray-can">Spray-can</a></li>
+<li><a href="#Spray-routing">Spray-routing</a></li>
+<li><a href="#Directives">Directives</a></li>
+<li><a href="#Conclusion">Conclusion</a></li>
+</ul>
+
+<h2 id="basic-setup">Basic setup</h2>
+
+<p>To start with we need to firstly create the sbt project.</p>
+
+<p>build.sbt consists of following lines</p>
+
+<pre><code>name := &quot;SprayingRestWithSpray&quot;
+
+version := &quot;1.0&quot;
+
+libraryDependencies ++= {
+    val akkaV = &quot;2.3.6&quot;
+    val sprayV = &quot;1.3.2&quot;
+    Seq(
+        &quot;io.spray&quot;            %%   &quot;spray-can&quot;     % sprayV,
+        &quot;io.spray&quot;            %%   &quot;spray-routing&quot; % sprayV,
+        &quot;com.typesafe.akka&quot;   %%  &quot;akka-actor&quot;    % akkaV
+    )
+}
+
+</code></pre>
+
+<p>We are using akka version 2.3.6 and spray version 1.3.2
+we have defined 3  libraries  spray-can ,spray-routing and akka-actor. These are sufficient to start building spray application. We will keep adding other spray libraries as and when needed. This is the beauty of spray that you use only what you needed.</p>
+
+<p>Let&rsquo;s understand why these libraries are for</p>
+
+<h3 id="spray-can">Spray-can</h3>
+
+<p>A low-level, low-overhead, high-performance HTTP server and client built on top of spray-io. When spray-can server get started,It starts a new listener actor which can handle thousands of  incoming requests asynchronously.</p>
+
+<h3 id="spray-routing">Spray-routing</h3>
+
+<p>A high-level routing DSL for elegantly defining RESTful web services. It provides abstraction layer over the spray-http . It saves developers efforts of writing boiler plate code and provide them the simple interface to build  the application.</p>
+
+<p>Now we will start doing the real action by creating the Main object which starts the server.</p>
+
+<pre><code> object Main extends App {
+
+     implicit val system = ActorSystem(&quot;SprayingRestWithSpray&quot;)
+     val apiRouteHandlerActor = system.actorOf(Props[RequestHandlerActor], &quot;application-actor&quot;)
+     (IO(Http) ! Http.Bind(apiRouteHandlerActor, interface = &quot;localhost&quot;, port = 8080))
+ }
+
+</code></pre>
+
+<p>What we just did is bind the apiRouteHandlerActor  to the http port 8080 on localhost. Any subsequent request  will be passed on to the apiRouterHandler in the form of RequestContext message.</p>
+
+<p>Now we will create RequestHandlerActor</p>
+
+<pre><code>class RequestHandlerActor extends HttpServiceActor{
+    override def receive: Receive = runRoute(route)
+   val route:Route =  path(&quot;firstRoute&quot;){
+        complete(&quot;Request completed&quot;)
+    }
+}
+
+</code></pre>
+
+<p>RequestHandlerActor extends HttpServiceActor which extends HttpService.</p>
+
+<p>HttpService provides execution context to the request which it receives.
+In the example above we have override receive method with partial function runRoute of HttpService which takes Route type as parameter. In spray-routing Route has following form:</p>
+
+<pre><code>type Route = RequestContext =&gt; Unit
+
+</code></pre>
+
+<p>All the structure you define will be subtype of Route.</p>
+
+<h2 id="directives">Directives</h2>
+
+<p>We can combine multiple such structure to form a complex Route. These building blocks are termed as Directive in spray. Spray comes up with predefined Directives for handling almost every type of request one can encounter. But we can create our own Directives if required by modifying or combining these Directives.</p>
+
+<p>One such Directive is path Directive, which matches the part of uri.
+In the example above our path directive matches the path &ldquo;firstRoute&rdquo;. On encountering request localhost:8080/firstRoute request will be forwarded to this Directive and the request is completed by  complete method of RequestContext.</p>
+
+<p>The complete method creates an HttpResponse an sends it to responder of the RequestContext.</p>
+
+<p>You can find out sample code <a href="https://github.com/Brijeshpant/SprayingRestWithSpray.git">here</a></p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>In this post we explored how to set up spray application,learned about basic ingredients of the spray.In my upcoming  blog we will deep dive in detail and we will be using these ingredients to create more stuff about Rest Api&rsquo;s through spray.</p>
+
+  </div>
+  
+    <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'brijeshpantgithubio';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+  
+</div>
+<div id="sidebar">
+<div class="sidebar">
+  <div class="sidebar-about">
+    <a href="/brijeshpant.github.io">
+      <img src="media/me.jpg" title="brijesh pant" alt="Me" />
+      <h4 class="sidebar-title">Brijesh Pant</h4>
+    </a>
+    <span class="sidebar-tagline"> Documenting my learning </span>
+  </div>
+  <nav class="sidebar-nav">
+    <ul class="sidebar-nav-list">
+      <li class="sidebar-nav-item nav-home">
+        <span class="genericon genericon-home"></span><a class="sidebar-link" href="/brijeshpant.github.io">Home</a>
+      </li>
+      <li class="sidebar-nav-item">
+        <a class="genericon genericon-feed" href="posts/index.xml"></a><a class="sidebar-link" href="posts">Posts/</a>
+      </li>
+      
+    </ul>
+  </nav>
+  <div class="sidebar-externals">
+  
+
+  
+  <a class="genericon genericon-github" href="https://github.com/brijeshpant" ></a>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  | <a class="genericon genericon-mail" href="mailto:pantbrijesh20@gmail.com"></a>
+  </div>
+  <hr />
+  <div class="sidebar-bottom">
+    <p>Copyright &copy; 2016. All rights reserved.</p>
+  </div>
+</div>
+</div>
+
+<footer>
+  <p class="footnote">Copyright &copy; 2016: All rights reserved by <a href="mailto:pantbrijesh20@gmail.com">brijesh pant</a></p>
+</footer>
+
+<script src="highlight/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-74137696-1', 'auto');
+ga('send', 'pageview');
+</script>
+
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+<ins class="adsbygoogle"
+     style="display:inline-block;width:180px;height:90px"
+     data-ad-client="ca-pub-3971227910647691"
+     data-ad-slot="4313782564"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+
+my footer
+
+
+</body>
+</html>
+

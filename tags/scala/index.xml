@@ -7,24 +7,154 @@
     <generator>Hugo -- gohugo.io</generator>
     <managingEditor>pantbrijesh20@gmail.com (brijesh pant)</managingEditor>
     <webMaster>pantbrijesh20@gmail.com (brijesh pant)</webMaster>
-    <lastBuildDate>Sat, 30 Jan 2016 15:16:28 +0530</lastBuildDate>
+    <lastBuildDate>Mon, 01 Feb 2016 22:43:02 +0530</lastBuildDate>
     <atom:link href="brijeshpant.github.io/tags/scala/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>Using Spray JSON to build your REST API</title>
+      <link>/brijeshpant.github.io/2016/02/spray-json-support/</link>
+      <pubDate>Mon, 01 Feb 2016 22:43:02 +0530</pubDate>
+      <author>pantbrijesh20@gmail.com (brijesh pant)</author>
+      <guid>/brijeshpant.github.io/2016/02/spray-json-support/</guid>
+      <description>&lt;p&gt;For any of the rest application it’s state has to be serialize or deserialized while transferring back and forth between application and the network. spray-json provide such support for the json based state representation.
+ For using spray-json we just need to  add &amp;lsquo;spray-json&amp;rsquo; dependency in the project. For instance adding support in the sbt project add following to the build file.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;quot;io.spray&amp;quot; %% &amp;quot;spray-json&amp;quot; % &amp;quot;1.3.2&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;spray-json provides JsonFormater to serialize/deserialize all of the scala types. i.e. for String type
+we have existing StringJsonFormat&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;implicit object StringJsonFormat extends JsonFormat[String] {
+  def write(x: String) = {
+    require(x ne null)
+    JsString(x)
+  }
+  def read(value: JsValue) = value match {
+    case JsString(x) =&amp;gt; x
+    case x =&amp;gt; deserializationError(&amp;quot;Expected String as JsString, but got &amp;quot; + x)
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;which read JsString and convert it to Scala String and vise-versa.&lt;/p&gt;
+
+&lt;p&gt;In similar way spray-json provides different traits to support serialization of all of the Scala basic types,tuples,collection etc.
+Formater for all of these types are clubbed together in the trait called DefaultJsonProtocol. So for serializing/deserializing these types we just need to
+put this implicit types in the scope.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;import spray.json.DefaultJsonProtocol._
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Following test should be proof of the correct conversion&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;val jsString =  new JsString(&amp;quot;JsString&amp;quot;)
+assert(StringJsonFormat.read(jsString).equals(&amp;quot;JsString&amp;quot;))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;additionally spray json provides methods to convert the object into json or vice versa&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;jsString.convertTo[String]
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;which converts JsValue to the type.&lt;/p&gt;
+
+&lt;p&gt;For converting type into json&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;quot;String&amp;quot;.toJson
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Note: for using toJson&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;import spray.json._
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;For any of the user defined type. We have to create our own Formatter. But that isn&amp;rsquo;t any harder.&lt;/p&gt;
+
+&lt;p&gt;let say we have a case class&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;case class User(name:String,email:String,isActive:Boolean)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;now to support serialization we need to create a new protocol&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;object UserProtocol extends DefaultJsonProtocol {
+    implicit val userFormat = jsonFormat3(User)
+  }
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;our protocol extends the DefaultJsonProtocol. and depending on the attributes in the case class we need to just call the jsonFormatn
+where n is the no of attributes in the case class.
+spray json provides such support for all the possible no&amp;rsquo;s of attribute of the case class as long as their type is supported by the DefaultJsonProtocol.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;import UserProtocol._
+import spray.json._
+test(&amp;quot;User object should be able to convert into json and vise-versa&amp;quot;) {
+   import UserProtocol.userFormat
+   val user = User(&amp;quot;brij&amp;quot;,&amp;quot;pantbrijesh20@gmail.com&amp;quot;,true)
+   val aa = user.toJson
+   val userJson = &amp;quot;&amp;quot;&amp;quot;{&amp;quot;name&amp;quot;:&amp;quot;brij&amp;quot;,&amp;quot;email&amp;quot;:&amp;quot;pantbrijesh20@gmail.com&amp;quot;,&amp;quot;isActive&amp;quot;:true}&amp;quot;&amp;quot;&amp;quot;
+   assert(user.toJson.toString == userJson)
+   assert(userJson.parseJson.convertTo[User] == User(&amp;quot;brij&amp;quot;,&amp;quot;pantbrijesh20@gmail.com&amp;quot;,true) )
+
+ }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In general custom type doesn&amp;rsquo;t only contains predefined types but also the user defined types. In this case additionally to the DefaultJsonProtocol we need to have the protocol for the user defined type in the scope.
+for example&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;case class UserProfile(user:User,profile:String)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Here User profile has User type as its attribute.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;implicit val userProfileFormat = jsonFormat2(UserProfile)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;So this will only work if &lt;code&gt;
+implicit val userFormat = jsonFormat3(User)&lt;/code&gt; will be in it&amp;rsquo;s scope.&lt;/p&gt;
+
+&lt;p&gt;What we can to do is all the custom protocol can be wrapped in a single trait. In this case you just ned to include this trait into your scope.&lt;/p&gt;
+
+&lt;p&gt;The above approach works good when we are dealing with case classes. But if we have to work with Scala class, we will have to do more work than this.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;class Person(val name: String, val age: Int)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;object PersonProtocol {
+    def write(p: Person) = JsArray(JsString(p.name), JsNumber(p.age))
+
+    def read(value: JsValue) = {
+      value.asJsObject match {
+        case Seq(JsArray(Vector(JsString(name), JsNumber(age)))) =&amp;gt; new Person(name, age.toInt)
+        case _ =&amp;gt; throw new DeserializationException(&amp;quot;object not convertable&amp;quot;)
+      }
+    }
+  }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;we will have to write our own read and write function&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Progressively Uploading Csv using Play</title>
-      <link>/brijeshpant.github.io/2016/01/progressivelyuploadingcsv/</link>
+      <link>/brijeshpant.github.io/2016/01/progressively_uploading_csv/</link>
       <pubDate>Sat, 30 Jan 2016 15:16:28 +0530</pubDate>
       <author>pantbrijesh20@gmail.com (brijesh pant)</author>
-      <guid>/brijeshpant.github.io/2016/01/progressivelyuploadingcsv/</guid>
+      <guid>/brijeshpant.github.io/2016/01/progressively_uploading_csv/</guid>
       <description>
 
-&lt;h1 id=&#34;progressively-uploading-csv:f188ebac3656b6eb764b262b3dd48a8d&#34;&gt;Progressively Uploading CSV&lt;/h1&gt;
+&lt;h1 id=&#34;progressively-uploading-csv&#34;&gt;Progressively Uploading CSV&lt;/h1&gt;
 
-&lt;h1 id=&#34;scenario:f188ebac3656b6eb764b262b3dd48a8d&#34;&gt;Scenario&lt;/h1&gt;
+&lt;h1 id=&#34;scenario&#34;&gt;Scenario&lt;/h1&gt;
 
 &lt;p&gt;You may have encountered situations, when you need to send huge amount of data (in GBs ) to the server.  One example is upload of large files. While sending this data, your server has to slog through the upcoming mighty request body and eventually process it.&lt;/p&gt;
 
-&lt;h1 id=&#34;problem-definition:f188ebac3656b6eb764b262b3dd48a8d&#34;&gt;Problem Definition&lt;/h1&gt;
+&lt;h1 id=&#34;problem-definition&#34;&gt;Problem Definition&lt;/h1&gt;
 
 &lt;p&gt;So this whole process is about getting chunk of data, wait for next chunk to come and then wait again and this goes on until it receives whole request body.  All the request body data is now in servers memory. And multiple simultaneous uploads would invariably lead to a OOM error.&lt;/p&gt;
 
@@ -32,17 +162,17 @@
 
 &lt;p&gt;In such conditions, what can you expect but the frustratingly slow response? Would it not be nice if there is a way to handle such requests in a smarter way?&lt;/p&gt;
 
-&lt;h1 id=&#34;solution:f188ebac3656b6eb764b262b3dd48a8d&#34;&gt;Solution&lt;/h1&gt;
+&lt;h1 id=&#34;solution&#34;&gt;Solution&lt;/h1&gt;
 
 &lt;p&gt;As the browser sends data in chunks of byte over the network, processing the incoming data in chunks would be a smarter choice. Play2 framework provides such a beautiful capability in the form  of Iteratee library. Iteratees support the consumption of data in chunks and in an asynchronous manner. For more detail of Iteratee you can browse through Iteratee.&lt;/p&gt;
 
-&lt;h1 id=&#34;iteratee:f188ebac3656b6eb764b262b3dd48a8d&#34;&gt;Iteratee&lt;/h1&gt;
+&lt;h1 id=&#34;iteratee&#34;&gt;Iteratee&lt;/h1&gt;
 
 &lt;p&gt;For now you need to understand what Iteratee can do to solve our problem. Iteratee requires producer that can feed iteratee the data to process. Producer can be any Enumerator which has capability to produce data of same type as the Iteratee expects. Iteratee can consume the chunks of data progressively. It does not need all data to be radially available. It can consume data chunks whenever it is available. Iteratee doses not wait on any upcoming chunks. It is the responsibility of producer to feed Iteratee. After receiving data chunk Iteratee can start processing it.&lt;/p&gt;
 
 &lt;p&gt;Here we will see the example code for uploading the csv file progressively. This is a Play-scala application so you need to set the required environment. Once you done with creating a play application, you are ready to go further. Here are instructions on   &lt;a href=&#34;https://www.playframework.com/documentation/2.2.x/Installing&#34;&gt;how to install and setup play&lt;/a&gt;.&lt;/p&gt;
 
-&lt;h1 id=&#34;code:f188ebac3656b6eb764b262b3dd48a8d&#34;&gt;Code&lt;/h1&gt;
+&lt;h1 id=&#34;code&#34;&gt;Code&lt;/h1&gt;
 
 &lt;p&gt;Make entries for your routes in Routes file&lt;/p&gt;
 
@@ -126,13 +256,13 @@ msg
 }
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h1 id=&#34;explanation:f188ebac3656b6eb764b262b3dd48a8d&#34;&gt;Explanation&lt;/h1&gt;
+&lt;h1 id=&#34;explanation&#34;&gt;Explanation&lt;/h1&gt;
 
 &lt;p&gt;In our case as we are parsing a csv file, every row is separated by a new line character. Therefore we need chunks based on the new line to distinguish each line separately and process it. But browsers creates the chunks by its own irrespective of what the separator is.&lt;/p&gt;
 
 &lt;p&gt;Our requirement is to get such an Iteratee which can consume each line at one go and process it. Our source of data here is chunks of Array[Byte] which may not contain new line char or may be containing more than one new lines. Therefore it has to be adapted such that it can match the type our Iteratee is expecting.&lt;/p&gt;
 
-&lt;h1 id=&#34;enumeratee:f188ebac3656b6eb764b262b3dd48a8d&#34;&gt;Enumeratee&lt;/h1&gt;
+&lt;h1 id=&#34;enumeratee&#34;&gt;Enumeratee&lt;/h1&gt;
 
 &lt;p&gt;To adapt one Type of Enumerator to the another type we have Enumeratee which is pipe adapter between Enumerator and Iteratee. It basically transform one Type of Enumerator to other type. For example Enumerator[Int] can be transformed into Enumerator[String] by applying Enumeratee[Int,String] on Enumerator[Int]. Enumeratee[A,B] can also be composed with an Enumeratee[B,C] to give Enumeratee[A,C].&lt;/p&gt;
 
@@ -150,10 +280,10 @@ msg
     
     <item>
       <title>Spraying rest applications with spray</title>
-      <link>/brijeshpant.github.io/2016/01/sprayingrestwithspray/</link>
+      <link>/brijeshpant.github.io/2016/01/spraying_rest_with_spray/</link>
       <pubDate>Sat, 30 Jan 2016 15:05:59 +0530</pubDate>
       <author>pantbrijesh20@gmail.com (brijesh pant)</author>
-      <guid>/brijeshpant.github.io/2016/01/sprayingrestwithspray/</guid>
+      <guid>/brijeshpant.github.io/2016/01/spraying_rest_with_spray/</guid>
       <description>
 
 &lt;p&gt;Spray is a suite of lightweight Scala libraries providing client- and server-side REST/HTTP support on top of Akka.  Akka makes the application fully asynchronous. There are other frameworks build on top of Akka such as Play that gives  ability to build full web application but with one down side and that is  application becomes highly coupled with the framework as the application build on top of Play. As oppose to that spray gives  ability to create  Application layer independent of  anything without even thinking of the framework. Spray will just work as an  integration layer to shake hand between outer world and the application. Outer world could be any web,mobile or third party applications.&lt;/p&gt;
