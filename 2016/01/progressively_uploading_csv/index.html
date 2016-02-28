@@ -54,13 +54,13 @@
   <div class="post">
     
 
-<h1 id="progressively-uploading-csv">Progressively Uploading CSV</h1>
+<h1 id="progressively-uploading-csv:c6798e6ef25766e41a5c2d0186d87861">Progressively Uploading CSV</h1>
 
-<h1 id="scenario">Scenario</h1>
+<h1 id="scenario:c6798e6ef25766e41a5c2d0186d87861">Scenario</h1>
 
 <p>You may have encountered situations, when you need to send huge amount of data (in GBs ) to the server.  One example is upload of large files. While sending this data, your server has to slog through the upcoming mighty request body and eventually process it.</p>
 
-<h1 id="problem-definition">Problem Definition</h1>
+<h1 id="problem-definition:c6798e6ef25766e41a5c2d0186d87861">Problem Definition</h1>
 
 <p>So this whole process is about getting chunk of data, wait for next chunk to come and then wait again and this goes on until it receives whole request body.  All the request body data is now in servers memory. And multiple simultaneous uploads would invariably lead to a OOM error.</p>
 
@@ -68,17 +68,17 @@
 
 <p>In such conditions, what can you expect but the frustratingly slow response? Would it not be nice if there is a way to handle such requests in a smarter way?</p>
 
-<h1 id="solution">Solution</h1>
+<h1 id="solution:c6798e6ef25766e41a5c2d0186d87861">Solution</h1>
 
 <p>As the browser sends data in chunks of byte over the network, processing the incoming data in chunks would be a smarter choice. Play2 framework provides such a beautiful capability in the form  of Iteratee library. Iteratees support the consumption of data in chunks and in an asynchronous manner. For more detail of Iteratee you can browse through Iteratee.</p>
 
-<h1 id="iteratee">Iteratee</h1>
+<h1 id="iteratee:c6798e6ef25766e41a5c2d0186d87861">Iteratee</h1>
 
 <p>For now you need to understand what Iteratee can do to solve our problem. Iteratee requires producer that can feed iteratee the data to process. Producer can be any Enumerator which has capability to produce data of same type as the Iteratee expects. Iteratee can consume the chunks of data progressively. It does not need all data to be radially available. It can consume data chunks whenever it is available. Iteratee doses not wait on any upcoming chunks. It is the responsibility of producer to feed Iteratee. After receiving data chunk Iteratee can start processing it.</p>
 
 <p>Here we will see the example code for uploading the csv file progressively. This is a Play-scala application so you need to set the required environment. Once you done with creating a play application, you are ready to go further. Here are instructions on   <a href="https://www.playframework.com/documentation/2.2.x/Installing">how to install and setup play</a>.</p>
 
-<h1 id="code">Code</h1>
+<h1 id="code:c6798e6ef25766e41a5c2d0186d87861">Code</h1>
 
 <p>Make entries for your routes in Routes file</p>
 
@@ -162,13 +162,13 @@ msg
 }
 </code></pre>
 
-<h1 id="explanation">Explanation</h1>
+<h1 id="explanation:c6798e6ef25766e41a5c2d0186d87861">Explanation</h1>
 
 <p>In our case as we are parsing a csv file, every row is separated by a new line character. Therefore we need chunks based on the new line to distinguish each line separately and process it. But browsers creates the chunks by its own irrespective of what the separator is.</p>
 
 <p>Our requirement is to get such an Iteratee which can consume each line at one go and process it. Our source of data here is chunks of Array[Byte] which may not contain new line char or may be containing more than one new lines. Therefore it has to be adapted such that it can match the type our Iteratee is expecting.</p>
 
-<h1 id="enumeratee">Enumeratee</h1>
+<h1 id="enumeratee:c6798e6ef25766e41a5c2d0186d87861">Enumeratee</h1>
 
 <p>To adapt one Type of Enumerator to the another type we have Enumeratee which is pipe adapter between Enumerator and Iteratee. It basically transform one Type of Enumerator to other type. For example Enumerator[Int] can be transformed into Enumerator[String] by applying Enumeratee[Int,String] on Enumerator[Int]. Enumeratee[A,B] can also be composed with an Enumeratee[B,C] to give Enumeratee[A,C].</p>
 

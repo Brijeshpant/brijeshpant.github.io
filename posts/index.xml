@@ -11,7 +11,7 @@
     <atom:link href="brijeshpant.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
-      <title>Configure multiple git account</title>
+      <title>Configure multiple git accounts for ssh</title>
       <link>/brijeshpant.github.io/2016/02/configuring_multiple_git_account/</link>
       <pubDate>Sun, 28 Feb 2016 12:00:01 +0230</pubDate>
       <author>pantbrijesh20@gmail.com (brijesh pant)</author>
@@ -565,13 +565,13 @@ $scope.customDatepicker = $filter(&#39;date&#39;)($scope.date, &amp;quot;yyyy-MM
       <guid>/brijeshpant.github.io/2016/01/progressively_uploading_csv/</guid>
       <description>
 
-&lt;h1 id=&#34;progressively-uploading-csv&#34;&gt;Progressively Uploading CSV&lt;/h1&gt;
+&lt;h1 id=&#34;progressively-uploading-csv:c6798e6ef25766e41a5c2d0186d87861&#34;&gt;Progressively Uploading CSV&lt;/h1&gt;
 
-&lt;h1 id=&#34;scenario&#34;&gt;Scenario&lt;/h1&gt;
+&lt;h1 id=&#34;scenario:c6798e6ef25766e41a5c2d0186d87861&#34;&gt;Scenario&lt;/h1&gt;
 
 &lt;p&gt;You may have encountered situations, when you need to send huge amount of data (in GBs ) to the server.  One example is upload of large files. While sending this data, your server has to slog through the upcoming mighty request body and eventually process it.&lt;/p&gt;
 
-&lt;h1 id=&#34;problem-definition&#34;&gt;Problem Definition&lt;/h1&gt;
+&lt;h1 id=&#34;problem-definition:c6798e6ef25766e41a5c2d0186d87861&#34;&gt;Problem Definition&lt;/h1&gt;
 
 &lt;p&gt;So this whole process is about getting chunk of data, wait for next chunk to come and then wait again and this goes on until it receives whole request body.  All the request body data is now in servers memory. And multiple simultaneous uploads would invariably lead to a OOM error.&lt;/p&gt;
 
@@ -579,17 +579,17 @@ $scope.customDatepicker = $filter(&#39;date&#39;)($scope.date, &amp;quot;yyyy-MM
 
 &lt;p&gt;In such conditions, what can you expect but the frustratingly slow response? Would it not be nice if there is a way to handle such requests in a smarter way?&lt;/p&gt;
 
-&lt;h1 id=&#34;solution&#34;&gt;Solution&lt;/h1&gt;
+&lt;h1 id=&#34;solution:c6798e6ef25766e41a5c2d0186d87861&#34;&gt;Solution&lt;/h1&gt;
 
 &lt;p&gt;As the browser sends data in chunks of byte over the network, processing the incoming data in chunks would be a smarter choice. Play2 framework provides such a beautiful capability in the form  of Iteratee library. Iteratees support the consumption of data in chunks and in an asynchronous manner. For more detail of Iteratee you can browse through Iteratee.&lt;/p&gt;
 
-&lt;h1 id=&#34;iteratee&#34;&gt;Iteratee&lt;/h1&gt;
+&lt;h1 id=&#34;iteratee:c6798e6ef25766e41a5c2d0186d87861&#34;&gt;Iteratee&lt;/h1&gt;
 
 &lt;p&gt;For now you need to understand what Iteratee can do to solve our problem. Iteratee requires producer that can feed iteratee the data to process. Producer can be any Enumerator which has capability to produce data of same type as the Iteratee expects. Iteratee can consume the chunks of data progressively. It does not need all data to be radially available. It can consume data chunks whenever it is available. Iteratee doses not wait on any upcoming chunks. It is the responsibility of producer to feed Iteratee. After receiving data chunk Iteratee can start processing it.&lt;/p&gt;
 
 &lt;p&gt;Here we will see the example code for uploading the csv file progressively. This is a Play-scala application so you need to set the required environment. Once you done with creating a play application, you are ready to go further. Here are instructions on   &lt;a href=&#34;https://www.playframework.com/documentation/2.2.x/Installing&#34;&gt;how to install and setup play&lt;/a&gt;.&lt;/p&gt;
 
-&lt;h1 id=&#34;code&#34;&gt;Code&lt;/h1&gt;
+&lt;h1 id=&#34;code:c6798e6ef25766e41a5c2d0186d87861&#34;&gt;Code&lt;/h1&gt;
 
 &lt;p&gt;Make entries for your routes in Routes file&lt;/p&gt;
 
@@ -673,13 +673,13 @@ msg
 }
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h1 id=&#34;explanation&#34;&gt;Explanation&lt;/h1&gt;
+&lt;h1 id=&#34;explanation:c6798e6ef25766e41a5c2d0186d87861&#34;&gt;Explanation&lt;/h1&gt;
 
 &lt;p&gt;In our case as we are parsing a csv file, every row is separated by a new line character. Therefore we need chunks based on the new line to distinguish each line separately and process it. But browsers creates the chunks by its own irrespective of what the separator is.&lt;/p&gt;
 
 &lt;p&gt;Our requirement is to get such an Iteratee which can consume each line at one go and process it. Our source of data here is chunks of Array[Byte] which may not contain new line char or may be containing more than one new lines. Therefore it has to be adapted such that it can match the type our Iteratee is expecting.&lt;/p&gt;
 
-&lt;h1 id=&#34;enumeratee&#34;&gt;Enumeratee&lt;/h1&gt;
+&lt;h1 id=&#34;enumeratee:c6798e6ef25766e41a5c2d0186d87861&#34;&gt;Enumeratee&lt;/h1&gt;
 
 &lt;p&gt;To adapt one Type of Enumerator to the another type we have Enumeratee which is pipe adapter between Enumerator and Iteratee. It basically transform one Type of Enumerator to other type. For example Enumerator[Int] can be transformed into Enumerator[String] by applying Enumeratee[Int,String] on Enumerator[Int]. Enumeratee[A,B] can also be composed with an Enumeratee[B,C] to give Enumeratee[A,C].&lt;/p&gt;
 
@@ -707,7 +707,7 @@ msg
 
 &lt;p&gt;In this blog post we will see how to setup spray environment for the Scala application and also learn about some of the building blocks. In the upcoming post we will see simple  example of writing rest Api&amp;rsquo;s, authentication support, cross origin support and actor handling also most important part of the development unit test spray routes.&lt;/p&gt;
 
-&lt;h1 id=&#34;table-of-content&#34;&gt;Table of content&lt;/h1&gt;
+&lt;h1 id=&#34;table-of-content:4676a1a24d2f1e0be2dd880eec4ede0a&#34;&gt;Table of content&lt;/h1&gt;
 
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;#Basic setup&#34;&gt;Basic setup&lt;/a&gt;&lt;/li&gt;
@@ -717,7 +717,7 @@ msg
 &lt;li&gt;&lt;a href=&#34;#Conclusion&#34;&gt;Conclusion&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&#34;basic-setup&#34;&gt;Basic setup&lt;/h2&gt;
+&lt;h2 id=&#34;basic-setup:4676a1a24d2f1e0be2dd880eec4ede0a&#34;&gt;Basic setup&lt;/h2&gt;
 
 &lt;p&gt;To start with we need to firstly create the sbt project.&lt;/p&gt;
 
@@ -744,11 +744,11 @@ we have defined 3  libraries  spray-can ,spray-routing and akka-actor. These are
 
 &lt;p&gt;Let&amp;rsquo;s understand why these libraries are for&lt;/p&gt;
 
-&lt;h3 id=&#34;spray-can&#34;&gt;Spray-can&lt;/h3&gt;
+&lt;h3 id=&#34;spray-can:4676a1a24d2f1e0be2dd880eec4ede0a&#34;&gt;Spray-can&lt;/h3&gt;
 
 &lt;p&gt;A low-level, low-overhead, high-performance HTTP server and client built on top of spray-io. When spray-can server get started,It starts a new listener actor which can handle thousands of  incoming requests asynchronously.&lt;/p&gt;
 
-&lt;h3 id=&#34;spray-routing&#34;&gt;Spray-routing&lt;/h3&gt;
+&lt;h3 id=&#34;spray-routing:4676a1a24d2f1e0be2dd880eec4ede0a&#34;&gt;Spray-routing&lt;/h3&gt;
 
 &lt;p&gt;A high-level routing DSL for elegantly defining RESTful web services. It provides abstraction layer over the spray-http . It saves developers efforts of writing boiler plate code and provide them the simple interface to build  the application.&lt;/p&gt;
 
@@ -787,7 +787,7 @@ In the example above we have override receive method with partial function runRo
 
 &lt;p&gt;All the structure you define will be subtype of Route.&lt;/p&gt;
 
-&lt;h2 id=&#34;directives&#34;&gt;Directives&lt;/h2&gt;
+&lt;h2 id=&#34;directives:4676a1a24d2f1e0be2dd880eec4ede0a&#34;&gt;Directives&lt;/h2&gt;
 
 &lt;p&gt;We can combine multiple such structure to form a complex Route. These building blocks are termed as Directive in spray. Spray comes up with predefined Directives for handling almost every type of request one can encounter. But we can create our own Directives if required by modifying or combining these Directives.&lt;/p&gt;
 
@@ -798,7 +798,7 @@ In the example above our path directive matches the path &amp;ldquo;firstRoute&a
 
 &lt;p&gt;You can find out sample code &lt;a href=&#34;https://github.com/Brijeshpant/SprayingRestWithSpray.git&#34;&gt;here&lt;/a&gt;&lt;/p&gt;
 
-&lt;h2 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h2&gt;
+&lt;h2 id=&#34;conclusion:4676a1a24d2f1e0be2dd880eec4ede0a&#34;&gt;Conclusion&lt;/h2&gt;
 
 &lt;p&gt;In this post we explored how to set up spray application,learned about basic ingredients of the spray.In my upcoming  blog we will deep dive in detail and we will be using these ingredients to create more stuff about Rest Api&amp;rsquo;s through spray.&lt;/p&gt;
 </description>
@@ -812,15 +812,15 @@ In the example above our path directive matches the path &amp;ldquo;firstRoute&a
       <guid>/brijeshpant.github.io/2016/01/domain_driven_design_angular/</guid>
       <description>
 
-&lt;h1 id=&#34;domain-driven-design-in-angularjs&#34;&gt;Domain Driven Design in angularjs&lt;/h1&gt;
+&lt;h1 id=&#34;domain-driven-design-in-angularjs:9206ab86036fca65e933d58b353523a5&#34;&gt;Domain Driven Design in angularjs&lt;/h1&gt;
 
 &lt;p&gt;For developing any software we need to have clear understanding of design philosophy which will be followed to solve the given problem.We do have myriads of options. Based on the requirements we choose the best fit.One of the design philosophy is Domain Driven design.&lt;/p&gt;
 
-&lt;h2 id=&#34;ddd&#34;&gt;DDD&lt;/h2&gt;
+&lt;h2 id=&#34;ddd:9206ab86036fca65e933d58b353523a5&#34;&gt;DDD&lt;/h2&gt;
 
 &lt;p&gt;An object model of the domain that incorporates both behavior and data.When we talk about domain layer it is responsible for representing concepts of the business, information about the business situation, and business rules. State that reflects the business situation is controlled and used here, even though the technical details of storing it are delegated to the infrastructure. This layer is the heart of business software.&lt;/p&gt;
 
-&lt;h2 id=&#34;example-problem&#34;&gt;Example problem&lt;/h2&gt;
+&lt;h2 id=&#34;example-problem:9206ab86036fca65e933d58b353523a5&#34;&gt;Example problem&lt;/h2&gt;
 
 &lt;p&gt;Let us take an example of simple problem.
 We have a user that can have one of the role USER,ADMIN or SUPERUSER
@@ -986,12 +986,12 @@ We will now define our services&lt;/p&gt;
 &amp;lt;/html&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h2 id=&#34;problem-with-this-approach&#34;&gt;Problem with this approach&lt;/h2&gt;
+&lt;h2 id=&#34;problem-with-this-approach:9206ab86036fca65e933d58b353523a5&#34;&gt;Problem with this approach&lt;/h2&gt;
 
 &lt;p&gt;You can see all our behavior is lied in the presentation layer. For displaying jobs we have applied all logic in our html file. moreover we have repeated our code to display jobs for normal user and for Admin/Superuser.
 Similarly we have applied all the logic for displaying apply and unApply button in the html itself. We definitely should not have these logic in presentation layer.we can put these logics in our controller.But What if we want to bind this page with multiple controllers? We will have to write these logic in all those controllers.Situation will be more horrifying when our business demands some changes in the logic.Go find all the places and make those changes.&lt;/p&gt;
 
-&lt;h2 id=&#34;time-for-refactoring&#34;&gt;Time for refactoring&lt;/h2&gt;
+&lt;h2 id=&#34;time-for-refactoring:9206ab86036fca65e933d58b353523a5&#34;&gt;Time for refactoring&lt;/h2&gt;
 
 &lt;p&gt;Let&amp;rsquo;s think in different way.
  We know in the current problem space we have two entities user and job. user&amp;rsquo;s behavior changes based in its role.If it is Admin it has access to all jobs. But if it is normal user he can see only jobs which matches his education.
