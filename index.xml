@@ -454,7 +454,7 @@ implicit val userFormat = jsonFormat3(User)&lt;/code&gt; will be in it&amp;rsquo
       <guid>/brijeshpant.github.io/2016/01/customizingangulardirectives/</guid>
       <description>
 
-&lt;h1 id=&#34;customizing-angular-directives:ceb9c000a2f334563e8c78f9f222806f&#34;&gt;Customizing Angular Directives&lt;/h1&gt;
+&lt;h1 id=&#34;customizing-angular-directives&#34;&gt;Customizing Angular Directives&lt;/h1&gt;
 
 &lt;p&gt;While developing Angular Application we have a obvious choice of using third party directives. Most of the time these directive are suffice to handle all the use cases. But situation may occur when you feel that there is really something missing to fulfill your Specific problem. Common practice is to add your own custom directive along with the directive, you want to use in the element. But It sounds quite weird to Have two directives to solve the same problem. Hence we might have to think of some different way.&lt;/p&gt;
 
@@ -707,7 +707,7 @@ msg
 
 &lt;p&gt;In this blog post we will see how to setup spray environment for the Scala application and also learn about some of the building blocks. In the upcoming post we will see simple  example of writing rest Api&amp;rsquo;s, authentication support, cross origin support and actor handling also most important part of the development unit test spray routes.&lt;/p&gt;
 
-&lt;h1 id=&#34;table-of-content:4676a1a24d2f1e0be2dd880eec4ede0a&#34;&gt;Table of content&lt;/h1&gt;
+&lt;h1 id=&#34;table-of-content&#34;&gt;Table of content&lt;/h1&gt;
 
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;#Basic setup&#34;&gt;Basic setup&lt;/a&gt;&lt;/li&gt;
@@ -717,7 +717,7 @@ msg
 &lt;li&gt;&lt;a href=&#34;#Conclusion&#34;&gt;Conclusion&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&#34;basic-setup:4676a1a24d2f1e0be2dd880eec4ede0a&#34;&gt;Basic setup&lt;/h2&gt;
+&lt;h2 id=&#34;basic-setup&#34;&gt;Basic setup&lt;/h2&gt;
 
 &lt;p&gt;To start with we need to firstly create the sbt project.&lt;/p&gt;
 
@@ -744,11 +744,11 @@ we have defined 3  libraries  spray-can ,spray-routing and akka-actor. These are
 
 &lt;p&gt;Let&amp;rsquo;s understand why these libraries are for&lt;/p&gt;
 
-&lt;h3 id=&#34;spray-can:4676a1a24d2f1e0be2dd880eec4ede0a&#34;&gt;Spray-can&lt;/h3&gt;
+&lt;h3 id=&#34;spray-can&#34;&gt;Spray-can&lt;/h3&gt;
 
 &lt;p&gt;A low-level, low-overhead, high-performance HTTP server and client built on top of spray-io. When spray-can server get started,It starts a new listener actor which can handle thousands of  incoming requests asynchronously.&lt;/p&gt;
 
-&lt;h3 id=&#34;spray-routing:4676a1a24d2f1e0be2dd880eec4ede0a&#34;&gt;Spray-routing&lt;/h3&gt;
+&lt;h3 id=&#34;spray-routing&#34;&gt;Spray-routing&lt;/h3&gt;
 
 &lt;p&gt;A high-level routing DSL for elegantly defining RESTful web services. It provides abstraction layer over the spray-http . It saves developers efforts of writing boiler plate code and provide them the simple interface to build  the application.&lt;/p&gt;
 
@@ -787,7 +787,7 @@ In the example above we have override receive method with partial function runRo
 
 &lt;p&gt;All the structure you define will be subtype of Route.&lt;/p&gt;
 
-&lt;h2 id=&#34;directives:4676a1a24d2f1e0be2dd880eec4ede0a&#34;&gt;Directives&lt;/h2&gt;
+&lt;h2 id=&#34;directives&#34;&gt;Directives&lt;/h2&gt;
 
 &lt;p&gt;We can combine multiple such structure to form a complex Route. These building blocks are termed as Directive in spray. Spray comes up with predefined Directives for handling almost every type of request one can encounter. But we can create our own Directives if required by modifying or combining these Directives.&lt;/p&gt;
 
@@ -798,7 +798,7 @@ In the example above our path directive matches the path &amp;ldquo;firstRoute&a
 
 &lt;p&gt;You can find out sample code &lt;a href=&#34;https://github.com/Brijeshpant/SprayingRestWithSpray.git&#34;&gt;here&lt;/a&gt;&lt;/p&gt;
 
-&lt;h2 id=&#34;conclusion:4676a1a24d2f1e0be2dd880eec4ede0a&#34;&gt;Conclusion&lt;/h2&gt;
+&lt;h2 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h2&gt;
 
 &lt;p&gt;In this post we explored how to set up spray application,learned about basic ingredients of the spray.In my upcoming  blog we will deep dive in detail and we will be using these ingredients to create more stuff about Rest Api&amp;rsquo;s through spray.&lt;/p&gt;
 </description>
