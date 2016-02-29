@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on Brijesh Pant</title>
-    <link>brijeshpant.github.io/posts/</link>
+    <link>brijeshpant.com/posts/</link>
     <description>Recent content in Posts on Brijesh Pant</description>
     <generator>Hugo -- gohugo.io</generator>
     <managingEditor>pantbrijesh20@gmail.com (brijesh pant)</managingEditor>
     <webMaster>pantbrijesh20@gmail.com (brijesh pant)</webMaster>
     <lastBuildDate>Sun, 28 Feb 2016 12:00:01 +0230</lastBuildDate>
-    <atom:link href="brijeshpant.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="brijeshpant.com/posts/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Configure multiple git accounts for ssh</title>
-      <link>/brijeshpant.github.io/2016/02/configuring_multiple_git_account/</link>
+      <link>/brijeshpant.com/2016/02/configuring_multiple_git_account/</link>
       <pubDate>Sun, 28 Feb 2016 12:00:01 +0230</pubDate>
       <author>pantbrijesh20@gmail.com (brijesh pant)</author>
-      <guid>/brijeshpant.github.io/2016/02/configuring_multiple_git_account/</guid>
+      <guid>/brijeshpant.com/2016/02/configuring_multiple_git_account/</guid>
       <description>&lt;p&gt;I encountered a scenario when i had to use multiple git accounts.I have my personal github account to put my public git repositories that i want to share with others. But to create my own private repositories i couldn&amp;rsquo;t use the same account,as it costs money.I had to switch to bitbucket.And finally using my project specific to my company i have another github account.&lt;/p&gt;
 
 &lt;p&gt;Having multiple account beside remembering the password there is one more challenge.&lt;/p&gt;
@@ -96,10 +96,10 @@ This will make your life much easier afterword.&lt;/p&gt;
     
     <item>
       <title>Link your github page to your domain</title>
-      <link>/brijeshpant.github.io/2016/02/mapping-gitub-page-to-your-preferred-domain-name/</link>
+      <link>/brijeshpant.com/2016/02/mapping-gitub-page-to-your-preferred-domain-name/</link>
       <pubDate>Sun, 21 Feb 2016 14:14:56 +0530</pubDate>
       <author>pantbrijesh20@gmail.com (brijesh pant)</author>
-      <guid>/brijeshpant.github.io/2016/02/mapping-gitub-page-to-your-preferred-domain-name/</guid>
+      <guid>/brijeshpant.com/2016/02/mapping-gitub-page-to-your-preferred-domain-name/</guid>
       <description>&lt;p&gt;For the developers it is quite common now a days to create there blogs,websites using the same tool which they use to version control their code.
 Yes i am talking about git.You can create your static github pages using &lt;a href=&#34;https://pages.github.com&#34; target=&#34;_blank&#34;&gt;github pages&lt;/a&gt;
 and then using the Static site generators like &lt;a href=&#34;https://gohugo.io/overview/introduction/&#34; target=&#34;_blank&#34;&gt; hugo &lt;/a&gt; or &lt;a href=&#34;https://jekyllrb.com&#34; target=&#34;_blank&#34;&gt;jekyl&lt;/a&gt;
@@ -121,23 +121,23 @@ First thing you need to do is make your git repository aware of your domain name
 
 &lt;p&gt;In your go daddy account select My Products option from the drop down menu at the top right corner&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;brijeshpant.github.io/media/myproduct.png&#34; alt=&#34;My products&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;brijeshpant.com/media/myproduct.png&#34; alt=&#34;My products&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;You will see list of the products. One of them will be the Domains.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;brijeshpant.github.io/media/domains.png&#34; alt=&#34;Domains&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;brijeshpant.com/media/domains.png&#34; alt=&#34;Domains&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Click Manage button against the domains.&lt;/p&gt;
 
 &lt;p&gt;you will see all of your domains listed. Just go to the DOMAIN DETAILS page by selecting Manage DNS from your preferred domain.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;brijeshpant.github.io/media/manageDns.png&#34; alt=&#34;Manage DNS&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;brijeshpant.com/media/manageDns.png&#34; alt=&#34;Manage DNS&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Here you have to modify two things&lt;/p&gt;
 
 &lt;p&gt;A record and the CName alias&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;brijeshpant.github.io/media/domainSettings.png&#34; alt=&#34;Domains Settings&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;brijeshpant.com/media/domainSettings.png&#34; alt=&#34;Domains Settings&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;For editing A record enter ip address of your github page.&lt;/p&gt;
 
@@ -167,10 +167,10 @@ First thing you need to do is make your git repository aware of your domain name
     
     <item>
       <title>Make yourself comfortable with vim</title>
-      <link>/brijeshpant.github.io/2016/02/working_with_vim/</link>
+      <link>/brijeshpant.com/2016/02/working_with_vim/</link>
       <pubDate>Sat, 06 Feb 2016 00:36:02 +0530</pubDate>
       <author>pantbrijesh20@gmail.com (brijesh pant)</author>
-      <guid>/brijeshpant.github.io/2016/02/working_with_vim/</guid>
+      <guid>/brijeshpant.com/2016/02/working_with_vim/</guid>
       <description>
 
 &lt;p&gt;Being developer it looks quite fancy of modifying the text file  using the command line tools such as vim,nano etc. But When i started working on command line text editors it was quite annoying at first. I tried multiple time to work with cli but duo to not having enough knowledge of shortcut keys i was like handicapped and have to go back to my old friends (Ui text editors) . In the local systems it was fine but More than often i had to search through server logs, modifying configuration files in remote servers. And while accessing those remote system you do not have such luxury and you have to use cli  only. Then i decided to learn shortcut keys to make my life easier. after getting  my hands dirty it was like charm working with these editors.&lt;/p&gt;
@@ -318,10 +318,10 @@ These are the basic command which will be most oftenly used while working with v
     
     <item>
       <title>Using Spray JSON to build your REST API</title>
-      <link>/brijeshpant.github.io/2016/02/spray-json-support/</link>
+      <link>/brijeshpant.com/2016/02/spray-json-support/</link>
       <pubDate>Mon, 01 Feb 2016 22:43:02 +0530</pubDate>
       <author>pantbrijesh20@gmail.com (brijesh pant)</author>
-      <guid>/brijeshpant.github.io/2016/02/spray-json-support/</guid>
+      <guid>/brijeshpant.com/2016/02/spray-json-support/</guid>
       <description>&lt;p&gt;For any of the rest application it’s state has to be serialize or deserialized while transferring back and forth between application and the network. spray-json provide such support for the json based state representation.
  For using spray-json we just need to  add &amp;lsquo;spray-json&amp;rsquo; dependency in the project. For instance adding support in the sbt project add following to the build file.&lt;/p&gt;
 
@@ -448,10 +448,10 @@ implicit val userFormat = jsonFormat3(User)&lt;/code&gt; will be in it&amp;rsquo
     
     <item>
       <title>Customizing Angular Directives</title>
-      <link>/brijeshpant.github.io/2016/01/customizingangulardirectives/</link>
+      <link>/brijeshpant.com/2016/01/customizingangulardirectives/</link>
       <pubDate>Sat, 30 Jan 2016 15:36:44 +0530</pubDate>
       <author>pantbrijesh20@gmail.com (brijesh pant)</author>
-      <guid>/brijeshpant.github.io/2016/01/customizingangulardirectives/</guid>
+      <guid>/brijeshpant.com/2016/01/customizingangulardirectives/</guid>
       <description>
 
 &lt;h1 id=&#34;customizing-angular-directives:ceb9c000a2f334563e8c78f9f222806f&#34;&gt;Customizing Angular Directives&lt;/h1&gt;
@@ -559,19 +559,19 @@ $scope.customDatepicker = $filter(&#39;date&#39;)($scope.date, &amp;quot;yyyy-MM
     
     <item>
       <title>Progressively Uploading Csv using Play</title>
-      <link>/brijeshpant.github.io/2016/01/progressively_uploading_csv/</link>
+      <link>/brijeshpant.com/2016/01/progressively_uploading_csv/</link>
       <pubDate>Sat, 30 Jan 2016 15:16:28 +0530</pubDate>
       <author>pantbrijesh20@gmail.com (brijesh pant)</author>
-      <guid>/brijeshpant.github.io/2016/01/progressively_uploading_csv/</guid>
+      <guid>/brijeshpant.com/2016/01/progressively_uploading_csv/</guid>
       <description>
 
-&lt;h1 id=&#34;progressively-uploading-csv&#34;&gt;Progressively Uploading CSV&lt;/h1&gt;
+&lt;h1 id=&#34;progressively-uploading-csv:c6798e6ef25766e41a5c2d0186d87861&#34;&gt;Progressively Uploading CSV&lt;/h1&gt;
 
-&lt;h1 id=&#34;scenario&#34;&gt;Scenario&lt;/h1&gt;
+&lt;h1 id=&#34;scenario:c6798e6ef25766e41a5c2d0186d87861&#34;&gt;Scenario&lt;/h1&gt;
 
 &lt;p&gt;You may have encountered situations, when you need to send huge amount of data (in GBs ) to the server.  One example is upload of large files. While sending this data, your server has to slog through the upcoming mighty request body and eventually process it.&lt;/p&gt;
 
-&lt;h1 id=&#34;problem-definition&#34;&gt;Problem Definition&lt;/h1&gt;
+&lt;h1 id=&#34;problem-definition:c6798e6ef25766e41a5c2d0186d87861&#34;&gt;Problem Definition&lt;/h1&gt;
 
 &lt;p&gt;So this whole process is about getting chunk of data, wait for next chunk to come and then wait again and this goes on until it receives whole request body.  All the request body data is now in servers memory. And multiple simultaneous uploads would invariably lead to a OOM error.&lt;/p&gt;
 
@@ -579,17 +579,17 @@ $scope.customDatepicker = $filter(&#39;date&#39;)($scope.date, &amp;quot;yyyy-MM
 
 &lt;p&gt;In such conditions, what can you expect but the frustratingly slow response? Would it not be nice if there is a way to handle such requests in a smarter way?&lt;/p&gt;
 
-&lt;h1 id=&#34;solution&#34;&gt;Solution&lt;/h1&gt;
+&lt;h1 id=&#34;solution:c6798e6ef25766e41a5c2d0186d87861&#34;&gt;Solution&lt;/h1&gt;
 
 &lt;p&gt;As the browser sends data in chunks of byte over the network, processing the incoming data in chunks would be a smarter choice. Play2 framework provides such a beautiful capability in the form  of Iteratee library. Iteratees support the consumption of data in chunks and in an asynchronous manner. For more detail of Iteratee you can browse through Iteratee.&lt;/p&gt;
 
-&lt;h1 id=&#34;iteratee&#34;&gt;Iteratee&lt;/h1&gt;
+&lt;h1 id=&#34;iteratee:c6798e6ef25766e41a5c2d0186d87861&#34;&gt;Iteratee&lt;/h1&gt;
 
 &lt;p&gt;For now you need to understand what Iteratee can do to solve our problem. Iteratee requires producer that can feed iteratee the data to process. Producer can be any Enumerator which has capability to produce data of same type as the Iteratee expects. Iteratee can consume the chunks of data progressively. It does not need all data to be radially available. It can consume data chunks whenever it is available. Iteratee doses not wait on any upcoming chunks. It is the responsibility of producer to feed Iteratee. After receiving data chunk Iteratee can start processing it.&lt;/p&gt;
 
 &lt;p&gt;Here we will see the example code for uploading the csv file progressively. This is a Play-scala application so you need to set the required environment. Once you done with creating a play application, you are ready to go further. Here are instructions on   &lt;a href=&#34;https://www.playframework.com/documentation/2.2.x/Installing&#34;&gt;how to install and setup play&lt;/a&gt;.&lt;/p&gt;
 
-&lt;h1 id=&#34;code&#34;&gt;Code&lt;/h1&gt;
+&lt;h1 id=&#34;code:c6798e6ef25766e41a5c2d0186d87861&#34;&gt;Code&lt;/h1&gt;
 
 &lt;p&gt;Make entries for your routes in Routes file&lt;/p&gt;
 
@@ -673,13 +673,13 @@ msg
 }
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h1 id=&#34;explanation&#34;&gt;Explanation&lt;/h1&gt;
+&lt;h1 id=&#34;explanation:c6798e6ef25766e41a5c2d0186d87861&#34;&gt;Explanation&lt;/h1&gt;
 
 &lt;p&gt;In our case as we are parsing a csv file, every row is separated by a new line character. Therefore we need chunks based on the new line to distinguish each line separately and process it. But browsers creates the chunks by its own irrespective of what the separator is.&lt;/p&gt;
 
 &lt;p&gt;Our requirement is to get such an Iteratee which can consume each line at one go and process it. Our source of data here is chunks of Array[Byte] which may not contain new line char or may be containing more than one new lines. Therefore it has to be adapted such that it can match the type our Iteratee is expecting.&lt;/p&gt;
 
-&lt;h1 id=&#34;enumeratee&#34;&gt;Enumeratee&lt;/h1&gt;
+&lt;h1 id=&#34;enumeratee:c6798e6ef25766e41a5c2d0186d87861&#34;&gt;Enumeratee&lt;/h1&gt;
 
 &lt;p&gt;To adapt one Type of Enumerator to the another type we have Enumeratee which is pipe adapter between Enumerator and Iteratee. It basically transform one Type of Enumerator to other type. For example Enumerator[Int] can be transformed into Enumerator[String] by applying Enumeratee[Int,String] on Enumerator[Int]. Enumeratee[A,B] can also be composed with an Enumeratee[B,C] to give Enumeratee[A,C].&lt;/p&gt;
 
@@ -697,10 +697,10 @@ msg
     
     <item>
       <title>Spraying rest applications with spray</title>
-      <link>/brijeshpant.github.io/2016/01/spraying_rest_with_spray/</link>
+      <link>/brijeshpant.com/2016/01/spraying_rest_with_spray/</link>
       <pubDate>Sat, 30 Jan 2016 15:05:59 +0530</pubDate>
       <author>pantbrijesh20@gmail.com (brijesh pant)</author>
-      <guid>/brijeshpant.github.io/2016/01/spraying_rest_with_spray/</guid>
+      <guid>/brijeshpant.com/2016/01/spraying_rest_with_spray/</guid>
       <description>
 
 &lt;p&gt;Spray is a suite of lightweight Scala libraries providing client- and server-side REST/HTTP support on top of Akka.  Akka makes the application fully asynchronous. There are other frameworks build on top of Akka such as Play that gives  ability to build full web application but with one down side and that is  application becomes highly coupled with the framework as the application build on top of Play. As oppose to that spray gives  ability to create  Application layer independent of  anything without even thinking of the framework. Spray will just work as an  integration layer to shake hand between outer world and the application. Outer world could be any web,mobile or third party applications.&lt;/p&gt;
@@ -806,10 +806,10 @@ In the example above our path directive matches the path &amp;ldquo;firstRoute&a
     
     <item>
       <title>Domain Driven Design Angularjs way</title>
-      <link>/brijeshpant.github.io/2016/01/domain_driven_design_angular/</link>
+      <link>/brijeshpant.com/2016/01/domain_driven_design_angular/</link>
       <pubDate>Sat, 30 Jan 2016 09:52:16 +0530</pubDate>
       <author>pantbrijesh20@gmail.com (brijesh pant)</author>
-      <guid>/brijeshpant.github.io/2016/01/domain_driven_design_angular/</guid>
+      <guid>/brijeshpant.com/2016/01/domain_driven_design_angular/</guid>
       <description>
 
 &lt;h1 id=&#34;domain-driven-design-in-angularjs:9206ab86036fca65e933d58b353523a5&#34;&gt;Domain Driven Design in angularjs&lt;/h1&gt;

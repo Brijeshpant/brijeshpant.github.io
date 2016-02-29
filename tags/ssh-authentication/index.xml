@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Ssh Authentication on Brijesh Pant</title>
-    <link>brijeshpant.github.io/tags/ssh-authentication/</link>
+    <link>brijeshpant.com/tags/ssh-authentication/</link>
     <description>Recent content in Ssh Authentication on Brijesh Pant</description>
     <generator>Hugo -- gohugo.io</generator>
     <managingEditor>pantbrijesh20@gmail.com (brijesh pant)</managingEditor>
     <webMaster>pantbrijesh20@gmail.com (brijesh pant)</webMaster>
     <lastBuildDate>Sun, 28 Feb 2016 12:00:01 +0230</lastBuildDate>
-    <atom:link href="brijeshpant.github.io/tags/ssh-authentication/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="brijeshpant.com/tags/ssh-authentication/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Configure multiple git accounts for ssh</title>
-      <link>/brijeshpant.github.io/2016/02/configuring_multiple_git_account/</link>
+      <link>/brijeshpant.com/2016/02/configuring_multiple_git_account/</link>
       <pubDate>Sun, 28 Feb 2016 12:00:01 +0230</pubDate>
       <author>pantbrijesh20@gmail.com (brijesh pant)</author>
-      <guid>/brijeshpant.github.io/2016/02/configuring_multiple_git_account/</guid>
+      <guid>/brijeshpant.com/2016/02/configuring_multiple_git_account/</guid>
       <description>&lt;p&gt;I encountered a scenario when i had to use multiple git accounts.I have my personal github account to put my public git repositories that i want to share with others. But to create my own private repositories i couldn&amp;rsquo;t use the same account,as it costs money.I had to switch to bitbucket.And finally using my project specific to my company i have another github account.&lt;/p&gt;
 
 &lt;p&gt;Having multiple account beside remembering the password there is one more challenge.&lt;/p&gt;

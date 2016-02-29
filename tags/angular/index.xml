@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Angular on Brijesh Pant</title>
-    <link>brijeshpant.github.io/tags/angular/</link>
+    <link>brijeshpant.com/tags/angular/</link>
     <description>Recent content in Angular on Brijesh Pant</description>
     <generator>Hugo -- gohugo.io</generator>
     <managingEditor>pantbrijesh20@gmail.com (brijesh pant)</managingEditor>
     <webMaster>pantbrijesh20@gmail.com (brijesh pant)</webMaster>
     <lastBuildDate>Sat, 30 Jan 2016 15:36:44 +0530</lastBuildDate>
-    <atom:link href="brijeshpant.github.io/tags/angular/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="brijeshpant.com/tags/angular/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Customizing Angular Directives</title>
-      <link>/brijeshpant.github.io/2016/01/customizingangulardirectives/</link>
+      <link>/brijeshpant.com/2016/01/customizingangulardirectives/</link>
       <pubDate>Sat, 30 Jan 2016 15:36:44 +0530</pubDate>
       <author>pantbrijesh20@gmail.com (brijesh pant)</author>
-      <guid>/brijeshpant.github.io/2016/01/customizingangulardirectives/</guid>
+      <guid>/brijeshpant.com/2016/01/customizingangulardirectives/</guid>
       <description>
 
 &lt;h1 id=&#34;customizing-angular-directives:ceb9c000a2f334563e8c78f9f222806f&#34;&gt;Customizing Angular Directives&lt;/h1&gt;

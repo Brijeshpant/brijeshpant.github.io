@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Commands on Brijesh Pant</title>
-    <link>brijeshpant.github.io/tags/commands/</link>
+    <link>brijeshpant.com/tags/commands/</link>
     <description>Recent content in Commands on Brijesh Pant</description>
     <generator>Hugo -- gohugo.io</generator>
     <managingEditor>pantbrijesh20@gmail.com (brijesh pant)</managingEditor>
     <webMaster>pantbrijesh20@gmail.com (brijesh pant)</webMaster>
     <lastBuildDate>Sat, 06 Feb 2016 00:36:02 +0530</lastBuildDate>
-    <atom:link href="brijeshpant.github.io/tags/commands/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="brijeshpant.com/tags/commands/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Make yourself comfortable with vim</title>
-      <link>/brijeshpant.github.io/2016/02/working_with_vim/</link>
+      <link>/brijeshpant.com/2016/02/working_with_vim/</link>
       <pubDate>Sat, 06 Feb 2016 00:36:02 +0530</pubDate>
       <author>pantbrijesh20@gmail.com (brijesh pant)</author>
-      <guid>/brijeshpant.github.io/2016/02/working_with_vim/</guid>
+      <guid>/brijeshpant.com/2016/02/working_with_vim/</guid>
       <description>
 
 &lt;p&gt;Being developer it looks quite fancy of modifying the text file  using the command line tools such as vim,nano etc. But When i started working on command line text editors it was quite annoying at first. I tried multiple time to work with cli but duo to not having enough knowledge of shortcut keys i was like handicapped and have to go back to my old friends (Ui text editors) . In the local systems it was fine but More than often i had to search through server logs, modifying configuration files in remote servers. And while accessing those remote system you do not have such luxury and you have to use cli  only. Then i decided to learn shortcut keys to make my life easier. after getting  my hands dirty it was like charm working with these editors.&lt;/p&gt;

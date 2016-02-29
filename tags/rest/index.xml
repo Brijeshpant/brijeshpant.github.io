@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Rest on Brijesh Pant</title>
-    <link>brijeshpant.github.io/tags/rest/</link>
+    <link>brijeshpant.com/tags/rest/</link>
     <description>Recent content in Rest on Brijesh Pant</description>
     <generator>Hugo -- gohugo.io</generator>
     <managingEditor>pantbrijesh20@gmail.com (brijesh pant)</managingEditor>
     <webMaster>pantbrijesh20@gmail.com (brijesh pant)</webMaster>
     <lastBuildDate>Mon, 01 Feb 2016 22:43:02 +0530</lastBuildDate>
-    <atom:link href="brijeshpant.github.io/tags/rest/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="brijeshpant.com/tags/rest/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Using Spray JSON to build your REST API</title>
-      <link>/brijeshpant.github.io/2016/02/spray-json-support/</link>
+      <link>/brijeshpant.com/2016/02/spray-json-support/</link>
       <pubDate>Mon, 01 Feb 2016 22:43:02 +0530</pubDate>
       <author>pantbrijesh20@gmail.com (brijesh pant)</author>
-      <guid>/brijeshpant.github.io/2016/02/spray-json-support/</guid>
+      <guid>/brijeshpant.com/2016/02/spray-json-support/</guid>
       <description>&lt;p&gt;For any of the rest application it’s state has to be serialize or deserialized while transferring back and forth between application and the network. spray-json provide such support for the json based state representation.
  For using spray-json we just need to  add &amp;lsquo;spray-json&amp;rsquo; dependency in the project. For instance adding support in the sbt project add following to the build file.&lt;/p&gt;
 
@@ -142,10 +142,10 @@ implicit val userFormat = jsonFormat3(User)&lt;/code&gt; will be in it&amp;rsquo
     
     <item>
       <title>Spraying rest applications with spray</title>
-      <link>/brijeshpant.github.io/2016/01/spraying_rest_with_spray/</link>
+      <link>/brijeshpant.com/2016/01/spraying_rest_with_spray/</link>
       <pubDate>Sat, 30 Jan 2016 15:05:59 +0530</pubDate>
       <author>pantbrijesh20@gmail.com (brijesh pant)</author>
-      <guid>/brijeshpant.github.io/2016/01/spraying_rest_with_spray/</guid>
+      <guid>/brijeshpant.com/2016/01/spraying_rest_with_spray/</guid>
       <description>
 
 &lt;p&gt;Spray is a suite of lightweight Scala libraries providing client- and server-side REST/HTTP support on top of Akka.  Akka makes the application fully asynchronous. There are other frameworks build on top of Akka such as Play that gives  ability to build full web application but with one down side and that is  application becomes highly coupled with the framework as the application build on top of Play. As oppose to that spray gives  ability to create  Application layer independent of  anything without even thinking of the framework. Spray will just work as an  integration layer to shake hand between outer world and the application. Outer world could be any web,mobile or third party applications.&lt;/p&gt;
