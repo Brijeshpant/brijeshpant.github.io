@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Git on Brijesh Pant</title>
-    <link>brijeshpant.com/tags/git/</link>
+    <link>http://brijeshpant.com/tags/git/</link>
     <description>Recent content in Git on Brijesh Pant</description>
     <generator>Hugo -- gohugo.io</generator>
     <managingEditor>pantbrijesh20@gmail.com (brijesh pant)</managingEditor>
     <webMaster>pantbrijesh20@gmail.com (brijesh pant)</webMaster>
     <lastBuildDate>Sun, 28 Feb 2016 12:00:01 +0230</lastBuildDate>
-    <atom:link href="brijeshpant.com/tags/git/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://brijeshpant.com/tags/git/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Configure multiple git accounts for ssh</title>
-      <link>/brijeshpant.com/2016/02/configuring_multiple_git_account/</link>
+      <link>http://brijeshpant.com/2016/02/configuring_multiple_git_account/</link>
       <pubDate>Sun, 28 Feb 2016 12:00:01 +0230</pubDate>
       <author>pantbrijesh20@gmail.com (brijesh pant)</author>
-      <guid>/brijeshpant.com/2016/02/configuring_multiple_git_account/</guid>
+      <guid>http://brijeshpant.com/2016/02/configuring_multiple_git_account/</guid>
       <description>&lt;p&gt;I encountered a scenario when i had to use multiple git accounts.I have my personal github account to put my public git repositories that i want to share with others. But to create my own private repositories i couldn&amp;rsquo;t use the same account,as it costs money.I had to switch to bitbucket.And finally using my project specific to my company i have another github account.&lt;/p&gt;
 
 &lt;p&gt;Having multiple account beside remembering the password there is one more challenge.&lt;/p&gt;
@@ -96,10 +96,10 @@ This will make your life much easier afterword.&lt;/p&gt;
     
     <item>
       <title>Link your github page to your domain</title>
-      <link>/brijeshpant.com/2016/02/mapping-gitub-page-to-your-preferred-domain-name/</link>
+      <link>http://brijeshpant.com/2016/02/mapping-gitub-page-to-your-preferred-domain-name/</link>
       <pubDate>Sun, 21 Feb 2016 14:14:56 +0530</pubDate>
       <author>pantbrijesh20@gmail.com (brijesh pant)</author>
-      <guid>/brijeshpant.com/2016/02/mapping-gitub-page-to-your-preferred-domain-name/</guid>
+      <guid>http://brijeshpant.com/2016/02/mapping-gitub-page-to-your-preferred-domain-name/</guid>
       <description>&lt;p&gt;For the developers it is quite common now a days to create there blogs,websites using the same tool which they use to version control their code.
 Yes i am talking about git.You can create your static github pages using &lt;a href=&#34;https://pages.github.com&#34; target=&#34;_blank&#34;&gt;github pages&lt;/a&gt;
 and then using the Static site generators like &lt;a href=&#34;https://gohugo.io/overview/introduction/&#34; target=&#34;_blank&#34;&gt; hugo &lt;/a&gt; or &lt;a href=&#34;https://jekyllrb.com&#34; target=&#34;_blank&#34;&gt;jekyl&lt;/a&gt;
@@ -121,23 +121,23 @@ First thing you need to do is make your git repository aware of your domain name
 
 &lt;p&gt;In your go daddy account select My Products option from the drop down menu at the top right corner&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;brijeshpant.com/media/myproduct.png&#34; alt=&#34;My products&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://brijeshpant.com/media/myproduct.png&#34; alt=&#34;My products&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;You will see list of the products. One of them will be the Domains.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;brijeshpant.com/media/domains.png&#34; alt=&#34;Domains&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://brijeshpant.com/media/domains.png&#34; alt=&#34;Domains&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Click Manage button against the domains.&lt;/p&gt;
 
 &lt;p&gt;you will see all of your domains listed. Just go to the DOMAIN DETAILS page by selecting Manage DNS from your preferred domain.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;brijeshpant.com/media/manageDns.png&#34; alt=&#34;Manage DNS&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://brijeshpant.com/media/manageDns.png&#34; alt=&#34;Manage DNS&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Here you have to modify two things&lt;/p&gt;
 
 &lt;p&gt;A record and the CName alias&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;brijeshpant.com/media/domainSettings.png&#34; alt=&#34;Domains Settings&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://brijeshpant.com/media/domainSettings.png&#34; alt=&#34;Domains Settings&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;For editing A record enter ip address of your github page.&lt;/p&gt;
 
