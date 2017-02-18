@@ -2,20 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Vim on Brijesh Pant</title>
-    <link>http://brijeshpant.com/tags/vim/</link>
+    <link>/brijeshpant.github.io/tags/vim/index.xml</link>
     <description>Recent content in Vim on Brijesh Pant</description>
     <generator>Hugo -- gohugo.io</generator>
     <managingEditor>pantbrijesh20@gmail.com (brijesh pant)</managingEditor>
     <webMaster>pantbrijesh20@gmail.com (brijesh pant)</webMaster>
-    <lastBuildDate>Sat, 06 Feb 2016 00:36:02 +0530</lastBuildDate>
-    <atom:link href="http://brijeshpant.com/tags/vim/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="/brijeshpant.github.io/tags/vim/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Make yourself comfortable with vim</title>
-      <link>http://brijeshpant.com/2016/02/working_with_vim/</link>
+      <link>/brijeshpant.github.io/2016/02/working_with_vim/</link>
       <pubDate>Sat, 06 Feb 2016 00:36:02 +0530</pubDate>
       <author>pantbrijesh20@gmail.com (brijesh pant)</author>
-      <guid>http://brijeshpant.com/2016/02/working_with_vim/</guid>
+      <guid>/brijeshpant.github.io/2016/02/working_with_vim/</guid>
       <description>
 
 &lt;p&gt;Being developer it looks quite fancy of modifying the text file  using the command line tools such as vim,nano etc. But When i started working on command line text editors it was quite annoying at first. I tried multiple time to work with cli but duo to not having enough knowledge of shortcut keys i was like handicapped and have to go back to my old friends (Ui text editors) . In the local systems it was fine but More than often i had to search through server logs, modifying configuration files in remote servers. And while accessing those remote system you do not have such luxury and you have to use cli  only. Then i decided to learn shortcut keys to make my life easier. after getting  my hands dirty it was like charm working with these editors.&lt;/p&gt;
@@ -55,7 +54,7 @@
 
 &lt;p&gt;Now we will learn to navigate through file&lt;/p&gt;
 
-&lt;h1 id=&#34;navigation:41300c14c8d30d04f940d499244ac11b&#34;&gt;Navigation&lt;/h1&gt;
+&lt;h1 id=&#34;navigation&#34;&gt;Navigation&lt;/h1&gt;
 
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;0&lt;/strong&gt; move cursor to start of the current line.&lt;/li&gt;
@@ -76,7 +75,7 @@
 
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;{&lt;/strong&gt; move one paragraph backward.&lt;/p&gt;
 
-&lt;h1 id=&#34;screen-navigation:41300c14c8d30d04f940d499244ac11b&#34;&gt;Screen navigation&lt;/h1&gt;&lt;/li&gt;
+&lt;h1 id=&#34;screen-navigation&#34;&gt;Screen navigation&lt;/h1&gt;&lt;/li&gt;
 
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;ctrl+f&lt;/strong&gt; page down&lt;/p&gt;&lt;/li&gt;
 
@@ -94,7 +93,7 @@
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;O&lt;/strong&gt; this will add new line above the current line.
 Both of these command will automatically change the mode to insert mode.&lt;/p&gt;
 
-&lt;h1 id=&#34;delete:41300c14c8d30d04f940d499244ac11b&#34;&gt;Delete&lt;/h1&gt;&lt;/li&gt;
+&lt;h1 id=&#34;delete&#34;&gt;Delete&lt;/h1&gt;&lt;/li&gt;
 
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;x&lt;/strong&gt; delete character on cursor position.keep pressing x to remove characters on Right.&lt;/p&gt;&lt;/li&gt;
 
@@ -113,7 +112,7 @@ these delete commands actually along with deleting copies the text. So you can p
 
 &lt;li&gt;&lt;p&gt;5dw to delete 5 words.&lt;/p&gt;
 
-&lt;h1 id=&#34;repetition:41300c14c8d30d04f940d499244ac11b&#34;&gt;Repetition&lt;/h1&gt;
+&lt;h1 id=&#34;repetition&#34;&gt;Repetition&lt;/h1&gt;
 
 &lt;p&gt;you can repeat any action by using &lt;strong&gt;.&lt;/strong&gt;. i.e.&lt;/p&gt;&lt;/li&gt;
 
@@ -121,7 +120,7 @@ these delete commands actually along with deleting copies the text. So you can p
 
 &lt;li&gt;&lt;p&gt;if your last command is &lt;strong&gt;5x&lt;/strong&gt;. it will delete 5 characters. then &lt;strong&gt;.&lt;/strong&gt; will remove the next 5 characters.&lt;/p&gt;
 
-&lt;h1 id=&#34;replace-character:41300c14c8d30d04f940d499244ac11b&#34;&gt;Replace character&lt;/h1&gt;
+&lt;h1 id=&#34;replace-character&#34;&gt;Replace character&lt;/h1&gt;
 
 &lt;p&gt;if you want to replace the character under cursor position,&lt;/p&gt;&lt;/li&gt;
 
@@ -136,7 +135,7 @@ these delete commands actually along with deleting copies the text. So you can p
 
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;ctrl+r&lt;/strong&gt; to redo the last change&lt;/p&gt;
 
-&lt;h1 id=&#34;search:41300c14c8d30d04f940d499244ac11b&#34;&gt;search&lt;/h1&gt;&lt;/li&gt;
+&lt;h1 id=&#34;search&#34;&gt;search&lt;/h1&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;Search is the most important action when working with the text file.&lt;/p&gt;

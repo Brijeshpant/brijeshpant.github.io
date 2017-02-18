@@ -2,20 +2,55 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Brijesh Pant</title>
-    <link>http://brijeshpant.com/</link>
+    <link>/brijeshpant.github.io/index.xml</link>
     <description>Recent content on Brijesh Pant</description>
     <generator>Hugo -- gohugo.io</generator>
     <managingEditor>pantbrijesh20@gmail.com (brijesh pant)</managingEditor>
     <webMaster>pantbrijesh20@gmail.com (brijesh pant)</webMaster>
-    <lastBuildDate>Sun, 28 Feb 2016 12:00:01 +0230</lastBuildDate>
-    <atom:link href="http://brijeshpant.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 20 Jan 2017 09:52:16 +0530</lastBuildDate>
+    <atom:link href="/brijeshpant.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Why Akka ?</title>
+      <link>/brijeshpant.github.io/2017/01/introduction-with-akka/</link>
+      <pubDate>Fri, 20 Jan 2017 09:52:16 +0530</pubDate>
+      <author>pantbrijesh20@gmail.com (brijesh pant)</author>
+      <guid>/brijeshpant.github.io/2017/01/introduction-with-akka/</guid>
+      <description>
+
+&lt;p&gt;When we have to write a concurrent program, our focus shifts from the real problem and most of our time is spent on ‘How to make it concurrent’. The challenge is to make the problem domain less coupled with the code we are writing to make it concurrent. One solution to this is introducing Akka into your system.&lt;/p&gt;
+
+&lt;p&gt;Akka is a toolkit and runtime for building highly concurrent, distributed, and fault-tolerant applications on the JVM,
+according to the official Akka &lt;a href=&#34;http://akka.io/&#34;&gt;website&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;I will talk about few points worth noticing while considering Akka as a toolkit for your concurrent applications.&lt;/p&gt;
+
+&lt;h1 id=&#34;creating-a-thread-is-not-just-creating-an-object&#34;&gt;Creating a thread is not just creating an object:&lt;/h1&gt;
+
+&lt;p&gt;When we create a normal Java object, it’s about allocating a new heap memory for this particular instance. But creating a thread comes with its own responsibilities. With every instance of a thread, we need a separate memory space for a thread stack. Along with this, a Java thread has a one to one correspondence with OS-level thread. When a new thread is created, OS comes into the picture and handles the life cycle of the newly created thread. It then needs a program counter, a register set and a stack. It will also be registered with a thread scheduler. In essence, relative to the normal Java objects, thread creation is slower. Also, due to the added liabilities, there is a limitation on the maximum number of threads per process (a few 1,000 threads). When we deal with an actor system, we are only creating Java objects (actors) but not the threads. The actor will use the threads available in the thread pools as and when needed. As the actors are normal objects, millions of actor instances can be created in the memory at once.&lt;/p&gt;
+
+&lt;h1 id=&#34;communication-by-passing-messages-is-one-of-the-greatest-forms-of-abstraction&#34;&gt;Communication by passing messages is one of the greatest forms of abstraction:&lt;/h1&gt;
+
+&lt;p&gt;Writing a concurrent program is not just about thread or locks, it’s about managing access to state and, in particular, the shared mutable state. It’s also about controlling the concurrent data access. In Akka, states are managed by the actor itself and can only be done by passing messages. One actor can’t control a state defined by another actor. If one actor wishes to get the current state of another actor or wants to update the existing state, it will have to send a message. Another actor will then take an action based on the message and respond with the new state in the form of a message itself. The state modification is abstracted from the outside world. The state of actors are controlled by actors themselves and they can process messages one at a time. So there is no need of adding complexity to handle synchronization explicitly. Messages are passed asynchronously so there is no blocking at all unless specifically stated by using the ask (?) option. This approach makes it easier to reason about your program. Higher-level complexity of concurrency is handled by the library itself and what you write is what you really needed to do.&lt;/p&gt;
+
+&lt;h1 id=&#34;location-transparency&#34;&gt;Location Transparency:&lt;/h1&gt;
+
+&lt;p&gt;When we need our system to scale out, we need additional resources remotely. We also need our system to be modified in order to adopt remote handling, which has its own complexities. The Akka system says ‘Don’t share mutable state at all’. Actors are responsible for making changes in their own state, thus making the components loosely coupled. Loosely coupled components are easy to handle and process. Not sharing state implies that, for computations, you don’t even require shared resources. Isn’t it easy to scale your system by utilizing multiple cores doing independent units of work! Distributed system is much easy to configure in Akka. Remote actor feels like the actor exists in the local system. The only difference will be with the network latency, which is going to be present anyway, as it is on the other side of the network. The rest is the same. You only have to pass messages in the usual way. Depending upon where the actor is located, it will send messages to that path. A path could be local (akka: //ActorSystem/user/…) or remote (akka. tcp://ActorSystem@host:port/user/…).  Creating a replica set is easy as well. When one of the remote systems goes down, the state of an actor will persist. A new actor system can be created initializing actors in their persisting state.&lt;/p&gt;
+
+&lt;h1 id=&#34;delegation-of-tasks&#34;&gt;Delegation of tasks:&lt;/h1&gt;
+
+&lt;p&gt;When we have a big problem to solve, it is easier to split it into sub-problems. Solve them individually and then compose the result. Akka works on the same philosophy. One actor does not do its work completely but spans multiple children. It segregates responsibilities. Failures are part of the system and sometimes they cannot be predicted. The only thing that can be done is to recover from those failures. Let’s say you have a server. It consists of multiple components, i.e. database, mailing, logging etc. All components interact with each other. In a highly coupled system, it is really difficult to make decisions on the behalf of a single component. If one of the components crashes, you cannot handle that failure in isolation, as other components depend on it. You might have to stop the entire server or restart it. But what if components are capable of self-healing or are smart enough to decide what to do on certain failures! Creating such a system is difficult, but becomes easier with Akka’s fault-tolerant mechanism. The parent-child hierarchy of actors makes it easy to take decisions for the children. The supervisor can choose various strategies such as restarting all of its children if one fails or only restarting the child that fails. Akka provides developers enough flexibility to choose the options available depending on their needs.&lt;/p&gt;
+
+&lt;p&gt;To summarize, Akka lets the developers think in terms of the problem at hand and focus only on what needs to be built. Handling concurrency is taken off the developer’s hands and that taken care of by Akka itself. Developers also don’t need to worry about the remote systems as Akka unifies them while writing the system. With its flexible fault management, it helps create complex systems in a simpler way.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Configure multiple git accounts for ssh</title>
-      <link>http://brijeshpant.com/2016/02/configuring_multiple_git_account/</link>
+      <link>/brijeshpant.github.io/2016/02/configuring_multiple_git_account/</link>
       <pubDate>Sun, 28 Feb 2016 12:00:01 +0230</pubDate>
       <author>pantbrijesh20@gmail.com (brijesh pant)</author>
-      <guid>http://brijeshpant.com/2016/02/configuring_multiple_git_account/</guid>
+      <guid>/brijeshpant.github.io/2016/02/configuring_multiple_git_account/</guid>
       <description>&lt;p&gt;I encountered a scenario when i had to use multiple git accounts.I have my personal github account to put my public git repositories that i want to share with others. But to create my own private repositories i couldn&amp;rsquo;t use the same account,as it costs money.I had to switch to bitbucket.And finally using my project specific to my company i have another github account.&lt;/p&gt;
 
 &lt;p&gt;Having multiple account beside remembering the password there is one more challenge.&lt;/p&gt;
@@ -96,10 +131,10 @@ This will make your life much easier afterword.&lt;/p&gt;
     
     <item>
       <title>Link your github page to your domain</title>
-      <link>http://brijeshpant.com/2016/02/mapping-gitub-page-to-your-preferred-domain-name/</link>
+      <link>/brijeshpant.github.io/2016/02/mapping-gitub-page-to-your-preferred-domain-name/</link>
       <pubDate>Sun, 21 Feb 2016 14:14:56 +0530</pubDate>
       <author>pantbrijesh20@gmail.com (brijesh pant)</author>
-      <guid>http://brijeshpant.com/2016/02/mapping-gitub-page-to-your-preferred-domain-name/</guid>
+      <guid>/brijeshpant.github.io/2016/02/mapping-gitub-page-to-your-preferred-domain-name/</guid>
       <description>&lt;p&gt;For the developers it is quite common now a days to create there blogs,websites using the same tool which they use to version control their code.
 Yes i am talking about git.You can create your static github pages using &lt;a href=&#34;https://pages.github.com&#34; target=&#34;_blank&#34;&gt;github pages&lt;/a&gt;
 and then using the Static site generators like &lt;a href=&#34;https://gohugo.io/overview/introduction/&#34; target=&#34;_blank&#34;&gt; hugo &lt;/a&gt; or &lt;a href=&#34;https://jekyllrb.com&#34; target=&#34;_blank&#34;&gt;jekyl&lt;/a&gt;
@@ -121,23 +156,23 @@ First thing you need to do is make your git repository aware of your domain name
 
 &lt;p&gt;In your go daddy account select My Products option from the drop down menu at the top right corner&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://brijeshpant.com/media/myproduct.png&#34; alt=&#34;My products&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;brijeshpant.github.io/media/myproduct.png&#34; alt=&#34;My products&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;You will see list of the products. One of them will be the Domains.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://brijeshpant.com/media/domains.png&#34; alt=&#34;Domains&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;brijeshpant.github.io/media/domains.png&#34; alt=&#34;Domains&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Click Manage button against the domains.&lt;/p&gt;
 
 &lt;p&gt;you will see all of your domains listed. Just go to the DOMAIN DETAILS page by selecting Manage DNS from your preferred domain.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://brijeshpant.com/media/manageDns.png&#34; alt=&#34;Manage DNS&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;brijeshpant.github.io/media/manageDns.png&#34; alt=&#34;Manage DNS&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Here you have to modify two things&lt;/p&gt;
 
 &lt;p&gt;A record and the CName alias&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://brijeshpant.com/media/domainSettings.png&#34; alt=&#34;Domains Settings&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;brijeshpant.github.io/media/domainSettings.png&#34; alt=&#34;Domains Settings&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;For editing A record enter ip address of your github page.&lt;/p&gt;
 
@@ -167,10 +202,10 @@ First thing you need to do is make your git repository aware of your domain name
     
     <item>
       <title>Make yourself comfortable with vim</title>
-      <link>http://brijeshpant.com/2016/02/working_with_vim/</link>
+      <link>/brijeshpant.github.io/2016/02/working_with_vim/</link>
       <pubDate>Sat, 06 Feb 2016 00:36:02 +0530</pubDate>
       <author>pantbrijesh20@gmail.com (brijesh pant)</author>
-      <guid>http://brijeshpant.com/2016/02/working_with_vim/</guid>
+      <guid>/brijeshpant.github.io/2016/02/working_with_vim/</guid>
       <description>
 
 &lt;p&gt;Being developer it looks quite fancy of modifying the text file  using the command line tools such as vim,nano etc. But When i started working on command line text editors it was quite annoying at first. I tried multiple time to work with cli but duo to not having enough knowledge of shortcut keys i was like handicapped and have to go back to my old friends (Ui text editors) . In the local systems it was fine but More than often i had to search through server logs, modifying configuration files in remote servers. And while accessing those remote system you do not have such luxury and you have to use cli  only. Then i decided to learn shortcut keys to make my life easier. after getting  my hands dirty it was like charm working with these editors.&lt;/p&gt;
@@ -210,7 +245,7 @@ First thing you need to do is make your git repository aware of your domain name
 
 &lt;p&gt;Now we will learn to navigate through file&lt;/p&gt;
 
-&lt;h1 id=&#34;navigation:41300c14c8d30d04f940d499244ac11b&#34;&gt;Navigation&lt;/h1&gt;
+&lt;h1 id=&#34;navigation&#34;&gt;Navigation&lt;/h1&gt;
 
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;0&lt;/strong&gt; move cursor to start of the current line.&lt;/li&gt;
@@ -231,7 +266,7 @@ First thing you need to do is make your git repository aware of your domain name
 
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;{&lt;/strong&gt; move one paragraph backward.&lt;/p&gt;
 
-&lt;h1 id=&#34;screen-navigation:41300c14c8d30d04f940d499244ac11b&#34;&gt;Screen navigation&lt;/h1&gt;&lt;/li&gt;
+&lt;h1 id=&#34;screen-navigation&#34;&gt;Screen navigation&lt;/h1&gt;&lt;/li&gt;
 
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;ctrl+f&lt;/strong&gt; page down&lt;/p&gt;&lt;/li&gt;
 
@@ -249,7 +284,7 @@ First thing you need to do is make your git repository aware of your domain name
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;O&lt;/strong&gt; this will add new line above the current line.
 Both of these command will automatically change the mode to insert mode.&lt;/p&gt;
 
-&lt;h1 id=&#34;delete:41300c14c8d30d04f940d499244ac11b&#34;&gt;Delete&lt;/h1&gt;&lt;/li&gt;
+&lt;h1 id=&#34;delete&#34;&gt;Delete&lt;/h1&gt;&lt;/li&gt;
 
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;x&lt;/strong&gt; delete character on cursor position.keep pressing x to remove characters on Right.&lt;/p&gt;&lt;/li&gt;
 
@@ -268,7 +303,7 @@ these delete commands actually along with deleting copies the text. So you can p
 
 &lt;li&gt;&lt;p&gt;5dw to delete 5 words.&lt;/p&gt;
 
-&lt;h1 id=&#34;repetition:41300c14c8d30d04f940d499244ac11b&#34;&gt;Repetition&lt;/h1&gt;
+&lt;h1 id=&#34;repetition&#34;&gt;Repetition&lt;/h1&gt;
 
 &lt;p&gt;you can repeat any action by using &lt;strong&gt;.&lt;/strong&gt;. i.e.&lt;/p&gt;&lt;/li&gt;
 
@@ -276,7 +311,7 @@ these delete commands actually along with deleting copies the text. So you can p
 
 &lt;li&gt;&lt;p&gt;if your last command is &lt;strong&gt;5x&lt;/strong&gt;. it will delete 5 characters. then &lt;strong&gt;.&lt;/strong&gt; will remove the next 5 characters.&lt;/p&gt;
 
-&lt;h1 id=&#34;replace-character:41300c14c8d30d04f940d499244ac11b&#34;&gt;Replace character&lt;/h1&gt;
+&lt;h1 id=&#34;replace-character&#34;&gt;Replace character&lt;/h1&gt;
 
 &lt;p&gt;if you want to replace the character under cursor position,&lt;/p&gt;&lt;/li&gt;
 
@@ -291,7 +326,7 @@ these delete commands actually along with deleting copies the text. So you can p
 
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;ctrl+r&lt;/strong&gt; to redo the last change&lt;/p&gt;
 
-&lt;h1 id=&#34;search:41300c14c8d30d04f940d499244ac11b&#34;&gt;search&lt;/h1&gt;&lt;/li&gt;
+&lt;h1 id=&#34;search&#34;&gt;search&lt;/h1&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;Search is the most important action when working with the text file.&lt;/p&gt;
@@ -318,10 +353,10 @@ These are the basic command which will be most oftenly used while working with v
     
     <item>
       <title>Using Spray JSON to build your REST API</title>
-      <link>http://brijeshpant.com/2016/02/spray-json-support/</link>
+      <link>/brijeshpant.github.io/2016/02/spray-json-support/</link>
       <pubDate>Mon, 01 Feb 2016 22:43:02 +0530</pubDate>
       <author>pantbrijesh20@gmail.com (brijesh pant)</author>
-      <guid>http://brijeshpant.com/2016/02/spray-json-support/</guid>
+      <guid>/brijeshpant.github.io/2016/02/spray-json-support/</guid>
       <description>&lt;p&gt;For any of the rest application it’s state has to be serialize or deserialized while transferring back and forth between application and the network. spray-json provide such support for the json based state representation.
  For using spray-json we just need to  add &amp;lsquo;spray-json&amp;rsquo; dependency in the project. For instance adding support in the sbt project add following to the build file.&lt;/p&gt;
 
@@ -448,13 +483,13 @@ implicit val userFormat = jsonFormat3(User)&lt;/code&gt; will be in it&amp;rsquo
     
     <item>
       <title>Customizing Angular Directives</title>
-      <link>http://brijeshpant.com/2016/01/customizingangulardirectives/</link>
+      <link>/brijeshpant.github.io/2016/01/customizingangulardirectives/</link>
       <pubDate>Sat, 30 Jan 2016 15:36:44 +0530</pubDate>
       <author>pantbrijesh20@gmail.com (brijesh pant)</author>
-      <guid>http://brijeshpant.com/2016/01/customizingangulardirectives/</guid>
+      <guid>/brijeshpant.github.io/2016/01/customizingangulardirectives/</guid>
       <description>
 
-&lt;h1 id=&#34;customizing-angular-directives:ceb9c000a2f334563e8c78f9f222806f&#34;&gt;Customizing Angular Directives&lt;/h1&gt;
+&lt;h1 id=&#34;customizing-angular-directives&#34;&gt;Customizing Angular Directives&lt;/h1&gt;
 
 &lt;p&gt;While developing Angular Application we have a obvious choice of using third party directives. Most of the time these directive are suffice to handle all the use cases. But situation may occur when you feel that there is really something missing to fulfill your Specific problem. Common practice is to add your own custom directive along with the directive, you want to use in the element. But It sounds quite weird to Have two directives to solve the same problem. Hence we might have to think of some different way.&lt;/p&gt;
 
@@ -559,10 +594,10 @@ $scope.customDatepicker = $filter(&#39;date&#39;)($scope.date, &amp;quot;yyyy-MM
     
     <item>
       <title>Progressively Uploading Csv using Play</title>
-      <link>http://brijeshpant.com/2016/01/progressively_uploading_csv/</link>
+      <link>/brijeshpant.github.io/2016/01/progressively_uploading_csv/</link>
       <pubDate>Sat, 30 Jan 2016 15:16:28 +0530</pubDate>
       <author>pantbrijesh20@gmail.com (brijesh pant)</author>
-      <guid>http://brijeshpant.com/2016/01/progressively_uploading_csv/</guid>
+      <guid>/brijeshpant.github.io/2016/01/progressively_uploading_csv/</guid>
       <description>
 
 &lt;h1 id=&#34;progressively-uploading-csv&#34;&gt;Progressively Uploading CSV&lt;/h1&gt;
@@ -697,17 +732,17 @@ msg
     
     <item>
       <title>Spraying rest applications with spray</title>
-      <link>http://brijeshpant.com/2016/01/spraying_rest_with_spray/</link>
+      <link>/brijeshpant.github.io/2016/01/spraying_rest_with_spray/</link>
       <pubDate>Sat, 30 Jan 2016 15:05:59 +0530</pubDate>
       <author>pantbrijesh20@gmail.com (brijesh pant)</author>
-      <guid>http://brijeshpant.com/2016/01/spraying_rest_with_spray/</guid>
+      <guid>/brijeshpant.github.io/2016/01/spraying_rest_with_spray/</guid>
       <description>
 
 &lt;p&gt;Spray is a suite of lightweight Scala libraries providing client- and server-side REST/HTTP support on top of Akka.  Akka makes the application fully asynchronous. There are other frameworks build on top of Akka such as Play that gives  ability to build full web application but with one down side and that is  application becomes highly coupled with the framework as the application build on top of Play. As oppose to that spray gives  ability to create  Application layer independent of  anything without even thinking of the framework. Spray will just work as an  integration layer to shake hand between outer world and the application. Outer world could be any web,mobile or third party applications.&lt;/p&gt;
 
 &lt;p&gt;In this blog post we will see how to setup spray environment for the Scala application and also learn about some of the building blocks. In the upcoming post we will see simple  example of writing rest Api&amp;rsquo;s, authentication support, cross origin support and actor handling also most important part of the development unit test spray routes.&lt;/p&gt;
 
-&lt;h1 id=&#34;table-of-content:4676a1a24d2f1e0be2dd880eec4ede0a&#34;&gt;Table of content&lt;/h1&gt;
+&lt;h1 id=&#34;table-of-content&#34;&gt;Table of content&lt;/h1&gt;
 
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;#Basic setup&#34;&gt;Basic setup&lt;/a&gt;&lt;/li&gt;
@@ -717,7 +752,7 @@ msg
 &lt;li&gt;&lt;a href=&#34;#Conclusion&#34;&gt;Conclusion&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&#34;basic-setup:4676a1a24d2f1e0be2dd880eec4ede0a&#34;&gt;Basic setup&lt;/h2&gt;
+&lt;h2 id=&#34;basic-setup&#34;&gt;Basic setup&lt;/h2&gt;
 
 &lt;p&gt;To start with we need to firstly create the sbt project.&lt;/p&gt;
 
@@ -744,11 +779,11 @@ we have defined 3  libraries  spray-can ,spray-routing and akka-actor. These are
 
 &lt;p&gt;Let&amp;rsquo;s understand why these libraries are for&lt;/p&gt;
 
-&lt;h3 id=&#34;spray-can:4676a1a24d2f1e0be2dd880eec4ede0a&#34;&gt;Spray-can&lt;/h3&gt;
+&lt;h3 id=&#34;spray-can&#34;&gt;Spray-can&lt;/h3&gt;
 
 &lt;p&gt;A low-level, low-overhead, high-performance HTTP server and client built on top of spray-io. When spray-can server get started,It starts a new listener actor which can handle thousands of  incoming requests asynchronously.&lt;/p&gt;
 
-&lt;h3 id=&#34;spray-routing:4676a1a24d2f1e0be2dd880eec4ede0a&#34;&gt;Spray-routing&lt;/h3&gt;
+&lt;h3 id=&#34;spray-routing&#34;&gt;Spray-routing&lt;/h3&gt;
 
 &lt;p&gt;A high-level routing DSL for elegantly defining RESTful web services. It provides abstraction layer over the spray-http . It saves developers efforts of writing boiler plate code and provide them the simple interface to build  the application.&lt;/p&gt;
 
@@ -787,7 +822,7 @@ In the example above we have override receive method with partial function runRo
 
 &lt;p&gt;All the structure you define will be subtype of Route.&lt;/p&gt;
 
-&lt;h2 id=&#34;directives:4676a1a24d2f1e0be2dd880eec4ede0a&#34;&gt;Directives&lt;/h2&gt;
+&lt;h2 id=&#34;directives&#34;&gt;Directives&lt;/h2&gt;
 
 &lt;p&gt;We can combine multiple such structure to form a complex Route. These building blocks are termed as Directive in spray. Spray comes up with predefined Directives for handling almost every type of request one can encounter. But we can create our own Directives if required by modifying or combining these Directives.&lt;/p&gt;
 
@@ -798,7 +833,7 @@ In the example above our path directive matches the path &amp;ldquo;firstRoute&a
 
 &lt;p&gt;You can find out sample code &lt;a href=&#34;https://github.com/Brijeshpant/SprayingRestWithSpray.git&#34;&gt;here&lt;/a&gt;&lt;/p&gt;
 
-&lt;h2 id=&#34;conclusion:4676a1a24d2f1e0be2dd880eec4ede0a&#34;&gt;Conclusion&lt;/h2&gt;
+&lt;h2 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h2&gt;
 
 &lt;p&gt;In this post we explored how to set up spray application,learned about basic ingredients of the spray.In my upcoming  blog we will deep dive in detail and we will be using these ingredients to create more stuff about Rest Api&amp;rsquo;s through spray.&lt;/p&gt;
 </description>
@@ -806,21 +841,21 @@ In the example above our path directive matches the path &amp;ldquo;firstRoute&a
     
     <item>
       <title>Domain Driven Design Angularjs way</title>
-      <link>http://brijeshpant.com/2016/01/domain_driven_design_angular/</link>
+      <link>/brijeshpant.github.io/2016/01/domain_driven_design_angular/</link>
       <pubDate>Sat, 30 Jan 2016 09:52:16 +0530</pubDate>
       <author>pantbrijesh20@gmail.com (brijesh pant)</author>
-      <guid>http://brijeshpant.com/2016/01/domain_driven_design_angular/</guid>
+      <guid>/brijeshpant.github.io/2016/01/domain_driven_design_angular/</guid>
       <description>
 
-&lt;h1 id=&#34;domain-driven-design-in-angularjs:9206ab86036fca65e933d58b353523a5&#34;&gt;Domain Driven Design in angularjs&lt;/h1&gt;
+&lt;h1 id=&#34;domain-driven-design-in-angularjs&#34;&gt;Domain Driven Design in angularjs&lt;/h1&gt;
 
 &lt;p&gt;For developing any software we need to have clear understanding of design philosophy which will be followed to solve the given problem.We do have myriads of options. Based on the requirements we choose the best fit.One of the design philosophy is Domain Driven design.&lt;/p&gt;
 
-&lt;h2 id=&#34;ddd:9206ab86036fca65e933d58b353523a5&#34;&gt;DDD&lt;/h2&gt;
+&lt;h2 id=&#34;ddd&#34;&gt;DDD&lt;/h2&gt;
 
 &lt;p&gt;An object model of the domain that incorporates both behavior and data.When we talk about domain layer it is responsible for representing concepts of the business, information about the business situation, and business rules. State that reflects the business situation is controlled and used here, even though the technical details of storing it are delegated to the infrastructure. This layer is the heart of business software.&lt;/p&gt;
 
-&lt;h2 id=&#34;example-problem:9206ab86036fca65e933d58b353523a5&#34;&gt;Example problem&lt;/h2&gt;
+&lt;h2 id=&#34;example-problem&#34;&gt;Example problem&lt;/h2&gt;
 
 &lt;p&gt;Let us take an example of simple problem.
 We have a user that can have one of the role USER,ADMIN or SUPERUSER
@@ -986,12 +1021,12 @@ We will now define our services&lt;/p&gt;
 &amp;lt;/html&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h2 id=&#34;problem-with-this-approach:9206ab86036fca65e933d58b353523a5&#34;&gt;Problem with this approach&lt;/h2&gt;
+&lt;h2 id=&#34;problem-with-this-approach&#34;&gt;Problem with this approach&lt;/h2&gt;
 
 &lt;p&gt;You can see all our behavior is lied in the presentation layer. For displaying jobs we have applied all logic in our html file. moreover we have repeated our code to display jobs for normal user and for Admin/Superuser.
 Similarly we have applied all the logic for displaying apply and unApply button in the html itself. We definitely should not have these logic in presentation layer.we can put these logics in our controller.But What if we want to bind this page with multiple controllers? We will have to write these logic in all those controllers.Situation will be more horrifying when our business demands some changes in the logic.Go find all the places and make those changes.&lt;/p&gt;
 
-&lt;h2 id=&#34;time-for-refactoring:9206ab86036fca65e933d58b353523a5&#34;&gt;Time for refactoring&lt;/h2&gt;
+&lt;h2 id=&#34;time-for-refactoring&#34;&gt;Time for refactoring&lt;/h2&gt;
 
 &lt;p&gt;Let&amp;rsquo;s think in different way.
  We know in the current problem space we have two entities user and job. user&amp;rsquo;s behavior changes based in its role.If it is Admin it has access to all jobs. But if it is normal user he can see only jobs which matches his education.

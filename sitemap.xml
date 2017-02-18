@@ -2,49 +2,239 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://brijeshpant.com/</loc>
+    <loc>/brijeshpant.github.io/2017/01/introduction-with-akka/</loc>
+    <lastmod>2017-01-20T09:52:16+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/brijeshpant.github.io/2016/02/configuring_multiple_git_account/</loc>
+    <lastmod>2016-02-28T12:00:01+02:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/brijeshpant.github.io/2016/02/mapping-gitub-page-to-your-preferred-domain-name/</loc>
+    <lastmod>2016-02-21T14:14:56+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/brijeshpant.github.io/2016/02/working_with_vim/</loc>
+    <lastmod>2016-02-06T00:36:02+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/brijeshpant.github.io/2016/02/spray-json-support/</loc>
+    <lastmod>2016-02-01T22:43:02+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/brijeshpant.github.io/2016/01/customizingangulardirectives/</loc>
+    <lastmod>2016-01-30T15:36:44+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/brijeshpant.github.io/2016/01/progressively_uploading_csv/</loc>
+    <lastmod>2016-01-30T15:16:28+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/brijeshpant.github.io/2016/01/spraying_rest_with_spray/</loc>
+    <lastmod>2016-01-30T15:05:59+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/brijeshpant.github.io/2016/01/domain_driven_design_angular/</loc>
+    <lastmod>2016-01-30T09:52:16+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/brijeshpant.github.io/tags/actor-model/</loc>
+    <lastmod>2017-01-20T09:52:16+05:30</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/brijeshpant.github.io/tags/akka/</loc>
+    <lastmod>2017-01-20T09:52:16+05:30</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/brijeshpant.github.io/tags/angular/</loc>
+    <lastmod>2016-01-30T15:36:44+05:30</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/brijeshpant.github.io/tags/angularjs/</loc>
+    <lastmod>2016-01-30T09:52:16+05:30</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/brijeshpant.github.io/tags/ashnchronous/</loc>
+    <lastmod>2017-01-20T09:52:16+05:30</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/brijeshpant.github.io/tags/bitbucket/</loc>
     <lastmod>2016-02-28T12:00:01+02:30</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://brijeshpant.com/2016/02/configuring_multiple_git_account/</loc>
-    <lastmod>2016-02-28T12:00:01+02:30</lastmod>
+    <loc>/brijeshpant.github.io/</loc>
+    <lastmod>2017-01-20T09:52:16+05:30</lastmod>
+    <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://brijeshpant.com/2016/02/mapping-gitub-page-to-your-preferred-domain-name/</loc>
-    <lastmod>2016-02-21T14:14:56+05:30</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://brijeshpant.com/2016/02/working_with_vim/</loc>
+    <loc>/brijeshpant.github.io/tags/commands/</loc>
     <lastmod>2016-02-06T00:36:02+05:30</lastmod>
+    <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://brijeshpant.com/2016/02/spray-json-support/</loc>
-    <lastmod>2016-02-01T22:43:02+05:30</lastmod>
+    <loc>/brijeshpant.github.io/tags/concurrency/</loc>
+    <lastmod>2017-01-20T09:52:16+05:30</lastmod>
+    <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://brijeshpant.com/2016/01/customizingangulardirectives/</loc>
+    <loc>/brijeshpant.github.io/tags/datepicker/</loc>
     <lastmod>2016-01-30T15:36:44+05:30</lastmod>
+    <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://brijeshpant.com/2016/01/progressively_uploading_csv/</loc>
-    <lastmod>2016-01-30T15:16:28+05:30</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://brijeshpant.com/2016/01/spraying_rest_with_spray/</loc>
-    <lastmod>2016-01-30T15:05:59+05:30</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://brijeshpant.com/2016/01/domain_driven_design_angular/</loc>
+    <loc>/brijeshpant.github.io/tags/ddd/</loc>
     <lastmod>2016-01-30T09:52:16+05:30</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/brijeshpant.github.io/tags/directives/</loc>
+    <lastmod>2016-01-30T15:36:44+05:30</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/brijeshpant.github.io/tags/domain/</loc>
+    <lastmod>2016-02-21T14:14:56+05:30</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/brijeshpant.github.io/tags/fileupload/</loc>
+    <lastmod>2016-01-30T15:16:28+05:30</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/brijeshpant.github.io/tags/git/</loc>
+    <lastmod>2016-02-28T12:00:01+02:30</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/brijeshpant.github.io/tags/javascript/</loc>
+    <lastmod>2016-01-30T09:52:16+05:30</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/brijeshpant.github.io/tags/json/</loc>
+    <lastmod>2016-02-01T22:43:02+05:30</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/brijeshpant.github.io/tags/parallel-programing/</loc>
+    <lastmod>2017-01-20T09:52:16+05:30</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/brijeshpant.github.io/tags/play/</loc>
+    <lastmod>2016-01-30T15:16:28+05:30</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/brijeshpant.github.io/posts/</loc>
+    <lastmod>2017-01-20T09:52:16+05:30</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/brijeshpant.github.io/tags/reactive/</loc>
+    <lastmod>2016-01-30T15:16:28+05:30</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/brijeshpant.github.io/tags/rest/</loc>
+    <lastmod>2016-02-01T22:43:02+05:30</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/brijeshpant.github.io/tags/scala/</loc>
+    <lastmod>2017-01-20T09:52:16+05:30</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/brijeshpant.github.io/tags/shortcut-keys/</loc>
+    <lastmod>2016-02-06T00:36:02+05:30</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/brijeshpant.github.io/tags/spray/</loc>
+    <lastmod>2016-02-01T22:43:02+05:30</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/brijeshpant.github.io/tags/ssh/</loc>
+    <lastmod>2016-02-28T12:00:01+02:30</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/brijeshpant.github.io/tags/ssh-authentication/</loc>
+    <lastmod>2016-02-28T12:00:01+02:30</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/brijeshpant.github.io/tags/ssh-configuration/</loc>
+    <lastmod>2016-02-28T12:00:01+02:30</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/brijeshpant.github.io/tags/streaming/</loc>
+    <lastmod>2016-01-30T15:16:28+05:30</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/brijeshpant.github.io/tags/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/brijeshpant.github.io/tags/vim/</loc>
+    <lastmod>2016-02-06T00:36:02+05:30</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/brijeshpant.github.io/tags/website/</loc>
+    <lastmod>2016-02-21T14:14:56+05:30</lastmod>
+    <priority>0</priority>
   </url>
   
 </urlset>

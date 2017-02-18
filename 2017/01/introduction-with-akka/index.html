@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Why Akka ?</title>
+
+  <meta name="description" content="Why Akka ?"/>
+  <meta name="author" content="brijesh pant"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <base href="/brijeshpant.github.io/" />
+
+  <link rel="stylesheet" href="css/fonts.css"/>
+  <link rel="stylesheet" href="css/normalize.css"/>
+  <link rel="stylesheet" href="css/skeleton.css"/>
+  <link rel="stylesheet" href="css/custom.css"/>
+  <link rel="stylesheet" href="genericons/genericons.css"/>
+  
+  
+    
+  
+  <link rel="stylesheet" href="highlight/tomorrow-night.css"/>
+
+  <link href="index.xml" rel="alternate" type="application/rss+xml" title="Posts + Links" />
+  <link href="links/index.xml" rel="alternate" type="application/rss+xml" title="Links" />
+  <link href="posts/index.xml" rel="alternate" type="application/rss+xml" title="Posts" />
+
+  
+</head>
+
+<body>
+  
+
+
+<div id="container">
+  <div id="post-header">
+    <p class="post-infos">
+      <time>2017-01-20 09:52</time>
+      
+  
+
+  
+  tags: <a href="tags/scala">scala</a> <a href="tags/akka">akka</a> <a href="tags/ashnchronous">Ashnchronous</a> <a href="tags/concurrency">concurrency</a> <a href="tags/parallel-programing">Parallel programing</a> <a href="tags/actor-model">Actor model</a> 
+  
+
+  
+
+
+    </p>
+    <h1>Why Akka ?</h1>
+  </div>
+
+  
+
+  <div class="post">
+    
+
+<p>When we have to write a concurrent program, our focus shifts from the real problem and most of our time is spent on ‘How to make it concurrent’. The challenge is to make the problem domain less coupled with the code we are writing to make it concurrent. One solution to this is introducing Akka into your system.</p>
+
+<p>Akka is a toolkit and runtime for building highly concurrent, distributed, and fault-tolerant applications on the JVM,
+according to the official Akka <a href="http://akka.io/">website</a>.</p>
+
+<p>I will talk about few points worth noticing while considering Akka as a toolkit for your concurrent applications.</p>
+
+<h1 id="creating-a-thread-is-not-just-creating-an-object">Creating a thread is not just creating an object:</h1>
+
+<p>When we create a normal Java object, it’s about allocating a new heap memory for this particular instance. But creating a thread comes with its own responsibilities. With every instance of a thread, we need a separate memory space for a thread stack. Along with this, a Java thread has a one to one correspondence with OS-level thread. When a new thread is created, OS comes into the picture and handles the life cycle of the newly created thread. It then needs a program counter, a register set and a stack. It will also be registered with a thread scheduler. In essence, relative to the normal Java objects, thread creation is slower. Also, due to the added liabilities, there is a limitation on the maximum number of threads per process (a few 1,000 threads). When we deal with an actor system, we are only creating Java objects (actors) but not the threads. The actor will use the threads available in the thread pools as and when needed. As the actors are normal objects, millions of actor instances can be created in the memory at once.</p>
+
+<h1 id="communication-by-passing-messages-is-one-of-the-greatest-forms-of-abstraction">Communication by passing messages is one of the greatest forms of abstraction:</h1>
+
+<p>Writing a concurrent program is not just about thread or locks, it’s about managing access to state and, in particular, the shared mutable state. It’s also about controlling the concurrent data access. In Akka, states are managed by the actor itself and can only be done by passing messages. One actor can’t control a state defined by another actor. If one actor wishes to get the current state of another actor or wants to update the existing state, it will have to send a message. Another actor will then take an action based on the message and respond with the new state in the form of a message itself. The state modification is abstracted from the outside world. The state of actors are controlled by actors themselves and they can process messages one at a time. So there is no need of adding complexity to handle synchronization explicitly. Messages are passed asynchronously so there is no blocking at all unless specifically stated by using the ask (?) option. This approach makes it easier to reason about your program. Higher-level complexity of concurrency is handled by the library itself and what you write is what you really needed to do.</p>
+
+<h1 id="location-transparency">Location Transparency:</h1>
+
+<p>When we need our system to scale out, we need additional resources remotely. We also need our system to be modified in order to adopt remote handling, which has its own complexities. The Akka system says ‘Don’t share mutable state at all’. Actors are responsible for making changes in their own state, thus making the components loosely coupled. Loosely coupled components are easy to handle and process. Not sharing state implies that, for computations, you don’t even require shared resources. Isn’t it easy to scale your system by utilizing multiple cores doing independent units of work! Distributed system is much easy to configure in Akka. Remote actor feels like the actor exists in the local system. The only difference will be with the network latency, which is going to be present anyway, as it is on the other side of the network. The rest is the same. You only have to pass messages in the usual way. Depending upon where the actor is located, it will send messages to that path. A path could be local (akka: //ActorSystem/user/…) or remote (akka. tcp://ActorSystem@host:port/user/…).  Creating a replica set is easy as well. When one of the remote systems goes down, the state of an actor will persist. A new actor system can be created initializing actors in their persisting state.</p>
+
+<h1 id="delegation-of-tasks">Delegation of tasks:</h1>
+
+<p>When we have a big problem to solve, it is easier to split it into sub-problems. Solve them individually and then compose the result. Akka works on the same philosophy. One actor does not do its work completely but spans multiple children. It segregates responsibilities. Failures are part of the system and sometimes they cannot be predicted. The only thing that can be done is to recover from those failures. Let’s say you have a server. It consists of multiple components, i.e. database, mailing, logging etc. All components interact with each other. In a highly coupled system, it is really difficult to make decisions on the behalf of a single component. If one of the components crashes, you cannot handle that failure in isolation, as other components depend on it. You might have to stop the entire server or restart it. But what if components are capable of self-healing or are smart enough to decide what to do on certain failures! Creating such a system is difficult, but becomes easier with Akka’s fault-tolerant mechanism. The parent-child hierarchy of actors makes it easy to take decisions for the children. The supervisor can choose various strategies such as restarting all of its children if one fails or only restarting the child that fails. Akka provides developers enough flexibility to choose the options available depending on their needs.</p>
+
+<p>To summarize, Akka lets the developers think in terms of the problem at hand and focus only on what needs to be built. Handling concurrency is taken off the developer’s hands and that taken care of by Akka itself. Developers also don’t need to worry about the remote systems as Akka unifies them while writing the system. With its flexible fault management, it helps create complex systems in a simpler way.</p>
+
+  </div>
+  
+</div>
+<div id="sidebar">
+<div class="sidebar">
+  <div class="sidebar-about">
+    <a href="/brijeshpant.github.io">
+      <img src="media/me.jpg" title="brijesh pant" alt="Me" />
+      <h4 class="sidebar-title">Brijesh Pant</h4>
+    </a>
+    <span class="sidebar-contents"> Working as senior consultant in Xebia it architects india pvt ltd </span>
+  </div>
+  <nav class="sidebar-nav">
+    <ul class="sidebar-nav-list">
+      <li class="sidebar-nav-item nav-home">
+        <span class="genericon genericon-home"></span><a class="sidebar-link" href="/brijeshpant.github.io">Home</a>
+      </li>
+      <li class="sidebar-nav-item">
+          <a class="genericon genericon-feed" href="posts/index.xml"></a><a class="sidebar-link" href="posts">Posts/</a>
+      </li>
+      
+    </ul>
+  </nav>
+  <div class="sidebar-externals">
+  
+
+  
+  <a class="genericon genericon-github" href="https://github.com/brijeshpant" ></a>
+  
+
+  
+
+  
+
+  
+
+  
+  | <a class="genericon genericon-linkedin-alt" href="https://www.linkedin.com/in/brijesh-pant-a6901757"></a>
+  
+
+  
+  | <a class="genericon genericon-mail" href="mailto:pantbrijesh20@gmail.com"></a>
+  </div>
+  <hr />
+  <div class="sidebar-bottom">
+    <p>Copyright &copy; 2017. All rights reserved.</p>
+  </div>
+</div>
+</div>
+
+<footer>
+  <p class="footnote">Copyright &copy; 2017: All rights reserved by <a href="mailto:pantbrijesh20@gmail.com">brijesh pant</a></p>
+</footer>
+
+<script src="highlight/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+my footer
+
+
+</body>
+</html>
+
